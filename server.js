@@ -8,7 +8,7 @@ var path = require('path');
 app.use(express.static(path.join(__dirname, './build')));
 
 //require mongoose
-//require('./server/config/mongoose.js');
+require('./server/config/mongoose.js');
 
 //requiere routes
 require('./server/config/routes.js')(app);

@@ -9,13 +9,13 @@ var VALUE = {
 
 var EntrySchema = new Schema({
   batch: String,
-  product: {type: Schema.Types.ObjectId, ref: 'ProductLines'},
+  product_line: {type: Schema.Types.ObjectId, ref: 'ProductLines'},
   expiration_label: VALUE,
   packaging: VALUE,
   size: VALUE,
   symmetry: VALUE,
   color: VALUE,
-  crumb: VALUE
+  crumb: VALUE,
   crumb_color: VALUE,
   taste: VALUE,
   scent: VALUE,

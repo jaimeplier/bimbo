@@ -17,7 +17,7 @@ app.use(session({
     return uuid.v1();
   },
   store: new MongoStore({
-    url: 'mongodb://localhost/bimb-web-app',
+    url: process.env.DB_HOST,
     autoRemove: 'native',
     touchAfter: 24 * 3600 // time period in seconds || = 24 hours; Let the session be updated once every 24 hours
   }),

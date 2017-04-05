@@ -5,10 +5,14 @@ import {
 } from 'react-router-dom'
 
 import Login from './components/Login';
+import Register from './components/Register';
 
 const Routes = () => (
   <Router>
-    <Route exact path="/" component={Login}/>
+    <div>
+      <Route exact path="/" component={Login}/>
+      <Route exact path="/register/:token" component={Register}/>
+    </div>
   </Router>
 )
 

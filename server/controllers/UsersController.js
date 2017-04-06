@@ -35,6 +35,8 @@ function signInUser(req, res, next) {
   })
 }
 
+// req.session.destroy();
+
 module.exports = {
   createMasterUser: createMasterUser,
   signInUser: signInUser

@@ -7,7 +7,7 @@ var UserSchema = new Schema({
   access: {type: String, enums: ["Master", "Admin", "Employee"], required: true},
   email: validateEmail,
   password: String,
-  name: String,
+  name: {type: String, required: true},
   picture: String,
   reset_token: String,
   factory: {type: Schema.Types.ObjectId, ref: 'Factories'},

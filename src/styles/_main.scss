@@ -2,3 +2,7 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: $main-background-color;
 }
+
+.error {
+  color: $error-color;
+}

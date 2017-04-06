@@ -13,11 +13,13 @@
     "mongoose": "^4.9.3",
     "node-sass": "^4.5.2",
     "node-uuid": "^1.4.8",
+    "nprogress": "^0.2.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router-dom": "^4.0.0",
     "react-tap-event-plugin": "^2.0.1",
     "sass-loader": "^4.1.0",
+    "validator": "^7.0.0",
     "xhr": "^2.4.0"
   },
   "devDependencies": {

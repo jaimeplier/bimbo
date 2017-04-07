@@ -3,6 +3,7 @@ import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import isEmail from 'validator/lib/isEmail';
+import { sendPostRequest } from './../utils/customRequests'
 
 
 export default class Login extends Component {
@@ -20,7 +21,21 @@ export default class Login extends Component {
   }
 
   _handleSubmit() {
-    console.log("sending: ", this.state);
+
+    this.setState({errors: {general:"", password:"", confirmPassword:""}});
+
+    if(!isEmail(this.state.email)) return this.setState({errors:{email:"Please use valid email"}});
+    if(this.state.password.length < 5) return this.setState({errors:{password:"Password is too short"}});
+
+    const body = {
+      email: this.state.email,
+      password: this.state.password
+    }
+
+    sendPostRequest("/api/users/log-in", body, (json) => {
+      if(json.err) return this.setState({errors: json.errors});
+      this.props.history.push("/");
+    }, (s) => this.setState({errors:{general: s}}));
   }
 
   _handleInputChange(e) {

@@ -21,7 +21,7 @@ function signInUser(req, res, next) {
     if(!user) return res.json({err: true, errors: {general: "Incorrect token. Please check your email again"}});
     var password = req.body.password;
     if(!password || password.length < 5) return res.json({err: true, errors: {password: "Password too short"}});
-    
+
     user.password = user.generateHash(password);
     user.reset_token = "";
     user.last_activity = Date.now();
@@ -35,9 +35,27 @@ function signInUser(req, res, next) {
   })
 }
 
+function logInUser(req, res, next){
+  console.log("login request: ", req.body);
+  User.findOne({email: req.body.email}).exec(function(err, user) {
+    if(err) return routeErr(res, next, err);
+    if(!user) return res.json({err: true, errors: {general: "User/email doesnt exists"}});
+    if(!user.authenticate(req.body.password)) return res.json({err: true, errors: {general: "Incorrect email or password"}});
+    req.session.user = user;
+    req.session.access = user.access;
+    res.json({err: "no problemo"});
+  });
+
+
+
+}
+
+
+
 // req.session.destroy();
 
 module.exports = {
   createMasterUser: createMasterUser,
-  signInUser: signInUser
+  signInUser: signInUser,
+  logInUser: logInUser
 }

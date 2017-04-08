@@ -16,6 +16,7 @@ module.exports = function(app) {
 
   app.post('/api/users/masters/create', UsersController.createMasterUser);
   app.post('/api/users/sign-in', UsersController.signInUser);
+  app.post('/api/users/log-in', UsersController.logInUser);
 
   app.get("/api/session", function(req, res, next) {
     res.json({err: false, session: req.session});

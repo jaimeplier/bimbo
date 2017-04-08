@@ -6,6 +6,8 @@ import {
 
 import Login from './components/Login';
 import Register from './components/Register';
+import NotFound from './components/NotFound';
+import Home from './components/Home.jsx';
 
 const Routes = () => (
   <Router>
@@ -15,5 +17,6 @@ const Routes = () => (
     </div>
   </Router>
 )
+      // <Route component={NotFound} />
 
 export default Routes;

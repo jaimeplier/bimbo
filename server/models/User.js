@@ -1,11 +1,18 @@
 var bcrypt = require("bcryptjs");
 var Mongoose = require('mongoose');
 var Schema = Mongoose.Schema;
-var validateEmail = require("./../../utils/validateEmail.js");
+var validateEmail = require("./../utils/validateEmail.js");
 
 var UserSchema = new Schema({
   access: {type: String, enums: ["Master", "Admin", "Employee"], required: true},
-  email: validateEmail,
+  email: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    unique: true,
+    required: "Email address is required",
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Please fill a valid email address"]
+  },
   password: String,
   name: {type: String, required: true},
   picture: String,

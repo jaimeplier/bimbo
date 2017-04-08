@@ -8,6 +8,7 @@ import matches from 'validator/lib/matches';
 
 import errorHandler from '../utils/errorHandler';
 import { sendPostRequest } from '../utils/customRequests';
+import images from './../assets';
 
 
 export default class Register extends Component {
@@ -60,7 +61,7 @@ export default class Register extends Component {
         <Card className="col-7 card">
           <div className="row">
             <div  className="col-12 center">
-              <img className="bimbo-logo" src={require("./../../public/bimbo_logo.png")} alt="" />
+              <img className="bimbo-logo" src={images.bimboLogo} alt="" />
             </div>
             <div className="col-12 center">
               <p>Welcome</p>

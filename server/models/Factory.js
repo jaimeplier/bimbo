@@ -8,8 +8,8 @@ var FactorySchema = new Schema({
     minlength: 3
   },
   product_lines: [{type: Schema.Types.ObjectId, ref: 'ProductLines'}],
-  admins: [{type: Schema.Types.ObjectId, ref: 'Admins'}],
-  employees: [{type: Schema.Types.ObjectId, ref: 'Employees'}],
+  admins: [{type: Schema.Types.ObjectId, ref: 'Users'}],
+  employees: [{type: Schema.Types.ObjectId, ref: 'Users'}],
   created_at: {type: Date, default: Date.now},
   updated_at: {type: Date, default: Date.now}
 });

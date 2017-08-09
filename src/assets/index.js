@@ -1,6 +1,5 @@
 const images = {
-  bimboLogo: require("./logo-black.png")
+  bimboLogo: require("./bimbo_logo.png")
 }
 
 export default images;
-

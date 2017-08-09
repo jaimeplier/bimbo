@@ -35,7 +35,7 @@ function signInUser(req, res, next) {
   })
 }
 
-function logInUser(req, res, next){
+function logInUser(req, res, next) {
   console.log("login request: ", req.body);
   User.findOne({email: req.body.email}).exec(function(err, user) {
     if(err) return routeErr(res, next, err);
@@ -45,8 +45,6 @@ function logInUser(req, res, next){
     req.session.access = user.access;
     res.json({err: "no problemo"});
   });
-
-
 
 }
 

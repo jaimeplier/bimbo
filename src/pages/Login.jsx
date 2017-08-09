@@ -3,7 +3,9 @@ import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import isEmail from 'validator/lib/isEmail';
-import { sendPostRequest } from './../utils/customRequests'
+import { sendPostRequest } from './../utils/customRequests';
+import images from './../assets';
+
 
 
 export default class Login extends Component {
@@ -49,7 +51,7 @@ export default class Login extends Component {
         <Card className="col-7 card">
           <div className="row">
             <div  className="col-12 center">
-              <img className="bimbo-logo" src={require("./../../public/bimbo_logo.png")} />
+              <img className="bimbo-logo" src={images.bimboLogo} />
             </div>
             <div className="col-12 center">
               <TextField

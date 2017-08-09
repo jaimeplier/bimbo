@@ -23,11 +23,11 @@ var UserSchema = new Schema({
   updated_at: {type: Date, default: Date.now}
 });
 
-UserSchema.methods.generateHash = function(password){
+UserSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, 12);
 };
 
-UserSchema.methods.authenticate = function(password){
+UserSchema.methods.authenticate = function(password) {
   return bcrypt.compareSync(password, this.password);
 };
 

@@ -51,7 +51,7 @@ export default class Login extends Component {
         <Card className="col-7 card">
           <div className="row">
             <div  className="col-12 center">
-              <img className="bimbo-logo" src={images.bimboLogo} />
+              <img className="bimbo-logo" src={images.bimboLogo} alt='' />
             </div>
             <div className="col-12 center">
               <TextField

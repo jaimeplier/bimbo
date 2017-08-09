@@ -6,13 +6,14 @@ import {
 
 import Login from './pages/Login';
 import Register from './pages/Register';
-import NotFound from './pages/NotFound';
+//import NotFound from './pages/NotFound';
 import Home from './pages/Home.jsx';
 
 const Routes = () => (
   <Router>
     <div>
-      <Route exact path="/" component={Login}/>
+      <Route exact path="/login" component={Login}/>
+      <Route exact path="/" component={Home}/>
       <Route exact path="/register/:token" component={Register}/>
     </div>
   </Router>

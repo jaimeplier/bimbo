@@ -15,15 +15,15 @@ function createMasterUser(req, res, next) {
   });
 }
 
-function signInUser(req, res, next) {
+function registerUser(req, res, next) {
   User.findOne({reset_token: req.body.resetToken}).exec(function(err, user) {
     if(err) return routeErr(res, next, err);
-    if(!user) return res.json({err: true, errors: {general: "Incorrect token. Please check your email again"}});
+    if(!user) return res.json({err: true, errors: {general: 'Incorrect token. Please check your email again'}});
     var password = req.body.password;
-    if(!password || password.length < 5) return res.json({err: true, errors: {password: "Password too short"}});
+    if(!password || password.length < 5) return res.json({err: true, errors: {password: 'Password too short'}});
 
     user.password = user.generateHash(password);
-    user.reset_token = "";
+    user.reset_token = '';
     user.last_activity = Date.now();
 
     user.save(function(err) {
@@ -54,6 +54,6 @@ function logInUser(req, res, next) {
 
 module.exports = {
   createMasterUser: createMasterUser,
-  signInUser: signInUser,
+  registerUser: registerUser,
   logInUser: logInUser
 }

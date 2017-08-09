@@ -1,4 +1,4 @@
 export default function errorHandler(err, callback) {
-  callback ? callback("Unexpected error. Please try again") : null;
+  if(callback) callback('Unexpected error. Please try again');
   console.log("The error");
 }

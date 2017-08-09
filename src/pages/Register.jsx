@@ -4,9 +4,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import matches from 'validator/lib/matches';
 
- import NProgress from 'nprogress';
-
-import errorHandler from '../utils/errorHandler';
 import { sendPostRequest } from '../utils/customRequests';
 import images from './../assets';
 
@@ -15,23 +12,23 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: "",
-      confirmPassword: "",
+      password: '',
+      confirmPassword: '',
       errors: {
-        general: "",
-        password: "",
-        confirmPassword: "",
+        general: '',
+        password: '',
+        confirmPassword: '',
       }
     };
   }
 
   _handleSubmit() {
-    this.setState({errors: {general:"", password:"", confirmPassword:""}});
+    this.setState({errors: {general:'', password:'', confirmPassword:''}});
     if(
       !this.state.password ||
       !matches(this.state.password, this.state.confirmPassword)
     ) {
-      return this.setState({errors: {confirmPassword: "Passwords do not match"}});
+      return this.setState({errors: {confirmPassword: 'Passwords do not match'}});
     }
 
     const body = {
@@ -39,16 +36,10 @@ export default class Register extends Component {
       password: this.state.password
     }
 
-    sendPostRequest("/api/users/sign-in", body, (json) => {
+    sendPostRequest('/api/users/register', body, (json) => {
       if(json.err) return this.setState({errors: json.errors});
-      this.props.history.push("/");
+      this.props.history.push('/');
     }, (s) => this.setState({errors:{general: s}}));
-
-    // xhr.post("/api/users/sign-in", {json:true, body}, (err, res, json) => {
-    //   if(err) return errorHandler(err, () => this.setState({errors:{general: "Unexpected error. Please try again."}}))
-    //   if(json.err) return this.setState({errors: json.errors});
-    //   this.props.history.push("/");
-    // })
   }
 
   _handleInputChange(e) {

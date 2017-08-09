@@ -15,7 +15,7 @@ module.exports = function(app) {
   app.post('/api/factories', FactoriesController.saveFactory);
 
   app.post('/api/users/masters/create', UsersController.createMasterUser);
-  app.post('/api/users/sign-in', UsersController.signInUser);
+  app.post('/api/users/register', UsersController.registerUser);
   app.post('/api/users/log-in', UsersController.logInUser);
 
   app.get("/api/session", function(req, res, next) {

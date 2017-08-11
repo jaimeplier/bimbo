@@ -16,6 +16,7 @@ injectTapEventPlugin();
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import mainReducer from './reducers/mainReducer';
+import { isUserLoggedIn } from './actions/userActions';
 
 var store = createStore(
   mainReducer,
@@ -24,6 +25,8 @@ var store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 )
+
+store.dispatch(isUserLoggedIn());
 
 ReactDOM.render(
   <MuiThemeProvider>

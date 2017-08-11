@@ -1,43 +1,50 @@
 import React, { Component } from 'react';
+import isEmail from 'validator/lib/isEmail';
+import { connect } from 'react-redux';
+
 import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import isEmail from 'validator/lib/isEmail';
+
 import { sendPostRequest } from './../utils/customRequests';
 import images from './../assets';
 
+import { setUser } from '../actions/userActions';
 
 
-export default class Login extends Component {
+
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       errors: {
-        general: "",
-        email: "",
-        password: "",
+        general: '',
+        email: '',
+        password: '',
       }
     };
   }
 
   _handleSubmit() {
+    this.setState({errors: {general:'', email:'', password: ''}});
 
-    this.setState({errors: {general:"", password:"", confirmPassword:""}});
-
-    if(!isEmail(this.state.email)) return this.setState({errors:{email:"Please use valid email"}});
-    if(this.state.password.length < 5) return this.setState({errors:{password:"Password is too short"}});
+    if(!isEmail(this.state.email)) return this.setState({errors:{email:'Please use valid email'}});
+    if(this.state.password.length < 5) return this.setState({errors:{password:'Password is too short'}});
 
     const body = {
       email: this.state.email,
       password: this.state.password
     }
 
-    sendPostRequest("/api/users/log-in", body, (json) => {
+    sendPostRequest('/api/users/log-in', body, (json) => {
       if(json.err) return this.setState({errors: json.errors});
-      this.props.history.push("/");
-    }, (s) => this.setState({errors:{general: s}}));
+      this.props.dispatch(setUser(json.user));
+      this.props.history.push('/');
+    }, (s) => {
+      this.setState({errors:{general: s}})
+    });
   }
 
   _handleInputChange(e) {
@@ -54,10 +61,11 @@ export default class Login extends Component {
               <img className="bimbo-logo" src={images.bimboLogo} alt='' />
             </div>
             <div className="col-12 center">
+              <p className="error">{ this.state.errors.general}</p>
               <TextField
                 className="input"
                 name="email"
-                errorText={this.state.errors.email}
+                errorText={this.state.errors && this.state.errors.email}
                 onChange={this._handleInputChange.bind(this)}
                 floatingLabelText="Email" />
             </div>
@@ -66,7 +74,7 @@ export default class Login extends Component {
                 className="input"
                 type="password"
                 name="password"
-                errorText={this.state.errors.password}
+                errorText={this.state.errors && this.state.errors.password}
                 onChange={this._handleInputChange.bind(this)}
                 floatingLabelText="Password" />
             </div>
@@ -84,3 +92,9 @@ export default class Login extends Component {
     )
   }
 }
+
+function mapStateToProps() {
+  return {}
+}
+
+export default connect(mapStateToProps)(Login);

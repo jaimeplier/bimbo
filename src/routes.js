@@ -1,21 +1,31 @@
 import React from 'react'
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch,
 } from 'react-router-dom'
+
+import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
+
+const userIsAuthenticated = connectedRouterRedirect({
+  redirectPath: '/login',
+  authenticatedSelector: state => !!state.get('user'),
+  authenticatingSelector: state => state.get('isAuthenticating'),
+  wrapperDisplayName: 'UserIsAuthenticated',
+});
 
 import Login from './pages/Login';
 import Register from './pages/Register';
 //import NotFound from './pages/NotFound';
-import Home from './pages/Home.jsx';
+import SideNavigation from './pages/SideNavigation';
 
 const Routes = () => (
   <Router>
-    <div>
+    <Switch>
       <Route exact path="/login" component={Login}/>
-      <Route exact path="/" component={Home}/>
       <Route exact path="/register/:token" component={Register}/>
-    </div>
+      <Route path="/" component={userIsAuthenticated(SideNavigation)} />
+    </Switch>
   </Router>
 )
       // <Route component={NotFound} />

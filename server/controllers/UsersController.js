@@ -36,24 +36,30 @@ function registerUser(req, res, next) {
 }
 
 function logInUser(req, res, next) {
-  console.log("login request: ", req.body);
   User.findOne({email: req.body.email}).exec(function(err, user) {
     if(err) return routeErr(res, next, err);
     if(!user) return res.json({err: true, errors: {general: "User/email doesnt exists"}});
     if(!user.authenticate(req.body.password)) return res.json({err: true, errors: {general: "Incorrect email or password"}});
     req.session.user = user;
     req.session.access = user.access;
-    res.json({err: "no problemo"});
+    res.json({err: false, user: user});
   });
-
 }
 
+function getAuthenticatedUser(req, res, next) {
+  res.json({user: req.session.user, err: false});
+}
 
+function logout(req, res, next) {
+  req.session.destroy();
+  res.json({ok: true});
+}
 
-// req.session.destroy();
 
 module.exports = {
   createMasterUser: createMasterUser,
   registerUser: registerUser,
-  logInUser: logInUser
+  logInUser: logInUser,
+  getAuthenticatedUser: getAuthenticatedUser,
+  logout: logout,
 }

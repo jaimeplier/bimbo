@@ -5,6 +5,7 @@ var resWithValidationError = require('./../utils/resWithValidationError.js');
 var resWithServerError = require('./../utils/resWithServerError.js');
 
 var request = require('request');
+var path = require('path');
 
 module.exports = function(app) {
 
@@ -39,4 +40,8 @@ module.exports = function(app) {
     if(err) return resWithServerError(res, err);
     res.status(400).json({err: true, message: 'Route not found'});
   });
+
+  app.get('/*', function(req, res, next) {
+    res.sendFile(path.join(__dirname + './build', 'index.html'));
+  })
 }

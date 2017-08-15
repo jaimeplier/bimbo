@@ -19,13 +19,23 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import mainReducer from './reducers/mainReducer';
 import { isUserLoggedIn } from './actions/userActions';
 
-var store = createStore(
-  mainReducer,
-  compose(
-    applyMiddleware(thunkMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+console.log('the env thing: ', process.env);
+if(process.env.NODE_ENV == 'development') {
+  var store = createStore(
+    mainReducer,
+    compose(
+      applyMiddleware(thunkMiddleware),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
   )
-)
+} else {
+  var store = createStore(
+    mainReducer,
+    compose(
+      applyMiddleware(thunkMiddleware)
+    )
+  )
+}
 
 store.dispatch(isUserLoggedIn());
 

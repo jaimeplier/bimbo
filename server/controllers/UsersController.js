@@ -32,7 +32,7 @@ function registerUser(req, res, next) {
       if(err) return routeErr(res, next, err);
       req.session.user = user;
       req.session.access = user.access;
-      res.json(user);
+      res.json({err: false, user});
     });
   })
 }

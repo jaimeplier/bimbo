@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -7,8 +8,11 @@ import matches from 'validator/lib/matches';
 import { sendPostRequest } from '../utils/customRequests';
 import images from './../assets';
 
+import { setUser } from '../actions/userActions';
 
-export default class Register extends Component {
+
+
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,6 +42,7 @@ export default class Register extends Component {
 
     sendPostRequest('/api/users/register', body, (json) => {
       if(json.err) return this.setState({errors: json.errors});
+      this.props.dispatch(setUser(json.user));
       this.props.history.push('/');
     }, (s) => this.setState({errors:{general: s}}));
   }
@@ -90,3 +95,9 @@ export default class Register extends Component {
     )
   }
 }
+
+function mapStateToProps() {
+  return {}
+}
+
+export default connect(mapStateToProps)(Register);

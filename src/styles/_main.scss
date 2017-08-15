@@ -6,3 +6,34 @@ body {
 .error {
   color: $error-color;
 }
+
+.no-margin {
+  margin: 0px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.card {
+  border-radius: 2px;
+  background-color: white;
+  padding: 15px;
+  margin: 10px;
+
+  .card-title {
+    margin: 0px;
+    font-size: 16px;
+    color: #078ED8;
+  }
+}
+
+.card-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.small-text {
+  font-size: 11px;
+  color: #5F95B7;
+  margin-top: 9px;
+}

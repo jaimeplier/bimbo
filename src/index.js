@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 
 import 'nprogress/nprogress.css';
+import 'react-table/react-table.css';
 import './styles/application.scss';
 
 import Routes from './routes';

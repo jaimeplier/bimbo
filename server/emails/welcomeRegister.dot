@@ -12,7 +12,7 @@
           <tr>
             <td align="center" valign="top">
               <img
-                   src="https://vignette4.wikia.nocookie.net/logopedia/images/5/51/Bimbo.jpg/revision/latest?cb=20101220005457"
+                   src="https://s3-us-west-2.amazonaws.com/arvolution/bimbo_logo.png"
                    style="max-width:250px"
               >
             </td>
@@ -29,7 +29,7 @@
           <tr bgcolor="F7F6F6">
             <td style="text-align: center">
               <a
-                 href="http://localhost:3000/register/{{= it.reset_token }}"
+                 href="http://skyline.arvolution.com/register/{{= it.reset_token }}"
                  style="
                         text-align:center;
                         border-radius: 2px;

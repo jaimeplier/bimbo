@@ -1,7 +1,8 @@
-var Mongoose = require("mongoose");
-var User = Mongoose.model("Users");
-var uuid = require("node-uuid");
+var Mongoose = require('mongoose');
+var User = Mongoose.model('Users');
+var uuid = require('node-uuid');
 var routeErr = require('./../utils/routeErr.js');
+var sendEmails = require('./../utils/sendEmails.js');
 
 function createMasterUser(req, res, next) {
   if(req.body.createKey !== process.env.CREATE_SECRET) return next();
@@ -11,6 +12,7 @@ function createMasterUser(req, res, next) {
   user.save(function(err) {
     if(err && err.code == 11000) return routeErr(res, next, {errors: {email: "Email already exists"}});
     if(err) return routeErr(res, next, err);
+    sendEmails.welcomeRegister(user);
     res.json(user);
   });
 }
@@ -38,8 +40,8 @@ function registerUser(req, res, next) {
 function logInUser(req, res, next) {
   User.findOne({email: req.body.email}).exec(function(err, user) {
     if(err) return routeErr(res, next, err);
-    if(!user) return res.json({err: true, errors: {general: "User/email doesnt exists"}});
-    if(!user.authenticate(req.body.password)) return res.json({err: true, errors: {general: "Incorrect email or password"}});
+    if(!user) return res.json({err: true, errors: {general: 'User/email does not exist'}});
+    if(!user.authenticate(req.body.password)) return res.json({err: true, errors: {general: 'Incorrect email or password'}});
     req.session.user = user;
     req.session.access = user.access;
     res.json({err: false, user: user});

@@ -19,9 +19,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import mainReducer from './reducers/mainReducer';
 import { isUserLoggedIn } from './actions/userActions';
 
-console.log('the env thing: ', process.env);
-if(process.env.NODE_ENV == 'development') {
-  var store = createStore(
+var store;
+if(process.env.NODE_ENV === 'development') {
+  store = createStore(
     mainReducer,
     compose(
       applyMiddleware(thunkMiddleware),
@@ -29,7 +29,7 @@ if(process.env.NODE_ENV == 'development') {
     )
   )
 } else {
-  var store = createStore(
+  store = createStore(
     mainReducer,
     compose(
       applyMiddleware(thunkMiddleware)

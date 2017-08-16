@@ -16,11 +16,11 @@ function lotCell(row) {
 }
 
 const columns = [{
-  Header: 'Time',
+  Header: 'Fecha',
   accessor: 'created_at',
   Cell: scoreCell,
 }, {
-  Header: 'Lot #',
+  Header: 'No. Lote',
   accessor: 'result.batchNumber',
   Cell: lotCell,
 }, {

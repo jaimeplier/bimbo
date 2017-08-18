@@ -42,8 +42,9 @@ function logInUser(req, res, next) {
     if(err) return routeErr(res, next, err);
     if(!user) return res.json({err: true, errors: {general: 'User/email does not exist'}});
     if(!user.authenticate(req.body.password)) return res.json({err: true, errors: {general: 'Incorrect email or password'}});
-    req.session.user = user;
     req.session.access = user.access;
+    req.session.userId = user.id;
+    req.session.user = user;
     res.json({err: false, user: user});
   });
 }
@@ -57,11 +58,34 @@ function logout(req, res, next) {
   res.json({ok: true});
 }
 
+function authMasterUser(req, res, next) {
+  var access = req.session && req.session.access;
+  if(access === 'Master') {
+    next();
+    updateUsersLastActivity(req);
+  } else {
+    res.status(401).send('Not authorized');
+  }
+}
 
+
+//-------- Helper Functions
+
+function updateUsersLastActivity(req) {
+  var userId = req.session && req.session.userId;
+  User.findOne({_id: userId}).exec(function(err, user) {
+    if(err) return routeErr(null, null, err);
+    user.last_activity = Date.now();
+    user.save(function(err) { if(err) routeErr(null, null, err) });
+  });
+}
+
+// ------- Exports
 module.exports = {
   createMasterUser: createMasterUser,
   registerUser: registerUser,
   logInUser: logInUser,
   getAuthenticatedUser: getAuthenticatedUser,
   logout: logout,
+  authMasterUser: authMasterUser,
 }

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 //connect to the database
 //remember to change the database name
-mongoose.connect(process.env.DB_HOST);
+mongoose.connect(process.env.DB_HOST, {useMongoClient: true});
 
 //loads all of the model files
 var models_path = __dirname + '/../models'

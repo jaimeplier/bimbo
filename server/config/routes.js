@@ -7,27 +7,26 @@ var resWithServerError = require('./../utils/resWithServerError.js');
 var request = require('request');
 var path = require('path');
 
+var authM = UsersController.authMasterUser;
+
 module.exports = function(app) {
 
-  app.get('/api/test', function(req, res) {
-    res.json({
-      ok: true
-    })
-  })
+  if(process.env.NODE_ENV === 'development') {
+    app.get('/api/session', function(req, res) {
+      res.json({err: false, session: req.session});
+    });
+  }
 
   app.post('/api/factories', FactoriesController.saveFactory);
 
+  app.get('/api/users', UsersController.getAuthenticatedUser);
+  app.get('/api/users/logout', UsersController.logout);
   app.post('/api/users/masters/create', UsersController.createMasterUser);
   app.post('/api/users/register', UsersController.registerUser);
   app.post('/api/users/log-in', UsersController.logInUser);
-  app.get('/api/users', UsersController.getAuthenticatedUser);
-  app.get('/api/users/logout', UsersController.logout);
 
-  app.get('/api/session', function(req, res, next) {
-    res.json({err: false, session: req.session});
-  });
 
-  app.get('/api/scores', function(req, res, next) {
+  app.get('/api/scores', authM, function(req, res, next) {
     request.get('http://bimbo.arvolution.com/api/scores', function(err, response, body) {
       res.json(JSON.parse(body));
     })

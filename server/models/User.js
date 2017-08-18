@@ -34,11 +34,11 @@ UserSchema.methods.authenticate = function(password) {
 UserSchema.set('toJSON', {
   transform: function(doc, ret, options) {
     var retJson = {
+      email: ret.email,
       access: ret.access,
       name: ret.name,
       picture: ret.picture,
       factory: ret.factory,
-      last_activity: ret.last_activity
     };
     return retJson;
   }

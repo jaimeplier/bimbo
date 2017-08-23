@@ -2,8 +2,10 @@ require('dotenv').config();
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var logger = require('morgan');
 
 app.use(bodyParser.json());
+app.use(logger(process.env.NODE_ENV == 'development' ? 'dev' : 'short'));
 
 var session = require('express-session');
 var uuid = require('node-uuid');
@@ -30,7 +32,7 @@ app.use(session({
 }));
 
 //require mongoose
-require('./server/config/mongoose.js');
+// require('./server/config/mongoose.js');
 
 //requiere routes
 require('./server/config/routes.js')(app);

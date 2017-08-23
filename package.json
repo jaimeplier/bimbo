@@ -12,6 +12,7 @@
     "immutable": "^3.8.1",
     "material-ui": "^0.17.1",
     "mongoose": "^4.9.3",
+    "morgan": "^1.8.2",
     "node-sass": "^4.5.2",
     "node-uuid": "^1.4.8",
     "nprogress": "^0.2.0",

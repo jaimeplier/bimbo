@@ -1,5 +1,5 @@
-var Mongoose = require("mongoose")
-var Factory = Mongoose.model("Factories")
+//var Mongoose = require("mongoose")
+//var Factory = Mongoose.model("Factories")
 
 function saveFactory(req, res, next) {
   var factory = new Factory(req.body);

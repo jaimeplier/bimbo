@@ -1,5 +1,5 @@
-var Mongoose = require('mongoose');
-var User = Mongoose.model('Users');
+//var Mongoose = require('mongoose');
+//var User = Mongoose.model('Users');
 var uuid = require('node-uuid');
 var routeErr = require('./../utils/routeErr.js');
 var sendEmails = require('./../utils/sendEmails.js');

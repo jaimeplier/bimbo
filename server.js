@@ -9,7 +9,7 @@ app.use(logger(process.env.NODE_ENV == 'development' ? 'dev' : 'short'));
 
 var session = require('express-session');
 var uuid = require('node-uuid');
-var MongoStore = require('connect-mongo')(session);
+var RedisStore = require('connect-redis')(session);
 
 var path = require('path');
 app.use(express.static(path.join(__dirname, './build')));
@@ -18,10 +18,10 @@ app.use(session({
   genid: function(req) {
     return uuid.v1();
   },
-  store: new MongoStore({
-    url: process.env.DB_HOST,
-    autoRemove: 'native',
-    touchAfter: 24 * 3600 // time period in seconds || = 24 hours; Let the session be updated once every 24 hours
+  store: new RedisStore({
+    host: process.env.REDIS_DB_HOST,
+    port: process.env.REDIS_DB_PORT,
+    logErrors: true,
   }),
   secret: process.env.SESSION_SECRET,
   saveUninitialized: false,

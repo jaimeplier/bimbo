@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Scores = sequelize.define('Scores', {
+  var Score = sequelize.define('Score', {
     batch: DataTypes.STRING,
     expirationLable: DataTypes.STRING,
     packaging: DataTypes.STRING,
@@ -20,5 +20,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return Scores;
+  return Score;
 };

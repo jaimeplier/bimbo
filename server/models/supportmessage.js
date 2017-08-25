@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Messages = sequelize.define('Messages', {
+  var SupportMessage = sequelize.define('SupportMessage', {
     subject: DataTypes.STRING,
     message: DataTypes.STRING
   }, {
@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return Messages;
+  return SupportMessage;
 };

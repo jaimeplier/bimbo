@@ -1,0 +1,14 @@
+{
+  "development": {
+    "use_env_variable": "MYSQL_DB_HOST",
+    "dialect": "mysql"
+  },
+  "test": {
+    "use_env_variable": "MYSQL_DB_TEST_HOST",
+    "dialect": "mysql"
+  },
+  "production": {
+    "use_env_variable": "MYSQL_DB_HOST",
+    "dialect": "mysql"
+  }
+}

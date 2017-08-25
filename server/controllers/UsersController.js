@@ -1,20 +1,32 @@
-//var Mongoose = require('mongoose');
-//var User = Mongoose.model('Users');
+var User = require('../models').User;
 var uuid = require('node-uuid');
 var routeErr = require('./../utils/routeErr.js');
 var sendEmails = require('./../utils/sendEmails.js');
 
 function createMasterUser(req, res, next) {
   if(req.body.createKey !== process.env.CREATE_SECRET) return next();
-  var user = new User(req.body);
-  user.access = "Master";
-  user.reset_token = uuid.v1();
-  user.save(function(err) {
-    if(err && err.code == 11000) return routeErr(res, next, {errors: {email: "Email already exists"}});
-    if(err) return routeErr(res, next, err);
-    sendEmails.welcomeRegister(user);
-    res.json(user);
-  });
+  var user = req.body;
+  user.access = 'Master';
+  user.resetToken = uuid.v1();
+  User
+    .create(user, {
+      fields: ['name', 'email', 'access', 'resetToken', 'password'],
+      attributes: ['name', 'email'],
+    })
+    .then((user) => {
+      sendEmails.welcomeRegister(user);
+      res.json(user);
+    })
+    .catch(err => routeErr(res, next, err))
+  //var user = new User(req.body);
+  //user.access = "Master";
+  //user.reset_token = uuid.v1();
+  //user.save(function(err) {
+  //  if(err && err.code == 11000) return routeErr(res, next, {errors: {email: "Email already exists"}});
+  //  if(err) return routeErr(res, next, err);
+  //  sendEmails.welcomeRegister(user);
+  //  res.json(user);
+  //});
 }
 
 function registerUser(req, res, next) {

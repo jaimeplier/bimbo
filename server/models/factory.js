@@ -2,7 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Factory = sequelize.define('Factory', {
     name: {
-      DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     latitude: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         min: -90, max: 90,
@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       },
     },
     longitude: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         min: -180, max: 180,
@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
       },
     },
     organization: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     address: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -42,6 +42,25 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {paranoid: true});
+
+  Factory.associate = function(models) {
+    Factory.hasMany(models.ActionPlan, {
+      foreignKey: 'factoryId',
+      as: 'actionPlans',
+    })
+    Factory.hasMany(models.Product, {
+      foreignKey: 'factoryId',
+      as: 'products',
+    });
+    Factory.hasMany(models.Score, {
+      foreignKey: 'factoryId',
+      as: 'scores',
+    })
+    Factory.hasMany(models.User, {
+      foreignKey: 'factoryId',
+      as: 'users',
+    })
+  }
 
   return Factory;
 };

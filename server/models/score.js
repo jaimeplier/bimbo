@@ -1,7 +1,14 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Score = sequelize.define('Score', {
-    batch: DataTypes.STRING,
+    batch: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        notNull: true,
+      }
+    },
     expirationLable: DataTypes.STRING,
     packaging: DataTypes.STRING,
     size: DataTypes.STRING,
@@ -13,12 +20,27 @@ module.exports = function(sequelize, DataTypes) {
     scent: DataTypes.STRING,
     note: DataTypes.STRING,
     totalScore: DataTypes.INTEGER
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
-  });
+  }, {paranoid: true});
+
+  Score.associate = function(models) {
+    Score.belongsTo(models.Factory, {
+      foreignKey: 'factoryId',
+      onDelete: 'CASCADE',
+    })
+    Score.belongsTo(models.Product, {
+      foreignKey: 'productId',
+      onDelete: 'CASCADE',
+    })
+    Score.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+    })
+
+    Score.hasOne(models.ActionPlan, {
+      foreignKey: 'scoreId',
+      as: 'actionPlan',
+    })
+  }
+
   return Score;
 };

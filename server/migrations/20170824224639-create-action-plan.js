@@ -8,6 +8,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      scoreId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Scores',
+          key: 'id',
+          as: 'scoreId',
+        }
+      },
       createdBy: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -15,6 +24,24 @@ module.exports = {
           model: 'Users',
           key: 'id',
           as: 'createdBy',
+        }
+      },
+      productId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Products',
+          key: 'id',
+          as: 'productId',
+        }
+      },
+      factoryId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Factories',
+          key: 'id',
+          as: 'factoryId',
         }
       },
       cause: {

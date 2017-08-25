@@ -17,7 +17,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         notEmpty: true,
-        notNull: true,
       }
     },
     email: {
@@ -33,12 +32,9 @@ module.exports = function(sequelize, DataTypes) {
     access: {
       type: DataTypes.ENUM('Master', 'Admin', 'Employee'),
       allowNull: false,
-      validate: {
-        notNull: true,
-      }
     },
     accessPin: {
-      DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       validate: {
         isNumeric: true,
       }
@@ -58,6 +54,31 @@ module.exports = function(sequelize, DataTypes) {
     User.belongsTo(models.Factory, {
       foreignKey: 'factoryId',
       onDelete: 'CASCADE',
+    })
+
+    User.hasMany(models.ActionPlan, {
+      foreignKey: 'createdBy',
+      as: 'createdActionPlans',
+    })
+    User.hasMany(models.ActionPlan, {
+      foreignKey: 'completedBy',
+      as: 'completedActionPlans',
+    })
+    User.hasMany(models.Message, {
+      foreignKey: 'to',
+      as: 'sentMessages',
+    })
+    User.hasMany(models.Message, {
+      foreignKey: 'from',
+      as: 'receivedMessages',
+    })
+    User.hasMany(models.Score, {
+      foreignKey: 'userId',
+      as: 'scores',
+    })
+    User.hasMany(models.SupportMessage, {
+      foreignKey: 'from',
+      as: 'sentSupportMessages',
     })
   }
 

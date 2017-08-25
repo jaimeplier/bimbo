@@ -22,7 +22,19 @@ module.exports = function(sequelize, DataTypes) {
   }, {paranoid: true});
 
   Product.associate = function(models) {
+    Product.belongsTo(models.Factory, {
+      foreignKey: 'factoryId',
+      onDelete: 'CASCADE',
+    })
 
+    Product.hasMany(models.ActionPlan, {
+      foreignKey: 'productId',
+      as: 'actionPlans',
+    })
+    Product.hasMany(models.Score, {
+      foreignKey: 'productId',
+      as: 'scores',
+    })
   }
 
   return Product;

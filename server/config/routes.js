@@ -4,6 +4,8 @@ var UsersController = require('./../controllers/UsersController.js');
 var resWithValidationError = require('./../utils/resWithValidationError.js');
 var resWithServerError = require('./../utils/resWithServerError.js');
 
+var Errors = require('./../utils/errorResponses.js');
+
 var request = require('request');
 var path = require('path');
 
@@ -35,8 +37,9 @@ module.exports = function(app) {
 
   app.all('/api/*', function(req, res, next) {
     var err = res.locals && res.locals.err;
-    if(err && err.name == 'SequelizeValidationError') return resWithValidationError(res, err);
-    if(err) return resWithServerError(res, err);
+    if(err && err.name == 'SequelizeValidationError') return Errors.resWithValidationError(req, res, err);
+    if(err && err.name == 'General') return Errors.resWithGeneralError(req, res, err);
+    if(err) return Errors.resWithServerError(req, res, err);
     res.status(404).json({err: true, message: 'Route not found'});
   });
 

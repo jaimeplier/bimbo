@@ -37,6 +37,10 @@ module.exports = {
           as: 'factoryId',
         }
       },
+      language: {
+        type: Sequelize.ENUM('en', 'es'),
+        allowNull: false,
+      },
       password: {
         type: Sequelize.STRING
       },

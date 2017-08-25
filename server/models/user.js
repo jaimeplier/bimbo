@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       unique: true,
       validate: {
-        isEmail: {msg: 'Email is invalid'},
+        isEmail: {msg: 'invalidEmail'},
         isUnique: function(value, next) {
           User.find({where: {email: value}})
               .done(u => u ? next('Email in use') : next())
@@ -36,6 +36,9 @@ module.exports = function(sequelize, DataTypes) {
     access: {
       type: DataTypes.ENUM('Master', 'Admin', 'Employee'),
       allowNull: false,
+      validate: {
+        isIn: [['Master', 'Admin', 'Employee']],
+      }
     },
     accessPin: {
       type: DataTypes.INTEGER,
@@ -50,6 +53,13 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     resetToken: DataTypes.STRING,
+    language: {
+      type: DataTypes.ENUM('en', 'es'),
+      allowNull: false,
+      validate: {
+        isIn: [['en', 'es']],
+      }
+    },
     password: DataTypes.STRING,
     lastActivity: DataTypes.DATE,
   }, {paranoid: true});

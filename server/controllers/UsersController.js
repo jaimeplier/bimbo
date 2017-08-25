@@ -1,5 +1,8 @@
-var User = require('../models').User;
 var uuid = require('node-uuid');
+var bcrypt = require('bcrypt');
+
+var User = require('../models').User;
+
 var routeErr = require('./../utils/routeErr.js');
 var genErr = require('./../utils/generalError.js');
 var filterObj = require('./../utils/filterObjectKeys.js');
@@ -16,7 +19,7 @@ function createMasterUser(req, res, next) {
       fields: ['name', 'email', 'access', 'resetToken', 'password', 'language'],
     })
     .then((user) => {
-      sendEmails.welcomeRegister(user);
+      // sendEmails.welcomeRegister(user);
       res.json(user);
     })
     .catch(err => routeErr(res, next, err))
@@ -32,28 +35,25 @@ function registerUser(req, res, next) {
 
       user
         .update({password, resetToken: null})
-        .then(() => {
-          user = filterObj(user.get({plain:true}), ['name', 'email', 'access', 'language']);
-          req.session.user = user;
-          req.session.access = user.access;
-          req.session.language = user.language;
-          res.json({err: false, user});
-        })
+        .then(() => setUserSessionDataAndRespond(req, res, user))
         .catch(err => routeErr(req, next, err))
     })
     .catch(err => routeErr(res, next, err))
 }
 
 function logInUser(req, res, next) {
-  User.findOne({email: req.body.email}).exec(function(err, user) {
-    if(err) return routeErr(res, next, err);
-    if(!user) return res.json({err: true, errors: {general: 'User/email does not exist'}});
-    if(!user.authenticate(req.body.password)) return res.json({err: true, errors: {general: 'Incorrect email or password'}});
-    req.session.access = user.access;
-    req.session.userId = user.id;
-    req.session.user = user;
-    res.json({err: false, user: user});
-  });
+  User
+    .findOne({where: {email: req.body.email}})
+    .then((user) => {
+      if(!user) return genErr(res, next, 'emailDoesNotExist');
+      return bcrypt
+        .compare(req.body.password, user.password)
+        .then(auth => {
+          if(!auth) return genErr(res, next, 'incorrectEmailOrPassword');
+          setUserSessionDataAndRespond(req, res, user);
+        })
+    })
+    .catch(err => routeErr(res, next, err))
 }
 
 function getAuthenticatedUser(req, res, next) {
@@ -80,11 +80,21 @@ function authMasterUser(req, res, next) {
 
 function updateUsersLastActivity(req) {
   var userId = req.session && req.session.userId;
-  User.findOne({_id: userId}).exec(function(err, user) {
-    if(err) return routeErr(null, null, err);
-    user.last_activity = Date.now();
-    user.save(function(err) { if(err) routeErr(null, null, err) });
-  });
+  User
+    .update(
+      {lastActivity: Date.now()},
+      {where: {id: userId}}
+    )
+    .catch(err => console.log('error updating user lastActivity: ', err))
+}
+
+function setUserSessionDataAndRespond(req, res, user) {
+  req.session.userId = user.id;
+  user = filterObj(user.get({plain:true}), ['name', 'email', 'access', 'language']);
+  req.session.user = user;
+  req.session.access = user.access;
+  req.session.language = user.language;
+  res.json({err: false, user});
 }
 
 // ------- Exports

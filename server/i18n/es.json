@@ -2,5 +2,7 @@
   "serverError": "Ooops, error interno. Nuestro equipo ha sido notificado y lo resolveremos lo mas pronto possible",
   "userRegisterMissingToken": "Link ya utilizado o incorrecto. Porfavor revisar tu correo.",
   "invalidEmail": "El Email no es valido",
-  "passwordTooShort": "Contraseña muy corta"
+  "passwordTooShort": "Contraseña muy corta",
+  "emailDoesNotExist": "Correo no existe",
+  "incorrectEmailOrPassword": "Email o contraseña incorrecta"
 }

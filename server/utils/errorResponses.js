@@ -11,9 +11,10 @@ function resWithValidationError(req, res, err) {
 
 function resWithServerError(req, res, err) {
   res.status(err.status || 500).json({
-    err: err && process.env.NODE_ENV == "development" ? err : true,
+    err: err && process.env.NODE_ENV == 'development' ? err : true,
     message: getTranslation(req, (err && err.message) || 'serverError')
   });
+  if(process.env.NODE_ENV == 'development') console.log('The error: ', err);
 }
 
 function resWithGeneralError(req, res, err) {

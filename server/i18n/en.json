@@ -1,5 +1,6 @@
 {
   "serverError": "Ooops, server error. Our team has been notified and will look into this.",
   "userRegisterMissingToken": "Link already used or incorrect. Please check your email.",
-  "invalidEmail": "Email is invalid"
+  "invalidEmail": "Email is invalid",
+  "passwordTooShort": "Password too short"
 }

@@ -1,9 +1,6 @@
 var FactoriesController = require ('./../controllers/FactoriesController.js');
 var UsersController = require('./../controllers/UsersController.js');
 
-var resWithValidationError = require('./../utils/resWithValidationError.js');
-var resWithServerError = require('./../utils/resWithServerError.js');
-
 var Errors = require('./../utils/errorResponses.js');
 
 var request = require('request');

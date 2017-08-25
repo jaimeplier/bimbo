@@ -1,7 +1,10 @@
 var User = require('../models').User;
 var uuid = require('node-uuid');
 var routeErr = require('./../utils/routeErr.js');
+var genErr = require('./../utils/generalError.js');
+var filterObj = require('./../utils/filterObjectKeys.js');
 var sendEmails = require('./../utils/sendEmails.js');
+
 
 function createMasterUser(req, res, next) {
   if(req.body.createKey !== process.env.CREATE_SECRET) return next();
@@ -23,29 +26,22 @@ function registerUser(req, res, next) {
   User
     .findOne({where: {resetToken: req.body.resetToken}})
     .then(user => {
-      if(!user) return routeErr(res, next, {name: 'General', message: 'userRegisterMissingToken'});
-      console.log('the user: ', user);
-      res.json({ok: true});
+      if(!user) return genErr(res, next, 'userRegisterMissingToken');
+      var password = req.body.password;
+      if(!password || password.length < 5) return genErr(res, next, 'passwordTooShort');
+
+      user
+        .update({password, resetToken: null})
+        .then(() => {
+          user = filterObj(user.get({plain:true}), ['name', 'email', 'access', 'language']);
+          req.session.user = user;
+          req.session.access = user.access;
+          req.session.language = user.language;
+          res.json({err: false, user});
+        })
+        .catch(err => routeErr(req, next, err))
     })
     .catch(err => routeErr(res, next, err))
-
-  //User.findOne({reset_token: req.body.resetToken}).exec(function(err, user) {
-  //  if(err) return routeErr(res, next, err);
-  //  if(!user) return res.json({err: true, errors: {general: 'Incorrect token. Please check your email again'}});
-  //  var password = req.body.password;
-  //  if(!password || password.length < 5) return res.json({err: true, errors: {password: 'Password too short'}});
-
-  //  user.password = user.generateHash(password);
-  //  user.reset_token = '';
-  //  user.last_activity = Date.now();
-
-  //  user.save(function(err) {
-  //    if(err) return routeErr(res, next, err);
-  //    req.session.user = user;
-  //    req.session.access = user.access;
-  //    res.json({err: false, user});
-  //  });
-  //})
 }
 
 function logInUser(req, res, next) {

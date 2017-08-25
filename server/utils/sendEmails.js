@@ -1,6 +1,8 @@
 var sendgrid = require('sendgrid')(process.env.SENDGRID_KEY);
 var helper = require('sendgrid').mail;
-var dots = require('dot').process({path: './server/emails'});
+var dot = require('dot')
+dot.log = false;
+var dots = dot.process({path: './server/emails'});
 
 var fromEmail = new helper.Email('info@arvolution.com');
 
@@ -18,7 +20,6 @@ function welcomeRegister(user) {
 
   sendgrid.API(request, function(err, res) {
     if(err) console.log('error sending welcomeRegister email: ', err, res, content);
-    // TODO: use our error helper
   });
 }
 

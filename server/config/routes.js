@@ -35,9 +35,9 @@ module.exports = function(app) {
 
   app.all('/api/*', function(req, res, next) {
     var err = res.locals && res.locals.err;
-    if(err && err.name == 'ValidationError') return resWithValidationError(res, err);
+    if(err && err.name == 'SequelizeValidationError') return resWithValidationError(res, err);
     if(err) return resWithServerError(res, err);
-    res.status(400).json({err: true, message: 'Route not found'});
+    res.status(404).json({err: true, message: 'Route not found'});
   });
 
   app.get('/*', function(req, res, next) {

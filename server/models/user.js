@@ -23,10 +23,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       unique: true,
       validate: {
-        isEmail: true,
+        isEmail: {msg: 'Email is invalid'},
+        isUnique: function(value, next) {
+          User.find({where: {email: value}})
+              .done(u => u ? next('Email in use') : next())
+        }
       },
       set(e) {
-        this.setDataValue('email', e.toLowerCase());
+        this.setDataValue('email', e.toLowerCase().trim());
       },
     },
     access: {

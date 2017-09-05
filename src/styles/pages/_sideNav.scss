@@ -9,11 +9,34 @@
 
   .user-info {
     height: 200px;
-    background-image: linear-gradient(-157deg, #009BE8 0%, #1E6CAB 100%);
+    background-image: $sidenav-user-info;
   }
 
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  p {
+    display: inline-block;
+    margin: 0px 0px 0px 10px;
+  }
+  p, svg { vertical-align: middle }
+  svg { height: 18px }
+
   .link {
-    margin-left: 20px;
+    cursor: pointer;
+    padding: 10px;
+    padding-left: 15px;
+
+    &:hover {
+      background-color: $link-hover;
+    }
+  }
+  .link-active {
+    .link {
+      background-color: $link-hover;
+    }
   }
 
 }

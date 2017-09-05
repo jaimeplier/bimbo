@@ -19,6 +19,7 @@
     "nprogress": "^0.2.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-feather": "^1.0.7",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.0.0",
     "react-table": "^6.5.3",

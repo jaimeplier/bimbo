@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
+
+import {
+  Home as HomeIcon,
+  CheckCircle
+} from 'react-feather';
 
 import Factory from './Factory';
 import Home from './Home';
@@ -11,12 +16,18 @@ export default class SideNavigation extends Component {
         <div id="sidenav" className="card-2">
           <div className="user-info">
           </div>
-          <div className="link">
-            <p>Home</p>
-          </div>
-          <div className="link">
-            <p>Action Plans</p>
-          </div>
+          <NavLink to="/" activeClassName="link-active" exact={true}>
+            <div className="link">
+              <HomeIcon />
+              <p>Home</p>
+            </div>
+          </NavLink>
+          <NavLink to="/action-plans" activeClassName="link-active">
+            <div className="link">
+              <CheckCircle />
+              <p>Action Plans</p>
+            </div>
+          </NavLink>
         </div>
         <div id="main">
           <Route path="/factory" component={Factory} />

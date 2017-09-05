@@ -41,6 +41,7 @@ function getActionPlansKPIs(req, res, next) {
       err: false,
       pending: data[0],
       completed: data[1],
+      created: data[0] + data[1],
     }))
     .catch(err => routeErr(res, next, err))
 }

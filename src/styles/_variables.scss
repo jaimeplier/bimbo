@@ -1,8 +1,23 @@
+// global
 $main-background-color: #eeeded;
 $error-color: rgb(244, 67, 54);
-
 $success-color: #66AC66;
 $warning-color: #E6E076;
 $failure-color: #C76969;
+$card-background: #FFFFFF;
+$card-border: 1px solid #DBDBDB;
+
+// sideNav
+
+
+
+// scoringTable
 $table-score-text-color: #FFFFFF;
 $lot-number: #4B80A2;
+
+// actionPlansInfo
+$action-plans-main: white;
+$action-plans-bar-footer: rgba(118, 118, 118, 0.2);
+$action-plans-bar-content: linear-gradient(-180deg, #00DEFC 0%, #00BAF8 100%);
+
+

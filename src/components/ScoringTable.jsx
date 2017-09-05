@@ -187,7 +187,7 @@ export default class ScoringTable extends Component {
         <p className="card-title">Pan Blanco</p>
         <p className="small-text">Acapotzalco, CDMX</p>
         <ReactTable
-          className="center -striped"
+          className="center"
           data={this.state.tableData}
           columns={columns}
           getTdProps={this.getTdProps}

@@ -1,0 +1,20 @@
+.action-plans-info {
+  color: $action-plans-main;
+
+  .bar-footer {
+    background-color: $action-plans-bar-footer;
+
+    p {
+      margin: 5px 0px;
+    }
+
+    .bar-description {
+      opacity: 0.7;
+    }
+
+  }
+
+  .bar-content {
+    background-image: $action-plans-bar-content;
+  }
+}

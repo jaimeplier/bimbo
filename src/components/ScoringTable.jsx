@@ -3,44 +3,26 @@ import { sendGetRequest } from '../utils/customRequests';
 import ReactTable from 'react-table';
 import { ReactTableDefaults } from 'react-table';
 
+import { timeCell, lotCell } from '../utils/customTableCells';
+
 function scoreCell(row) {
   return (
     <div></div>
   )
 }
 
-function lotCell(row) {
-  return (
-    <div className={'lot-number score-td'}>{ row.value }</div>
-  )
-}
 
-function formatDate(date) {
-  date = new Date(date);
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
-  var ampm = hours >= 12 ? 'PM' : 'AM';
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;
-  var strTime = hours + ':' + minutes + ' ' + ampm;
-  return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + strTime;
-}
-
-function timeCell(row) {
-  return (
-    <div className='score-td'>{ formatDate(row.value) }</div>
-  )
-}
 
 const columns = [{
   Header: 'Fecha',
   accessor: 'createdAt',
   Cell: timeCell,
+  maxWidth: 160,
 }, {
   Header: 'No. Lote',
   accessor: 'lot',
   Cell: lotCell,
+  maxWidth: 160,
 }, {
   id: 'hermeticidad',
   Header: 'Hermeticidad',
@@ -144,6 +126,9 @@ export default class ScoringTable extends Component {
       tableData: []
     }
 
+  }
+
+  componentWillMount() {
     sendGetRequest('/api/scores', (data) => {
       this.setState({tableData: data.scores});
     })
@@ -165,6 +150,7 @@ export default class ScoringTable extends Component {
       case 'Failure':
         style = 'failure';
         break;
+      default:
     }
 
     return {className: style};
@@ -187,7 +173,7 @@ export default class ScoringTable extends Component {
         <p className="card-title">Pan Blanco</p>
         <p className="small-text">Acapotzalco, CDMX</p>
         <ReactTable
-          className="center"
+          className="center custom-table"
           data={this.state.tableData}
           columns={columns}
           getTdProps={this.getTdProps}

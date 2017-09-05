@@ -36,6 +36,7 @@ module.exports = function(sequelize, DataTypes) {
     })
     ActionPlan.belongsTo(models.Score, {
       foreignKey: 'scoreId',
+      as: 'score',
       onDelete: 'CASCADE',
     })
   }

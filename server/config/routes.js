@@ -38,6 +38,7 @@ module.exports = function(app) {
 
 
   app.get('/api/action-plans/kpis', authM, ActionPlansCtr.getKPIs);
+  app.get('/api/action-plans', authM, ActionPlansCtr.get);
 
 
   app.all('/api/*', function(req, res, next) {

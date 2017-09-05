@@ -46,8 +46,16 @@ function getActionPlansKPIs(req, res, next) {
     .catch(err => routeErr(res, next, err))
 }
 
+function getActionPlans(req, res, next) {
+  ActionPlan
+    .findAll({include: ['score']})
+    .then(ap => res.json({err: false, actionPlans: ap}))
+    .catch(err => routeErr(res, next, err))
+}
+
 
 module.exports = {
   createOrReturnScore: createOrReturnScore,
   getKPIs: getActionPlansKPIs,
+  get: getActionPlans,
 }

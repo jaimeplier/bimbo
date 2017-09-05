@@ -3,11 +3,13 @@ import { Route, NavLink } from 'react-router-dom';
 
 import {
   Home as HomeIcon,
-  CheckCircle
+  CheckCircle,
+  LogOut,
 } from 'react-feather';
 
 import Factory from './Factory';
 import Home from './Home';
+import ActionPlans from './ActionPlans';
 
 export default class SideNavigation extends Component {
   render() {
@@ -28,10 +30,17 @@ export default class SideNavigation extends Component {
               <p>Action Plans</p>
             </div>
           </NavLink>
+          <NavLink to="/logout" activeClassName="link-active">
+            <div className="link">
+              <LogOut />
+              <p>Log out</p>
+            </div>
+          </NavLink>
         </div>
         <div id="main">
           <Route path="/factory" component={Factory} />
           <Route exact path="/" component={Home} />
+          <Route path="/action-plans" component={ActionPlans} />
         </div>
       </div>
     )

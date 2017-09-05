@@ -2,7 +2,7 @@ var Score = require('../models').Score;
 var products = require('../config/products.js');
 var genErr = require('../utils/generalError.js');
 var routeErr = require('../utils/routeErr.js');
-var ActionPlansController = require('./ActionPlansController.js');
+var ActionPlansCtr = require('./ActionPlansController.js');
 
 function createScore(req, res, next) {
   var product = products[req.params.product];
@@ -17,7 +17,7 @@ function createScore(req, res, next) {
 
   Score
     .create(data, { fields: product })
-    .then(scr => ActionPlansController.createOrReturnScore(req, res, next, scr))
+    .then(scr => ActionPlansCtr.createOrReturnScore(req, res, next, scr))
     .catch(err => routeErr(res, next, err))
 }
 

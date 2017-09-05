@@ -1,6 +1,7 @@
 var FactoriesController = require ('./../controllers/FactoriesController.js');
 var UsersController = require('./../controllers/UsersController.js');
 var ScoresController = require('./../controllers/ScoreController.js');
+var ActionPlansCtr = require('./../controllers/ActionPlansController.js');
 
 var Errors = require('./../utils/errorResponses.js');
 
@@ -34,6 +35,9 @@ module.exports = function(app) {
 
   app.post('/api/scores/:product', ScoresController.create)
   app.get('/api/scores/', authM, ScoresController.get);
+
+
+  app.get('/api/action-plans/kpis', authM, ActionPlansCtr.getKPIs);
 
 
   app.all('/api/*', function(req, res, next) {

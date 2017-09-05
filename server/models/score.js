@@ -1,7 +1,14 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
+  var atttribute = {
+    type: DataTypes.ENUM('Success', 'Warning', 'Failure'),
+    validate: {
+      isIn: [['Success', 'Warning', 'Failure']]
+    }
+  }
+
   var Score = sequelize.define('Score', {
-    batch: {
+    lot: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -9,15 +16,25 @@ module.exports = function(sequelize, DataTypes) {
         notNull: true,
       }
     },
-    expirationLable: DataTypes.STRING,
-    packaging: DataTypes.STRING,
-    size: DataTypes.STRING,
-    symmetry: DataTypes.STRING,
-    color: DataTypes.STRING,
-    crumb: DataTypes.STRING,
-    crumbColor: DataTypes.STRING,
-    taste: DataTypes.STRING,
-    scent: DataTypes.STRING,
+    label: atttribute,
+    airTightness: atttribute,
+    packaging: atttribute,
+    size: atttribute,
+    cleanliness: atttribute,
+    promotions: atttribute,
+    product: atttribute,
+    color: atttribute,
+    scent: atttribute,
+    taste: atttribute,
+    edibility: atttribute,
+    harmlessness: atttribute,
+    weight: atttribute,
+    symmetry: atttribute,
+    slicing: atttribute,
+    crust: atttribute,
+    crumbSize: atttribute,
+    crumbColor: atttribute,
+    crumbConsistency: atttribute,
     note: DataTypes.STRING,
     totalScore: DataTypes.INTEGER
   }, {paranoid: true});

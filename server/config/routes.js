@@ -1,5 +1,6 @@
 var FactoriesController = require ('./../controllers/FactoriesController.js');
 var UsersController = require('./../controllers/UsersController.js');
+var ScoresController = require('./../controllers/ScoreController.js');
 
 var Errors = require('./../utils/errorResponses.js');
 
@@ -30,6 +31,8 @@ module.exports = function(app) {
       res.json(JSON.parse(body));
     })
   });
+
+  app.post('/api/scores/:product', ScoresController.create)
 
 
   app.all('/api/*', function(req, res, next) {

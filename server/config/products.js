@@ -1,6 +1,7 @@
 // Keys are kebab-case because they are used on the urls
 module.exports = {
   "white-bread": [
+    "lot",
     "label",
     "airTightness",
     "packaging",

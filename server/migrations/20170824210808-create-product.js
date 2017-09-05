@@ -25,6 +25,10 @@ module.exports = {
           as: 'factoryId',
         }
       },
+      slug: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       productCode: {
         type: Sequelize.STRING
       },

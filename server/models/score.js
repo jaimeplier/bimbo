@@ -1,9 +1,11 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var atttribute = {
-    type: DataTypes.ENUM('Success', 'Warning', 'Failure'),
-    validate: {
-      isIn: [['Success', 'Warning', 'Failure']]
+  var attribute = function() {
+    return {
+      type: DataTypes.ENUM('Success', 'Warning', 'Failure'),
+      validate: {
+        isIn: [['Success', 'Warning', 'Failure']]
+      }
     }
   }
 
@@ -13,28 +15,27 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         notEmpty: true,
-        notNull: true,
       }
     },
-    label: atttribute,
-    airTightness: atttribute,
-    packaging: atttribute,
-    size: atttribute,
-    cleanliness: atttribute,
-    promotions: atttribute,
-    product: atttribute,
-    color: atttribute,
-    scent: atttribute,
-    taste: atttribute,
-    edibility: atttribute,
-    harmlessness: atttribute,
-    weight: atttribute,
-    symmetry: atttribute,
-    slicing: atttribute,
-    crust: atttribute,
-    crumbSize: atttribute,
-    crumbColor: atttribute,
-    crumbConsistency: atttribute,
+    label: attribute(),
+    airTightness: attribute(),
+    packaging: attribute(),
+    size: attribute(),
+    cleanliness: attribute(),
+    promotions: attribute(),
+    product: attribute(),
+    color: attribute(),
+    scent: attribute(),
+    taste: attribute(),
+    edibility: attribute(),
+    harmlessness: attribute(),
+    weight: attribute(),
+    symmetry: attribute(),
+    slicing: attribute(),
+    crust: attribute(),
+    crumbSize: attribute(),
+    crumbColor: attribute(),
+    crumbConsistency: attribute(),
     note: DataTypes.STRING,
     totalScore: DataTypes.INTEGER
   }, {paranoid: true});

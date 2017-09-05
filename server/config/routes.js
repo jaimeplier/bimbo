@@ -26,13 +26,14 @@ module.exports = function(app) {
   app.post('/api/users/log-in', UsersController.logInUser);
 
 
-  app.get('/api/scores', authM, function(req, res, next) {
+  app.get('/api/scores/old', authM, function(req, res, next) {
     request.get('http://bimbo.arvolution.com/api/scores', function(err, response, body) {
       res.json(JSON.parse(body));
     })
   });
 
   app.post('/api/scores/:product', ScoresController.create)
+  app.get('/api/scores/', authM, ScoresController.get);
 
 
   app.all('/api/*', function(req, res, next) {

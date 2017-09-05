@@ -6,7 +6,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         notEmpty: true,
-        notNull: true,
       }
     },
     correction: {
@@ -14,7 +13,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         notEmpty: true,
-        notNull: true,
       }
     },
     completedAt: DataTypes.DATE

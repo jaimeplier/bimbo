@@ -51,7 +51,7 @@ module.exports = {
       cleanliness: atttribute,
       promotions: atttribute,
       product: atttribute,
-      colo: atttribute,
+      color: atttribute,
       scent: atttribute,
       taste: atttribute,
       edibility: atttribute,

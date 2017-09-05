@@ -5,7 +5,7 @@ import { ReactTableDefaults } from 'react-table';
 
 function scoreCell(row) {
   return (
-    <div className={row.value + ' score-td'}>{ row.value }</div>
+    <div></div>
   )
 }
 
@@ -35,101 +35,101 @@ function timeCell(row) {
 
 const columns = [{
   Header: 'Fecha',
-  accessor: 'created_at',
+  accessor: 'createdAt',
   Cell: timeCell,
 }, {
   Header: 'No. Lote',
-  accessor: 'result.batchNumber',
+  accessor: 'lot',
   Cell: lotCell,
 }, {
   id: 'hermeticidad',
   Header: 'Hermeticidad',
-  accessor: e => e.result.attributes[0].score,
+  accessor: 'airTightness',
   Cell: scoreCell,
 }, {
   id: 'Caracteristicas Fisicas',
   Header: 'Caracteristicas Fisicas',
-  accessor: e => e.result.attributes[1].score,
+  accessor: 'packaging',
   Cell: scoreCell,
 }, {
   id: 'Tamano',
   Header: 'Tamaño',
-  accessor: e => e.result.attributes[2].score,
+  accessor: 'size',
   Cell: scoreCell,
 }, {
   id: 'Limpieza',
   Header: 'Limpieza',
-  accessor: e => e.result.attributes[3].score,
+  accessor: 'cleanliness',
   Cell: scoreCell,
 }, {
   id: 'Promociones',
   Header: 'Promociones',
-  accessor: e => e.result.attributes[4].score,
+  accessor: 'promotions',
   Cell: scoreCell,
 }, {
   id: 'Condiciones Fisicas',
   Header: 'Condiciones Fisicas',
-  accessor: e => e.result.attributes[5].score,
+  accessor: 'product',
   Cell: scoreCell,
 }, {
   id: 'Color del Empaque',
   Header: 'Color del Empaque',
-  accessor: e => e.result.attributes[6].score,
+  accessor: 'color',
   Cell: scoreCell,
 }, {
   id: 'Olor',
   Header: 'Olor',
-  accessor: e => e.result.attributes[7].score,
+  accessor: 'scent',
   Cell: scoreCell,
 }, {
   id: 'Sabor',
   Header: 'Sabor',
-  accessor: e => e.result.attributes[8].score,
+  accessor: 'taste',
   Cell: scoreCell,
 }, {
   id: 'Comestiblidad / Textura',
   Header: 'Comestiblidad / Textura',
-  accessor: e => e.result.attributes[9].score,
+  accessor: 'edibility',
   Cell: scoreCell,
 }, {
   id: 'Inocuidad',
   Header: 'Inocuidad',
-  accessor: e => e.result.attributes[10].score,
+  accessor: 'harmlessness',
   Cell: scoreCell,
 }, {
   id: 'Peso',
   Header: 'Peso',
-  accessor: e => e.result.attributes[11].score,
+  accessor: 'weight',
   Cell: scoreCell,
 }, {
   id: 'Simetria',
   Header: 'Simetría',
-  accessor: e => e.result.attributes[12].score,
+  accessor: 'symmetry',
   Cell: scoreCell,
 }, {
   id: 'Numero de rebanadas',
   Header: 'Numero de rebanadas',
-  accessor: e => e.result.attributes[13].score,
+  accessor: 'slicing',
   Cell: scoreCell,
 }, {
   id: 'corteza / pizo',
   Header: 'Corteza / Pizo',
-  accessor: e => e.result.attributes[14].score,
+  accessor: 'crust',
   Cell: scoreCell,
 }, {
   id: 'tamano',
   Header: 'Tamaño',
-  accessor: e => e.result.attributes[15].score,
+  accessor: 'crumbSize',
   Cell: scoreCell,
 }, {
   id: 'color',
   Header: 'Color',
-  accessor: e => e.result.attributes[16].score,
+  accessor: 'crumbColor',
   Cell: scoreCell,
 }, {
   id: 'Consistencia',
   Header: 'Consistencia',
-  accessor: e => e.result.attributes[17].score,
+  accessor: 'crumbConsistency',
   Cell: scoreCell,
 }];
 
@@ -153,19 +153,32 @@ export default class ScoringTable extends Component {
     let style = '';
     const value = rowInfo && rowInfo.row && rowInfo.row[column.id];
 
+    console.log("The value", value);
+
     switch(value) {
-      case 'success':
+      case 'Success':
         style = 'success';
         break;
-      case 'warning':
+      case 'Warning':
         style = 'warning';
         break;
-      case 'failure':
+      case 'Failure':
         style = 'failure';
         break;
     }
 
     return {className: style};
+  }
+
+  getTdProps(state, rowInfo, column, instance) {
+    let color = '';
+    const value = rowInfo && rowInfo.row && rowInfo.row[column.id];
+
+    if(value === "Success") color = "rgba(38, 194, 129, 0.22)";
+    if(value === "Warning") color = "rgba(247, 202, 23, 0.22)";
+    if(value === "Failure") color = "rgba(247, 23, 23, 0.22)";
+
+    return { style: {backgroundColor: color} };
   }
 
   render() {
@@ -177,6 +190,7 @@ export default class ScoringTable extends Component {
           className="center -striped"
           data={this.state.tableData}
           columns={columns}
+          getTdProps={this.getTdProps}
           showPagination={false}
           showPageSizeOptions={false}
         />

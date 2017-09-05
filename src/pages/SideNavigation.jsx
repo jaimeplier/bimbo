@@ -7,6 +7,8 @@ import {
   LogOut,
 } from 'react-feather';
 
+import images from '../assets';
+
 import Factory from './Factory';
 import Home from './Home';
 import ActionPlans from './ActionPlans';
@@ -16,7 +18,9 @@ export default class SideNavigation extends Component {
     return (
       <div>
         <div id="sidenav" className="card-2">
-          <div className="user-info">
+          <div className="user-info center">
+            <img src={images.emptyProfileImage} alt='' />
+            <p>CDMX</p>
           </div>
           <NavLink to="/" activeClassName="link-active" exact={true}>
             <div className="link">

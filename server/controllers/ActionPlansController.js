@@ -53,9 +53,22 @@ function getActionPlans(req, res, next) {
     .catch(err => routeErr(res, next, err))
 }
 
+function markAsComplete(req, res, next) {
+  ActionPlan
+    .findOne({where: {id: req.body.id}})
+    .then((ap) => {
+      ap
+      .update({completedAt: new Date(), completedBy: 1})
+      .then((ap) => res.json({err: false}))
+      .catch(err => routeErr(res, next, err))
+    })
+    .catch(err => routeErr(res, next, err))
+}
+
 
 module.exports = {
   createOrReturnScore: createOrReturnScore,
   getKPIs: getActionPlansKPIs,
   get: getActionPlans,
+  complete: markAsComplete,
 }

@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
+import { sendGetRequest } from './../utils/customRequests';
 
 export default class ActionPlansInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentWillMount() {
+    sendGetRequest('/api/action-plans/kpis', (d) => {
+      this.setState(d);
+    }, null, true);
+  }
+  
   render() {
     return (
       <div className="card card-2 action-plans-info">
@@ -14,15 +26,15 @@ export default class ActionPlansInfo extends Component {
           <div className="row bar-footer">
             <div className="col-4 center">
               <p className="bar-description">CREATED</p>
-              <p>5</p>
+              <p>{ this.state.created }</p>
             </div>
             <div className="col-4 center">
               <p className="bar-description">COMPLETED</p>
-              <p>4</p>
+              <p>{ this.state.completed }</p>
             </div>
             <div className="col-4 center">
               <p className="bar-description">PENDING</p>
-              <p>1</p>
+              <p>{ this.state.pending }</p>
             </div>
           </div>
         </div>

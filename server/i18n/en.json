@@ -4,5 +4,6 @@
   "invalidEmail": "Email is invalid",
   "passwordTooShort": "Password too short",
   "emailDoesNotExist": "Email does not exist",
-  "incorrectEmailOrPassword": "Incorrect Email or Password"
+  "incorrectEmailOrPassword": "Incorrect Email or Password",
+  "productDoesNotExist": "Product does not exist"
 }

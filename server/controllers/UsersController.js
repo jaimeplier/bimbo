@@ -19,7 +19,7 @@ function createMasterUser(req, res, next) {
       fields: ['name', 'email', 'access', 'resetToken', 'password', 'language'],
     })
     .then((user) => {
-      // sendEmails.welcomeRegister(user);
+      sendEmails.welcomeRegister(user);
       res.json(user);
     })
     .catch(err => routeErr(res, next, err))

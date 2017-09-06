@@ -11,7 +11,7 @@ function createOrReturnScore(req, res, next, scr) {
   actionPlan.createdBy = scr.userId;
   actionPlan.productId = scr.productId;
   actionPlan.factoryId = scr.factoryId;
-  
+
   ActionPlan
     .create(actionPlan, { fields: [
         'scoreId', 'createdBy', 'productId', 'factoryId', 'cause', 'correction'

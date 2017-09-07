@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import {
   Home as HomeIcon,
@@ -13,14 +14,15 @@ import Factory from './Factory';
 import Home from './Home';
 import ActionPlans from './ActionPlans';
 
-export default class SideNavigation extends Component {
+class SideNavigation extends Component {
   render() {
     return (
       <div>
         <div id="sidenav" className="card-2">
           <div className="user-info center">
             <img src={images.emptyProfileImage} alt='' />
-            <p>CDMX</p>
+            <p>{ this.props.user && this.props.user.get('name') }</p>
+            <p>CDMX?</p>
           </div>
           <NavLink to="/" activeClassName="link-active" exact={true}>
             <div className="link">
@@ -50,3 +52,11 @@ export default class SideNavigation extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.get('user')
+  }
+}
+
+export default connect(mapStateToProps)(SideNavigation);

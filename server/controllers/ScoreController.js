@@ -28,6 +28,12 @@ function getScores(req, res, next) {
     .catch(err => routeErr(res, next, err))
 }
 
+// ---------------- Helper Functions
+
+function determineLotTotalScore() {
+  
+}
+
 
 module.exports = {
   create: createScore,

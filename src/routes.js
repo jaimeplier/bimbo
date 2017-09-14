@@ -16,6 +16,7 @@ const userIsAuthenticated = connectedRouterRedirect({
 
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Logout from './pages/Logout';
 //import NotFound from './pages/NotFound';
 import SideNavigation from './pages/SideNavigation';
 
@@ -24,6 +25,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register/:token" component={Register}/>
+      <Route exact path="/logout" component={Logout} />
       <Route path="/" component={userIsAuthenticated(SideNavigation)} />
     </Switch>
   </Router>

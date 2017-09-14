@@ -16,3 +16,12 @@ export function isUserLoggedIn() {
    }, () => null, true);
   }
 }
+
+export function logout(doneCallback) {
+  return function thunk(dispatch) {
+    sendGetRequest('/api/users/logout', (json) => {
+      dispatch(setUser({}))
+      doneCallback()
+    })
+  }
+}

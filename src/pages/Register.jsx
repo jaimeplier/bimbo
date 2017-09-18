@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'material-ui/Card';
+// import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import matches from 'validator/lib/matches';
@@ -54,7 +54,7 @@ class Register extends Component {
   render() {
     return (
       <div className="auth">
-        <Card className="col-7 card">
+        <div className="col-7 card">
           <div className="row">
             <div  className="col-12 center">
               <img className="bimbo-logo" src={images.bimboLogo} alt="" />
@@ -90,7 +90,7 @@ class Register extends Component {
                 primary={true} />
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     )
   }

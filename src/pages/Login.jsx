@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import isEmail from 'validator/lib/isEmail';
 import { connect } from 'react-redux';
 
-import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -43,6 +42,7 @@ class Login extends Component {
       this.props.dispatch(setUser(json.user));
       this.props.history.push('/');
     }, (s) => {
+      console.log('the error: ', s);
       this.setState({errors:{general: s}})
     });
   }
@@ -55,7 +55,7 @@ class Login extends Component {
   render() {
     return (
       <div className="auth">
-        <Card className="col-7 card">
+        <div className="col-7 card">
           <div className="row">
             <div  className="col-12 center">
               <img className="bimbo-logo" src={images.bimboLogo} alt='' />
@@ -87,7 +87,7 @@ class Login extends Component {
               />
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     )
   }

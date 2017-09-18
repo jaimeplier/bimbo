@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
-import { sendGetRequest } from './../utils/customRequests';
+
+import ActionPlansChart from './ActionPlansChart';
 
 export default class ActionPlansInfo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentWillMount() {
-    sendGetRequest('/api/action-plans/kpis', (d) => {
-      this.setState(d);
-    }, null, true);
-  }
-  
   render() {
+    const metrics = this.props.metrics;
     return (
       <div className="card card-2 action-plans-info">
         <p className="card-title">KPI's</p>
@@ -22,19 +13,22 @@ export default class ActionPlansInfo extends Component {
             <div className="col-12">
               <p>Action Plans</p>
             </div>
+            <div className="col-12">
+              <ActionPlansChart />
+            </div>
           </div>
           <div className="row bar-footer">
             <div className="col-4 center">
               <p className="bar-description">CREATED</p>
-              <p>{ this.state.created }</p>
+              <p>{ metrics && metrics.get('created') }</p>
             </div>
             <div className="col-4 center">
               <p className="bar-description">COMPLETED</p>
-              <p>{ this.state.completed }</p>
+              <p>{ metrics && metrics.get('completed') }</p>
             </div>
             <div className="col-4 center">
               <p className="bar-description">PENDING</p>
-              <p>{ this.state.pending }</p>
+              <p>{ metrics && metrics.get('pending') }</p>
             </div>
           </div>
         </div>

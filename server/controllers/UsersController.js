@@ -1,4 +1,3 @@
-var uuid = require('node-uuid');
 var bcrypt = require('bcrypt');
 
 var User = require('../models').User;
@@ -9,6 +8,8 @@ var filterObj = require('./../utils/filterObjectKeys.js');
 var sendEmails = require('./../utils/sendEmails.js');
 
 
+// Route Functions
+// ------------------------------------------------------
 function createMasterUser(req, res, next) {
   if(req.body.createKey !== process.env.CREATE_SECRET) return next();
   var user = req.body;

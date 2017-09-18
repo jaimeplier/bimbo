@@ -1,8 +1,13 @@
-var ActionPlan = require('../models').ActionPlan;
-var routeErr = require('../utils/routeErr.js');
-var sequelize = require('sequelize');
 var Promise = require('bluebird');
+var sequelize = require('sequelize');
 
+var routeErr = require('../utils/routeErr.js');
+
+var ActionPlan = require('../models').ActionPlan;
+
+
+// Route Functions
+// ------------------------------------------------------
 function createOrReturnScore(req, res, next, scr) {
   if(!req.body.actionPlan) return res.json({err: false, score: scr});
 
@@ -17,32 +22,6 @@ function createOrReturnScore(req, res, next, scr) {
         'scoreId', 'createdBy', 'productId', 'factoryId', 'cause', 'correction'
     ]})
     .then(ap => res.json({err: false, score: scr, actionPlan: ap}))
-    .catch(err => routeErr(res, next, err))
-}
-
-function getActionPlansKPIs(req, res, next) {
-  var timeScope = {
-    $lt: new Date(),
-    $gt: new Date(new Date() - 30*24*60*60*1000) // 1 month (days, hours, minutes, seconds, miliseconds)
-  }
-
-  Promise
-    .all([
-      ActionPlan.count({where: {
-        'completedAt': {$eq: null},
-        'createdAt': timeScope,
-      }}),
-      ActionPlan.count({where: {
-        'completedAt': {$not: null},
-        'createdAt': timeScope,
-      }})
-    ])
-    .then(data => res.json({
-      err: false,
-      pending: data[0],
-      completed: data[1],
-      created: data[0] + data[1],
-    }))
     .catch(err => routeErr(res, next, err))
 }
 
@@ -65,10 +44,50 @@ function markAsComplete(req, res, next) {
     .catch(err => routeErr(res, next, err))
 }
 
+// Non Route API Functions
+// ------------------------------------------------------
+function globalDashboardKPIs() {
+
+  return Promise
+    .all([
+      getActionsPlansMetrics(),
+    ])
+    .then(data => { return {
+      metrics: data[0]
+    }})
+
+}
+
+// Helper Functions
+// ------------------------------------------------------
+function getActionsPlansMetrics() {
+  var timeScope = {
+    $lt: new Date(),
+    $gt: new Date(new Date() - 30*24*60*60*1000) // 1 month (days, hours, minutes, seconds, miliseconds)
+  }
+
+  return Promise
+    .all([
+      ActionPlan.count({where: {
+        'completedAt': {$eq: null},
+        'createdAt': timeScope,
+      }}),
+      ActionPlan.count({where: {
+        'completedAt': {$not: null},
+        'createdAt': timeScope,
+      }})
+    ])
+    .then(data => { return {
+      pending: data[0],
+      completed: data[1],
+      created: data[0] + data[1],
+    }})
+}
+
 
 module.exports = {
   createOrReturnScore: createOrReturnScore,
-  getKPIs: getActionPlansKPIs,
   get: getActionPlans,
   complete: markAsComplete,
+  globalDashboardKPIs: globalDashboardKPIs,
 }

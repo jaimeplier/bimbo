@@ -34,7 +34,7 @@ export default class MonthlyLotsChart extends Component {
       }
     })
   }
-  
+
 
   render() {
     return (

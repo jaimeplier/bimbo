@@ -2,6 +2,7 @@ var FactoriesController = require ('./../controllers/FactoriesController.js');
 var UsersController = require('./../controllers/UsersController.js');
 var ScoresController = require('./../controllers/ScoreController.js');
 var ActionPlansCtr = require('./../controllers/ActionPlansController.js');
+var DashboardsController = require('./../controllers/DashboardsController.js');
 
 var Errors = require('./../utils/errorResponses.js');
 
@@ -18,8 +19,9 @@ module.exports = function(app) {
     });
   }
 
-  app.post('/api/factories', FactoriesController.saveFactory);
 
+  // Users
+  // ------------------------------------------------------
   app.get('/api/users', UsersController.getAuthenticatedUser);
   app.get('/api/users/logout', UsersController.logout);
   app.post('/api/users/masters/create', UsersController.createMasterUser);
@@ -27,21 +29,32 @@ module.exports = function(app) {
   app.post('/api/users/log-in', UsersController.logInUser);
 
 
-  app.get('/api/scores/old', authM, function(req, res, next) {
-    request.get('http://bimbo.arvolution.com/api/scores', function(err, response, body) {
-      res.json(JSON.parse(body));
-    })
-  });
+  // Factories
+  // ------------------------------------------------------
+  app.get('/api/dashboards/global', authM, DashboardsController.global);
 
+
+
+  // Factories
+  // ------------------------------------------------------
+  app.post('/api/factories', FactoriesController.saveFactory);
+
+
+  // Scores
+  // ------------------------------------------------------
   app.post('/api/scores/:product', ScoresController.create)
   app.get('/api/scores/', authM, ScoresController.get);
 
 
-  app.get('/api/action-plans/kpis', authM, ActionPlansCtr.getKPIs);
+  // Action Plans
+  // ------------------------------------------------------
   app.get('/api/action-plans', ActionPlansCtr.get);
   app.post('/api/action-plans/complete', ActionPlansCtr.complete)
 
 
+  // Error Handling
+  // ------------------------------------------------------
+  
   app.all('/api/*', function(req, res, next) {
     var err = res.locals && res.locals.err;
     if(err && err.name == 'SequelizeValidationError') return Errors.resWithValidationError(req, res, err);
@@ -53,4 +66,5 @@ module.exports = function(app) {
   app.get('/*', function(req, res, next) {
     res.sendFile(path.join(__dirname + './../../build', 'index.html'));
   })
+
 }

@@ -6,7 +6,7 @@ export function sendPostRequest(url, body, callback, errCallback, hideProgress) 
   if(!hideProgress) NProgress.start();
   xhr.post(url, {json: true, body}, function(err, res, json) {
     if(!hideProgress) NProgress.done();
-    if(err) return errorHandler(err, errCallback);
+    if(err || res.statusCode === 500) return errorHandler(err, errCallback);
     callback(json);
   })
 }

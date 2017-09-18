@@ -10,11 +10,19 @@ function resWithValidationError(req, res, err) {
 }
 
 function resWithServerError(req, res, err) {
-  res.status(err.status || 500).json({
-    err: err && process.env.NODE_ENV == 'development' ? err : true,
-    message: getTranslation(req, (err && err.message) || 'serverError')
-  });
-  if(process.env.NODE_ENV == 'development') console.log('The error: ', err);
+  var response = {
+    err: true,
+    name: 'ServerError',
+    message: getTranslation(req, 'serverError'),
+  }
+
+  if(process.env.NODE_ENV == 'development') {
+    response.debug = err;
+    response.message =  getTranslation(req, (err && err.message) || 'serverError')
+  }
+
+  res.status(err.status || 500).json(response)
+  console.log('The server error: ', err)
 }
 
 function resWithGeneralError(req, res, err) {

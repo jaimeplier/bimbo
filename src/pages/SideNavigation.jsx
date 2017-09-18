@@ -22,7 +22,6 @@ class SideNavigation extends Component {
           <div className="user-info center">
             <img src={images.emptyProfileImage} alt='' />
             <p>{ this.props.user && this.props.user.get('name') }</p>
-            <p style={{marginTop: 5}}>CDMX</p>
           </div>
           <NavLink to="/" activeClassName="link-active" exact={true}>
             <div className="link">

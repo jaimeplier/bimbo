@@ -22,12 +22,14 @@ module.exports = {
       },
       accessPin: {
         type: Sequelize.INTEGER(6).ZEROFILL
+        unique: true,
       },
       picture: {
         type: Sequelize.STRING
       },
       resetToken: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
       },
       factoryId: {
         type: Sequelize.INTEGER,

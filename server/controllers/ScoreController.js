@@ -6,14 +6,16 @@ var ActionPlansCtr = require('./ActionPlansController.js');
 
 function createScore(req, res, next) {
   var product = products[req.params.product];
+  var auth = res.locals.jwtAuth;
+  return res.json(auth);
   if(!product) return genErr(res, next, 'productDoesNotExist');
 
   product = product.concat(['lot', 'factoryId', 'productId', 'userId']);
 
   var data = req.body.score;
-  data.factoryId = 1;
+  data.factoryId = auth.factoryId;
   data.productId = 1;
-  data.userId = 1;
+  data.userId = auth.id;
 
   Score
     .create(data, { fields: product })

@@ -10,6 +10,8 @@ var request = require('request');
 var path = require('path');
 
 var authM = UsersController.authMasterUser;
+var authA = UsersController.authAdminUser;
+var authE = UsersController.authEmployeeUser;
 
 module.exports = function(app) {
 
@@ -27,12 +29,13 @@ module.exports = function(app) {
   app.post('/api/users/masters/create', UsersController.createMasterUser);
   app.post('/api/users/register', UsersController.registerUser);
   app.post('/api/users/log-in', UsersController.logInUser);
+  app.post('/api/users/employee/create', authA, UsersController.createEmployeeUser);
+  app.post('/api/users/employee/log-in', UsersController.authorizeEmployee);
 
 
   // Factories
   // ------------------------------------------------------
   app.get('/api/dashboards/global', authM, DashboardsController.global);
-
 
 
   // Factories
@@ -42,7 +45,7 @@ module.exports = function(app) {
 
   // Scores
   // ------------------------------------------------------
-  app.post('/api/scores/:product', ScoresController.create)
+  app.post('/api/scores/:product', authE, ScoresController.create)
   app.get('/api/scores/', authM, ScoresController.get);
 
 
@@ -68,3 +71,4 @@ module.exports = function(app) {
   })
 
 }
+

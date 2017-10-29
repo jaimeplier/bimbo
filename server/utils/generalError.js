@@ -1,3 +1,4 @@
+// Used to show a general
 var routeErr = require('./routeErr.js');
 
 module.exports = function(res, next, msg) {

@@ -1,35 +1,30 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('Factories', {
+    return queryInterface.createTable('FactoryProduct', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      factoryCode: {
-        type: Sequelize.STRING
-      },
-      name: {
+      factoryId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.STRING
+        references: {
+          model: 'Factories',
+          key: 'id',
+          as: 'factoryId',
+        },
       },
-      latitude: {
+      productId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.DECIMAL(10, 8),
-      },
-      longitude: {
-        allowNull: false,
-        type: Sequelize.DECIMAL(11, 8),
-      },
-      organization: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      address: {
-        allowNull: false,
-        type: Sequelize.STRING
+        references: {
+          model: 'Products',
+          key: 'id',
+          as: 'productId',
+        }
       },
       createdAt: {
         allowNull: false,
@@ -45,6 +40,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Factories');
+    return queryInterface.dropTable('FactoryProduct');
   }
 };

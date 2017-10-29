@@ -16,15 +16,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      factoryId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Factories',
-          key: 'id',
-          as: 'factoryId',
-        }
-      },
       slug: {
         type: Sequelize.STRING,
         allowNull: false

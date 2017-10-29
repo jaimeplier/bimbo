@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.ENUM('Master', 'Admin', 'Employee')
       },
       accessPin: {
-        type: Sequelize.INTEGER(6).ZEROFILL
+        type: Sequelize.INTEGER(6).ZEROFILL,
         unique: true,
       },
       picture: {

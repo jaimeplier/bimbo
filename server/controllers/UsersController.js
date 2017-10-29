@@ -1,3 +1,4 @@
+var uuid = require('node-uuid');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var secret = process.env.SESSION_SECRET;

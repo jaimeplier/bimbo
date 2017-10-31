@@ -14,7 +14,7 @@ export function lotCell(row) {
 
 // Helper functions
 
-function formatDate(date) {
+export function formatDate(date) {
   date = new Date(date);
   var hours = date.getHours();
   var minutes = date.getMinutes();

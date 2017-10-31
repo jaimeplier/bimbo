@@ -11,6 +11,9 @@ export default function mainReducer(state = initialState, action) {
     case 'SET_GLOBAL_DASHBOARD_DATA':
       return state.set('globalDashboard', fromJS(action.json));
 
+    case 'SET_FACTORY_EMPLOYEES':
+      return state.set('employees', fromJS(action.json.users));
+
     default:
       return state;
   }

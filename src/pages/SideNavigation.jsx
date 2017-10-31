@@ -6,6 +6,7 @@ import {
   Home as HomeIcon,
   CheckCircle,
   LogOut,
+  Users as UsersIcon,
 } from 'react-feather';
 
 import images from '../assets';
@@ -13,6 +14,7 @@ import images from '../assets';
 import Factory from './Factory';
 import Home from './Home';
 import ActionPlans from './ActionPlans';
+import FactoryUsers from './FactoryUsers';
 
 class SideNavigation extends Component {
   render() {
@@ -35,6 +37,12 @@ class SideNavigation extends Component {
               <p>Action Plans</p>
             </div>
           </NavLink>
+          <NavLink to="/users" activeClassName="link-active">
+            <div className="link">
+              <UsersIcon />
+              <p>Users</p>
+            </div>
+          </NavLink>
           <NavLink to="/logout" activeClassName="link-active">
             <div className="link">
               <LogOut />
@@ -46,6 +54,7 @@ class SideNavigation extends Component {
           <Route path="/factory" component={Factory} />
           <Route exact path="/" component={Home} />
           <Route path="/action-plans" component={ActionPlans} />
+          <Route path="/users" component={FactoryUsers} />
         </div>
       </div>
     )

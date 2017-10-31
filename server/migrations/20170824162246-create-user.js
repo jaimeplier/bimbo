@@ -25,7 +25,7 @@ module.exports = {
         unique: true,
       },
       picture: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(400)
       },
       resetToken: {
         type: Sequelize.STRING,

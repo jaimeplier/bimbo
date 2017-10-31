@@ -119,6 +119,16 @@ function authorizeEmployee(req, res, next) {
     })
 }
 
+function getEmployees(req, res, next) {
+  User
+    .findAll({
+      where: {access: 'Employee', factoryId: 1},
+      attributes: ['id', 'name', 'accessPin', 'picture', 'lastActivity'],
+    })
+    .then((users) => res.json({users: users}))
+    .catch(err => routeErr(res, next, err))
+}
+
 function getAuthenticatedUser(req, res, next) {
   res.json({user: req.session.user, err: false});
 }
@@ -198,6 +208,7 @@ module.exports = {
   createEmployeeUser: createEmployeeUser,
   authorizeEmployee: authorizeEmployee,
   logInUser: logInUser,
+  getEmployees: getEmployees,
   getAuthenticatedUser: getAuthenticatedUser,
   logout: logout,
   authMasterUser: authMasterUser,

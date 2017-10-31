@@ -7,7 +7,6 @@ export function setGlobalDashboardData(json) {
 export function getGlobalDashboardData() {
   return function thunk(dispatch) {
     sendGetRequest('/api/dashboards/global', (json) => {
-      //console.log('the global dashboard data: ', json);
       dispatch(setGlobalDashboardData(json))
     })
   }

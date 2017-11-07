@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
+
+import CreateUser from './../components/CreateUser';
 
 import {
   getFactoryUsers,
+  createFactoryUser,
 } from './../actions/factoryActions';
 
 import { formatDate } from '../utils/customTableCells';
@@ -11,9 +13,17 @@ import { formatDate } from '../utils/customTableCells';
 
 
 class FactoryUsers extends Component {
+  constructor(props) {
+    super(props);
+    this.createUser = this.createUser.bind(this)
+  }
 
   componentWillMount() {
     this.props.dispatch(getFactoryUsers());
+  }
+
+  createUser(name, callback) {
+    this.props.dispatch(createFactoryUser(name, callback))
   }
 
   render() {
@@ -26,17 +36,18 @@ class FactoryUsers extends Component {
               <p className="small-text" style={{marginBottom: '0px'}}>Azcapotzalco, CDMX</p>
             </div>
             <div className="col-6 right">
-              <RaisedButton
-                label="Crear Usuario"
-                primary={true}
+              <CreateUser
+                type="factory"
+                submit={this.createUser}
               />
+
             </div>
           </div>
         </div>
         { this.props.users ?
-            this.props.users.map((user) => {
+            this.props.users.map((user, i) => {
               return (
-                <div className="card card-2">
+                <div className="card card-2" key={user.get('id')} >
                   <div className="row">
                     <div className="col-6">
                       <p className="card-title">{user.get('name')}</p>

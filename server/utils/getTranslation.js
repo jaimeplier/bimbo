@@ -9,6 +9,6 @@ var translations = {
 module.exports = function(req, key) {
   var language = req.session && req.session.language || 'en';
   var t = translations[language][key];
-  if(!t) console.log('Missing translation for key: ', key, ' and language: ', req.session.language);
+  if(!t) console.log('Missing translation for key: "', key, '" and language: ', req.session.language);
   return t || key;
 }

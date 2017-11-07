@@ -4,6 +4,10 @@ import { sendGetRequest } from '../utils/customRequests';
 
 import { timeCell, lotCell } from '../utils/customTableCells';
 
+import {
+  Download
+} from 'react-feather';
+
 const columns = [{
   Header: 'Fecha',
   accessor: 'createdAt',
@@ -39,8 +43,20 @@ export default class ActionPlans extends Component {
   render() {
     return (
       <div className="card card-2 action-plans">
-        <p className="card-title">Pan Blanco</p>
-        <p className="small-text">Acapotzalco, CDMX</p>
+        <div className="row">
+          <div className="col-6 no-margin-i">
+            <p className="card-title">Pan Blanco</p>
+            <p className="small-text">Acapotzalco, CDMX</p>
+          </div>
+          <div className="col-6 no-margin-i float-right-i">
+            <a
+              className="float-right button grey-btn"
+              href="/api/action-plans/download"
+            >
+              <Download />
+            </a>
+          </div>
+        </div>
         <ReactTable
           className="center custom-table"
           data={this.state.tableData}

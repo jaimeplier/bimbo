@@ -47,13 +47,15 @@ module.exports = function(app) {
   // Scores
   // ------------------------------------------------------
   app.post('/api/scores/:product', authE, ScoresController.create)
-  app.get('/api/scores/', authM, ScoresController.get);
+  app.get('/api/scores/', authM, ScoresController.get)
+  app.get('/api/scores/download', authM, ScoresController.downloadScores)
 
 
   // Action Plans
   // ------------------------------------------------------
   app.get('/api/action-plans', ActionPlansCtr.get);
   app.post('/api/action-plans/complete', ActionPlansCtr.complete)
+  app.get('/api/action-plans/download', authM, ActionPlansCtr.downloadActionPlans)
 
 
   // Error Handling

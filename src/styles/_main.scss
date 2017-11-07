@@ -15,6 +15,10 @@ body {
   font-weight: bold;
 }
 
+.inline {
+  display: inline-block;
+}
+
 .card {
   border-radius: 2px;
   background-color: $card-background;
@@ -36,8 +40,54 @@ body {
   }
 }
 
+.card-padding { padding: $card-padding }
+
 .card-2 {
   // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);
 }
 
+.grey-btn {
+  float: right;
+  border: 0;
+  color: #8a8a8a;
+
+  &:hover {
+    background-color: #8a8a8a;
+    color: white;
+  }
+}
+
+.button {
+  background-color: transparent;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: .9em;
+  border-radius: 2px;
+  margin: 0 5px;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.float-fix::after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-right-i {
+  float: right !important;
+}
+
+.no-margin-i {
+  margin: 0px !important;
+}

@@ -6,5 +6,6 @@
   "emailDoesNotExist": "Email does not exist",
   "incorrectEmailOrPassword": "Incorrect Email or Password",
   "productDoesNotExist": "Product does not exist",
-  "incorrectPin": "Incorrect Pin"
+  "incorrectPin": "Incorrect Pin",
+  "registerFirst": "Before log in check your email to register"
 }

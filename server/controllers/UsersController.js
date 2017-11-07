@@ -93,8 +93,9 @@ function logInUser(req, res, next) {
     .findOne({where: {email: req.body.email}})
     .then((user) => {
       if(!user) return genErr(res, next, 'emailDoesNotExist');
+      if(!user.get('password')) return genErr(res, next, 'registerFirst');
       return bcrypt
-        .compare(req.body.password, user.password)
+        .compare(req.body.password, user.get('password'))
         .then(auth => {
           if(!auth) return genErr(res, next, 'incorrectEmailOrPassword');
           setUserSessionDataAndRespond(req, res, user);

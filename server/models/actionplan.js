@@ -21,10 +21,12 @@ module.exports = function(sequelize, DataTypes) {
   ActionPlan.associate = function(models) {
     ActionPlan.belongsTo(models.User, {
       foreignKey: 'createdBy',
+      as: 'createdUser',
       onDelete: 'CASCADE',
     })
     ActionPlan.belongsTo(models.User, {
       foreignKey: 'completedBy',
+      as: 'completedUser'
     })
     ActionPlan.belongsTo(models.Product, {
       foreignKey: 'productId',

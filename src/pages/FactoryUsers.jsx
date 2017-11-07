@@ -62,7 +62,13 @@ class FactoryUsers extends Component {
                         style={{backgroundImage: 'url('+user.get('picture')+')'}}
                       />
                       <p className="center">Última actividad:</p>
-                      <p className="center">{ formatDate(user.get('lastActivity')) }</p>
+                      <p className="center">{ 
+                        user.get('lastActivity') ? 
+                          formatDate(user.get('lastActivity'))
+                        :
+                          'Sin activar'
+                        }
+                      </p>
                     </div>
                     <div className="col-9">
                     </div>

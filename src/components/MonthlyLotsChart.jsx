@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Poly from './../utils/i18n';
 import Chart from 'chart.js';
 
 export default class MonthlyLotsChart extends Component {
@@ -39,7 +40,7 @@ export default class MonthlyLotsChart extends Component {
   render() {
     return (
       <div className="card card-2 monthly-lots-chart">
-        <p className="card-title">Monthly Lots</p>
+        <p className="card-title">{Poly.t('Monthly Lots')}</p>
         <canvas id="monthly-lots-chart" height="300"/>
       </div>
     )

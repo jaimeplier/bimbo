@@ -18,6 +18,7 @@
     "material-ui": "^0.17.1",
     "morgan": "^1.8.2",
     "mysql2": "^1.4.1",
+    "node-polyglot": "^2.2.2",
     "node-sass": "^4.5.3",
     "node-uuid": "^1.4.8",
     "nprogress": "^0.2.0",

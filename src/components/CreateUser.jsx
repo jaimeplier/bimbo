@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Poly from './../utils/i18n';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -41,7 +42,7 @@ export default class CreateUser extends Component {
     return (
       <div className="create-user">
         <RaisedButton
-          label="crear usuario"
+          label={Poly.t("Create User")}
           primary={true}
           onClick={this.showModal}
         />
@@ -50,7 +51,7 @@ export default class CreateUser extends Component {
           onHide={this.hideModal}
         >
           <div className="left modal-content card-padding" >
-            <p className="card-title inline">Crear Usuario</p>
+            <p className="card-title inline">{Poly.t("Create User")}</p>
             <button className="button grey-btn" onClick={this.hideModal}>X</button>
             { !this.state.success ?
               <div>
@@ -59,11 +60,11 @@ export default class CreateUser extends Component {
                   name="name"
                   errorText={this.state.errors && this.state.errors.name}
                   onChange={this.handleInputChange.bind(this)}
-                  floatingLabelText="Nombre"
+                  floatingLabelText={Poly.t('Name')}
                 />
                 <div className="float-fix">
                   <RaisedButton
-                    label="crear"
+                    label={Poly.t('Create')}
                     primary={true}
                     className="float-right"
                     onClick={this.handleSubmit}
@@ -72,8 +73,8 @@ export default class CreateUser extends Component {
               </div>
             :
               <div>
-                <p>Usuario creado exitosamente</p>
-                <p>Pin the usuario: {this.state.user.accessPin}</p>
+                <p>{Poly.t('Successfully created user')}</p>
+                <p>{Poly.t('User PIN')}: {this.state.user.accessPin}</p>
               </div>
             }
           </div>

@@ -32,6 +32,7 @@ module.exports = function(app) {
   app.post('/api/users/employee/create', authA, UsersController.createEmployeeUser);
   app.post('/api/users/employee/log-in', UsersController.authorizeEmployee);
   app.get('/api/users/employee', UsersController.getEmployees);
+  app.get('/api/users/language', UsersController.getLanguage);
 
 
   // Factories

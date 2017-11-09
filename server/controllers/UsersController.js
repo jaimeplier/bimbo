@@ -10,6 +10,9 @@ var genErr = require('./../utils/generalError.js');
 var filterDbObj = require('./../utils/filterDbObjectKeys.js');
 var sendEmails = require('./../utils/sendEmails.js');
 
+var frontEndEnglish = require('./../i18n/frontEnd-en.json');
+var frontEndSpanish = require('./../i18n/frontEnd-es.json');
+
 
 // Route Functions
 // ------------------------------------------------------
@@ -103,6 +106,13 @@ function getEmployees(req, res, next) {
 
 function getAuthenticatedUser(req, res, next) {
   res.json({user: req.session.user, err: false});
+}
+
+function getLanguage(req, res, next) {
+  const lan = req.session && req.session.language;
+  if(!lan) return res.json({ok:'true'});
+  if(lan === 'en') return res.json(frontEndEnglish);
+  if(lan === 'es') return res.json(frontEndSpanish);
 }
 
 function logout(req, res, next) {
@@ -208,6 +218,7 @@ module.exports = {
   logInUser: logInUser,
   getEmployees: getEmployees,
   getAuthenticatedUser: getAuthenticatedUser,
+  getLanguage: getLanguage,
   logout: logout,
   authMasterUser: authMasterUser,
   authAdminUser: authAdminUser,

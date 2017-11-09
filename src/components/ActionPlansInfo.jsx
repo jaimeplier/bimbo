@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Poly from './../utils/i18n';
 
 import ActionPlansChart from './ActionPlansChart';
 
@@ -7,11 +8,11 @@ export default class ActionPlansInfo extends Component {
     const metrics = this.props.metrics;
     return (
       <div className="card card-2 action-plans-info">
-        <p className="card-title">KPI's</p>
+        <p className="card-title">{Poly.t('KPIs')}</p>
         <div className="bar-content">
           <div className="row">
             <div className="col-12">
-              <p>Action Plans</p>
+              <p>{Poly.t('Action Plans')}</p>
             </div>
             <div className="col-12">
               <ActionPlansChart />
@@ -19,15 +20,15 @@ export default class ActionPlansInfo extends Component {
           </div>
           <div className="row bar-footer">
             <div className="col-4 center">
-              <p className="bar-description">CREATED</p>
+              <p className="bar-description">{Poly.t('Created')}</p>
               <p>{ metrics && metrics.get('created') }</p>
             </div>
             <div className="col-4 center">
-              <p className="bar-description">COMPLETED</p>
+              <p className="bar-description">{Poly.t('Completed')}</p>
               <p>{ metrics && metrics.get('completed') }</p>
             </div>
             <div className="col-4 center">
-              <p className="bar-description">PENDING</p>
+              <p className="bar-description">{Poly.t('Pending')}</p>
               <p>{ metrics && metrics.get('pending') }</p>
             </div>
           </div>

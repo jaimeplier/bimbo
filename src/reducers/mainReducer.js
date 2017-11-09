@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-var initialState = fromJS({isAuthenticating: true});
+var initialState = fromJS({isAuthenticating: true, factories:{}});
 
 export default function mainReducer(state = initialState, action) {
   switch(action.type) {

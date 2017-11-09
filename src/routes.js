@@ -18,7 +18,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Logout from './pages/Logout';
 //import NotFound from './pages/NotFound';
-import SideNavigation from './pages/SideNavigation';
+import AdminSideNavigation from './pages/AdminSideNavigation';
 
 const Routes = () => (
   <Router>
@@ -26,7 +26,7 @@ const Routes = () => (
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register/:token" component={Register}/>
       <Route exact path="/logout" component={Logout} />
-      <Route path="/" component={userIsAuthenticated(SideNavigation)} />
+      <Route path="/" component={userIsAuthenticated(AdminSideNavigation)} />
     </Switch>
   </Router>
 )

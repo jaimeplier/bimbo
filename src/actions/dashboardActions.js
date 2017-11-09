@@ -11,3 +11,11 @@ export function getGlobalDashboardData() {
     })
   }
 }
+
+export function getFactories() {
+  return function thunk(dispatch) {
+    sendGetRequest('/api/factories/slug', (json) => {
+
+    }, null, true)
+  }
+}

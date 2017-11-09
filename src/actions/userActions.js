@@ -13,7 +13,7 @@ export function isUserLoggedIn() {
    sendGetRequest('/api/users', (json) => {
      dispatch(setUser(json.user));
      dispatch(setAuthenticatingComplete());
-   }, () => null, true);
+   }, null, true);
   }
 }
 

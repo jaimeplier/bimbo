@@ -9,6 +9,14 @@ module.exports = function(sequelize, DataTypes) {
         notNull: true,
       }
     },
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        notNull: true,
+      }
+    },
     latitude: {
       type: DataTypes.DECIMAL,
       allowNull: false,

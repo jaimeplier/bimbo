@@ -7,7 +7,12 @@ import {
   CheckCircle,
   LogOut,
   Users as UsersIcon,
+  Box,
 } from 'react-feather';
+
+import {
+  getFactories
+} from './../actions/dashboardActions';
 
 import images from '../assets';
 
@@ -16,7 +21,13 @@ import Home from './Home';
 import ActionPlans from './ActionPlans';
 import FactoryUsers from './FactoryUsers';
 
-class SideNavigation extends Component {
+class AdminSideNavigation extends Component {
+  componentWillMount() {
+    if(!this.props.adminFactories) {
+      this.props.dispatch(getFactories())
+    }
+  }
+
   render() {
     return (
       <div>
@@ -29,6 +40,12 @@ class SideNavigation extends Component {
             <div className="link">
               <HomeIcon />
               <p>Home</p>
+            </div>
+          </NavLink>
+          <NavLink to="/factories" activeClassName="link-active">
+            <div className="link">
+              <Box />
+              <p>Factories</p>
             </div>
           </NavLink>
           <NavLink to="/action-plans" activeClassName="link-active">
@@ -63,8 +80,9 @@ class SideNavigation extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.get('user')
+    user: state.get('user'),
+    adminFactories: state.get('adminFactories')
   }
 }
 
-export default connect(mapStateToProps)(SideNavigation);
+export default connect(mapStateToProps)(AdminSideNavigation);

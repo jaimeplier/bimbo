@@ -37,11 +37,7 @@ module.exports = function(app) {
   // Factories
   // ------------------------------------------------------
   app.get('/api/dashboards/global', authM, DashboardsController.global);
-
-
-  // Factories
-  // ------------------------------------------------------
-  app.post('/api/factories', FactoriesController.saveFactory);
+  app.get('/api/factories/slug', authM, FactoriesController.getSlugs);
 
 
   // Scores

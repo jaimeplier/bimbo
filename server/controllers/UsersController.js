@@ -10,35 +10,6 @@ var genErr = require('./../utils/generalError.js');
 var filterDbObj = require('./../utils/filterDbObjectKeys.js');
 var sendEmails = require('./../utils/sendEmails.js');
 
-const createMasterUserFields = ['name', 'email', 'access', 'resetToken', 'password', 'language'];
-
-const createEmployeeFields = ['name', 'access', 'language', 'accessPin', 'factoryId']
-const createEmployeeFltrRes = ['name', 'language', 'accessPin']
-
-// Helper Functions
-// ------------------------------------------------------
-function createUniqueAccessPin(callback, callcount) {
-  callcount = callcount || 0;
-  if(callcount > 5) return callback(
-    {msg: 'Could not find available access pin'})
-  // Creates random number between 100000 and 999999
-  var newPin = Math.floor(100000 + Math.random() * 900000) 
-  User
-    .findOne({
-      where: {accessPin: newPin},
-      attributes: ['accessPin'],
-    })
-    .then((user) => {
-      if(user) {
-        createUniqueAccessPin(callback, ++callcount)
-      } else {
-        callback(null, newPin)
-      }
-      return null;
-    })
-    .catch(e => callback(e));
-}
-
 
 // Route Functions
 // ------------------------------------------------------
@@ -108,7 +79,7 @@ function authorizeEmployee(req, res, next) {
   User
     .findOne({
       where: {accessPin: req.body.accessPin},
-      attributes: ['id', 'name', 'access', 'factoryId', 'language']
+      attributes: authorizeEmployeeFields,
     })
     .then((user) => {
       if(!user) return genErr(res, next, 'incorrectPin');
@@ -124,7 +95,7 @@ function getEmployees(req, res, next) {
   User
     .findAll({
       where: {access: 'Employee', factoryId: 1},
-      attributes: ['id', 'name', 'accessPin', 'picture', 'lastActivity'],
+      attributes: getEmployeesFields,
     })
     .then((users) => res.json({users: users}))
     .catch(err => routeErr(res, next, err))
@@ -174,7 +145,9 @@ function authEmployeeUser(req, res, next) {
 }
 
 
-//-------- Helper Functions
+// Helper Functions
+// ------------------------------------------------------
+
 function updateUsersLastActivity(req) {
   var userId = req.session && req.session.userId;
   updateUsersLastActivityFromId(userId);
@@ -202,7 +175,31 @@ function noAuth(res) {
   res.status(401).send('Not authorized');
 }
 
-// ------- Exports
+function createUniqueAccessPin(callback, callcount) {
+  callcount = callcount || 0;
+  if(callcount > 5) return callback(
+    {msg: 'Could not find available access pin'})
+  // Creates random number between 100000 and 999999
+  var newPin = Math.floor(100000 + Math.random() * 900000)
+  User
+    .findOne({
+      where: {accessPin: newPin},
+      attributes: ['accessPin'],
+    })
+    .then((user) => {
+      if(user) {
+        createUniqueAccessPin(callback, ++callcount)
+      } else {
+        callback(null, newPin)
+      }
+      return null;
+    })
+    .catch(e => callback(e));
+}
+
+// Exports
+// ------------------------------------------------------
+
 module.exports = {
   createMasterUser: createMasterUser,
   registerUser: registerUser,
@@ -216,3 +213,22 @@ module.exports = {
   authAdminUser: authAdminUser,
   authEmployeeUser: authEmployeeUser,
 }
+
+// SQL Attributes
+// ------------------------------------------------------
+
+const createMasterUserFields = [
+  'name', 'email', 'access', 'resetToken', 'password', 'language'
+];
+const createEmployeeFields = [
+  'name', 'access', 'language', 'accessPin', 'factoryId'
+]
+const createEmployeeFltrRes = [
+  'name', 'language', 'accessPin'
+]
+const getEmployeesFields = [
+  'id', 'name', 'accessPin', 'picture', 'lastActivity'
+]
+const authorizeEmployeeFields = [
+  'id', 'name', 'access', 'factoryId', 'language'
+]

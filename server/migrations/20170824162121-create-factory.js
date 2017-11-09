@@ -15,6 +15,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      slug: {
+        allowNull: false,
+        type: Sequelize.STRING
+      }
       latitude: {
         allowNull: false,
         type: Sequelize.DECIMAL(10, 8),

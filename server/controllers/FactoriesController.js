@@ -1,15 +1,30 @@
-//var Mongoose = require("mongoose")
-//var Factory = Mongoose.model("Factories")
+var map = require('async/map')
 
-function saveFactory(req, res, next) {
-  var factory = new Factory(req.body);
-  factory.save(function(err){
-    if (err) return res.json({err:err})
-    res.json(factory);
-  })
+var Factory = require('../models').Factory;
+var routeErr = require('../utils/routeErr.js');
 
+// Route Functions
+// ------------------------------------------------------
+
+function getFactoriesSlugs(req, res, next) {
+  Factory
+    .findAll({attributes: ['slug']})
+    .then(factories => {
+      map(
+        factories,
+        (factory, next) => next(false, factory.get('slug')),
+        (err, factories) => res.json({err:err, factories})
+      )
+    })
+    .catch(err => routeErr(res, next, err))
 }
+
+// Exports
+// ------------------------------------------------------
 
 module.exports = {
-  saveFactory: saveFactory
+  getSlugs: getFactoriesSlugs,
 }
+
+// SQL Attributes
+// ------------------------------------------------------

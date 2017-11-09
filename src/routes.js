@@ -19,6 +19,7 @@ import Register from './pages/Register';
 import Logout from './pages/Logout';
 //import NotFound from './pages/NotFound';
 import AdminSideNavigation from './pages/AdminSideNavigation';
+import ManagerSideNavigation from './pages/ManagerSideNavigation';
 
 const Routes = () => (
   <Router>
@@ -26,6 +27,7 @@ const Routes = () => (
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register/:token" component={Register}/>
       <Route exact path="/logout" component={Logout} />
+      <Route path="/factory/:factory" component={ManagerSideNavigation} />
       <Route path="/" component={userIsAuthenticated(AdminSideNavigation)} />
     </Switch>
   </Router>

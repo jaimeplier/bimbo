@@ -8,14 +8,8 @@ var routeErr = require('../utils/routeErr.js');
 
 function getFactoriesSlugs(req, res, next) {
   Factory
-    .findAll({attributes: ['slug']})
-    .then(factories => {
-      map(
-        factories,
-        (factory, next) => next(false, factory.get('slug')),
-        (err, factories) => res.json({err:err, factories})
-      )
-    })
+    .findAll({attributes: ['slug', 'name']})
+    .then(factories => res.json({err: false, factories}))
     .catch(err => routeErr(res, next, err))
 }
 

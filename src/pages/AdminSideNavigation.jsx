@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import {
   Home as HomeIcon,
-  CheckCircle,
   LogOut,
   Users as UsersIcon,
   Box,
@@ -16,9 +15,7 @@ import {
 
 import images from '../assets';
 
-import Factory from './Factory';
 import Home from './Home';
-import ActionPlans from './ActionPlans';
 import FactoryUsers from './FactoryUsers';
 
 class AdminSideNavigation extends Component {
@@ -29,6 +26,7 @@ class AdminSideNavigation extends Component {
   }
 
   render() {
+    const factories = this.props.adminFactories;
     return (
       <div>
         <div id="sidenav" className="card-2">
@@ -36,47 +34,55 @@ class AdminSideNavigation extends Component {
             <img src={images.emptyProfileImage} alt='' />
             <p>{ this.props.user && this.props.user.get('name') }</p>
           </div>
-          <NavLink to="/" activeClassName="link-active" exact={true}>
-            <div className="link">
-              <HomeIcon />
-              <p>Home</p>
-            </div>
-          </NavLink>
-          <NavLink to="/factories" activeClassName="link-active">
-            <div className="link">
-              <Box />
-              <p>Factories</p>
-            </div>
-          </NavLink>
-          <NavLink to="/action-plans" activeClassName="link-active">
-            <div className="link">
-              <CheckCircle />
-              <p>Action Plans</p>
-            </div>
-          </NavLink>
-          <NavLink to="/users" activeClassName="link-active">
-            <div className="link">
-              <UsersIcon />
-              <p>Users</p>
-            </div>
-          </NavLink>
-          <NavLink to="/logout" activeClassName="link-active">
-            <div className="link">
-              <LogOut />
-              <p>Log out</p>
-            </div>
-          </NavLink>
+          <Link to="/" exact={true}>
+              <HomeIcon /><p>Home</p>
+          </Link>
+          <Link to="/factory">
+              <Box /><p>Factories</p>
+          </Link>
+          { factories && factories.map((factory) => {
+            return (
+              <Link
+                key={factory.get("slug")}
+                to={"/factory/"+ factory.get("slug")}
+                extraClass="submenu-link"
+              >
+                <p>{ factory.get('name') }</p>
+              </Link>
+            )
+          }) }
+          <Link to="/users">
+            <UsersIcon /><p>Users</p>
+          </Link>
+          <Link to="/logout">
+              <LogOut /><p>Log out</p>
+          </Link>
         </div>
         <div id="main">
-          <Route path="/factory" component={Factory} />
           <Route exact path="/" component={Home} />
-          <Route path="/action-plans" component={ActionPlans} />
           <Route path="/users" component={FactoryUsers} />
         </div>
       </div>
     )
   }
 }
+
+function Link(props) {
+  const extraClass = props.extraClass;
+  return (
+    <NavLink
+      to={props.to}
+      activeClassName="link-active"
+      exact={props.exact}
+    >
+      <div className={"link "+ (extraClass ? extraClass : "")}>
+        { props.children }
+      </div>
+    </NavLink>
+  )
+}
+
+
 
 function mapStateToProps(state) {
   return {

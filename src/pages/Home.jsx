@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ScoringTable from '../components/ScoringTable';
 import ActionPlansInfo from '../components/ActionPlansInfo';
 import MonthlyLotsChart from '../components/MonthlyLotsChart';
+import Header from '../components/Header';
 
 import {
   getGlobalDashboardData,
@@ -19,6 +20,7 @@ class Home extends Component {
 
     return (
       <div>
+        <Header />
         <ActionPlansInfo
           metrics={gbData && gbData.getIn(['actionPlans', 'metrics'])}
         />

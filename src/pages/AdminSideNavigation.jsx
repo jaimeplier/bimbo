@@ -17,7 +17,6 @@ import {
 import images from '../assets';
 
 import Home from './Home';
-import FactoryUsers from './FactoryUsers';
 
 class AdminSideNavigation extends Component {
   componentWillMount() {
@@ -61,7 +60,6 @@ class AdminSideNavigation extends Component {
         </div>
         <div id="main">
           <Route exact path="/" component={Home} />
-          <Route path="/users" component={FactoryUsers} />
         </div>
       </div>
     )

@@ -51,6 +51,7 @@ module.exports = function(sequelize, DataTypes) {
     })
     Score.belongsTo(models.User, {
       foreignKey: 'userId',
+      as: 'user',
       onDelete: 'CASCADE',
     })
 

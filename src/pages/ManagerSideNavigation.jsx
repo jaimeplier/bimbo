@@ -7,17 +7,30 @@ import {
   Home as HomeIcon,
   CheckCircle,
   Users as UsersIcon,
+  Globe,
 } from 'react-feather';
 
 import images from '../assets';
 
 import ActionPlans from './ActionPlans';
 import FactorySummary from './FactorySummary';
+import FactoryUsers from './FactoryUsers';
+
+import {
+  getFactoryInfo,
+} from './../actions/factoryActions';
+
+const baseUrl = '/factory/';
 
 class ManagerSideNavigation extends Component {
+  componentWillMount() {
+    this.props.dispatch(getFactoryInfo(this.props.match.params.factory));
+  }
+
   render() {
     const factory = this.props.match.params.factory;
-    const baseUrl = '/factory/'+ factory;
+    const currentUrl = baseUrl + factory;
+    const user = this.props.user;
     return (
       <div>
         <div id="sidenav" className="card-2">
@@ -25,19 +38,25 @@ class ManagerSideNavigation extends Component {
             <img src={images.emptyProfileImage} alt=""/>
             <p>{this.props.user && this.props.user.get('name')}</p>
           </div>
-          <Link to={baseUrl} exact={true}>
+          { user && user.get('access') === 'Master' ?
+            <Link to="/" exact={true}>
+              <Globe /><p>{Poly.t('Global')}</p>
+            </Link>
+          : null }
+          <Link to={currentUrl} exact={true}>
             <HomeIcon /><p>Home</p>
           </Link>
-          <Link to={baseUrl + "/action-plans"}>
+          <Link to={currentUrl + "/action-plans"}>
             <CheckCircle /><p>{Poly.t('Action Plans')}</p>
           </Link>
-          <Link to={baseUrl + "/users"}>
+          <Link to={currentUrl + "/users"}>
             <UsersIcon /><p>{Poly.t('Users')}</p>
           </Link>
         </div>
         <div id="main">
-          <Route path={baseUrl+ "/action-plans"} component={ActionPlans} />
           <Route exact path={baseUrl} component={FactorySummary} />
+          <Route path={baseUrl+ ":factory/action-plans"} component={ActionPlans} />
+          <Route path={baseUrl+ ":factory/users"} component={FactoryUsers} />
         </div>
       </div>
     )

@@ -31,14 +31,15 @@ module.exports = function(app) {
   app.post('/api/users/log-in', UsersController.logInUser);
   app.post('/api/users/employee/create', authA, UsersController.createEmployeeUser);
   app.post('/api/users/employee/log-in', UsersController.authorizeEmployee);
-  app.get('/api/users/employee', UsersController.getEmployees);
   app.get('/api/users/language', UsersController.getLanguage);
 
 
   // Factories
   // ------------------------------------------------------
   app.get('/api/dashboards/global', authM, DashboardsController.global);
-  app.get('/api/factories/slug', authM, FactoriesController.getSlugs);
+  app.get('/api/factories', authM, FactoriesController.getSlugs);
+  app.get('/api/factories/:slug', authA, FactoriesController.getFactoryInfo)
+  app.get('/api/factories/:slug/employees', authA, FactoriesController.getEmployees)
 
 
   // Scores

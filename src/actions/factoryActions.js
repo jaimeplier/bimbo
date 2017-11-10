@@ -7,10 +7,23 @@ function setFactoryEmployees(json) {
   return {type: 'SET_FACTORY_EMPLOYEES', json}
 }
 
-export function getFactoryUsers() {
+function setFactoryInfo(factory, info) {
+  return {type: 'SET_FACTORY_INFO', factory, info}
+}
+
+export function getFactoryInfo(factory) {
   return function thunk(dispatch) {
-    sendGetRequest('/api/users/employee', (json) => {
-      dispatch(setFactoryEmployees(json));
+    sendGetRequest('/api/factories/'+factory, (json) => {
+      dispatch(setFactoryInfo(factory, json.factory))
+    }, null, false)
+  }
+}
+
+export function getFactoryUsers(factory) {
+  return function thunk(dispatch) {
+    const url = '/api/factories/'+factory+'/employees'
+    sendGetRequest(url, (json) => {
+      dispatch(setFactoryEmployees(factory, json));
     })
   }
 }
@@ -24,3 +37,4 @@ export function createFactoryUser(name, callback) {
     )
   }
 }
+

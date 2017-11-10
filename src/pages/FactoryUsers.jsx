@@ -19,21 +19,23 @@ class FactoryUsers extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getFactoryUsers());
+    this.props.dispatch(getFactoryUsers(this.props.match.params.factory));
   }
+  
 
   createUser(name, callback) {
     this.props.dispatch(createFactoryUser(name, callback))
   }
 
   render() {
+    const factoryInfo = this.props.factoryInfo
     return (
       <div className="factory-users">
         <div className="card card-2">
           <div className="row">
             <div className="col-6">
               <p className="card-title">Usuarios</p>
-              <p className="small-text" style={{marginBottom: '0px'}}>Azcapotzalco, CDMX</p>
+              <p className="small-text" style={{marginBottom: '0px'}}>{ factoryInfo && factoryInfo.get('address') }</p>
             </div>
             <div className="col-6 right">
               <CreateUser
@@ -82,9 +84,11 @@ class FactoryUsers extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  const factory = ownProps.match.params.factory;
   return {
-    users: state.get('employees')
+    users: state.getIn(['factories', factory, 'employees']),
+    factoryInfo: state.getIn(['factories', factory, 'info']),
   }
 }
 

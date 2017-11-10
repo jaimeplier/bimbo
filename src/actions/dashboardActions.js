@@ -18,7 +18,7 @@ export function getGlobalDashboardData() {
 
 export function getFactories() {
   return function thunk(dispatch) {
-    sendGetRequest('/api/factories/slug', (json) => {
+    sendGetRequest('/api/factories', (json) => {
       dispatch(setFactories(json.factories))
     }, null, true)
   }

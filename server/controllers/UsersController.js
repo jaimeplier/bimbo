@@ -9,6 +9,7 @@ var routeErr = require('./../utils/routeErr.js');
 var genErr = require('./../utils/generalError.js');
 var filterDbObj = require('./../utils/filterDbObjectKeys.js');
 var sendEmails = require('./../utils/sendEmails.js');
+var noAuth = require('./../utils/noAuth.js');
 
 var frontEndEnglish = require('./../i18n/frontEnd-en.json');
 var frontEndSpanish = require('./../i18n/frontEnd-es.json');
@@ -94,15 +95,15 @@ function authorizeEmployee(req, res, next) {
     })
 }
 
-function getEmployees(req, res, next) {
-  User
-    .findAll({
-      where: {access: 'Employee', factoryId: 1},
-      attributes: getEmployeesFields,
-    })
-    .then((users) => res.json({users: users}))
-    .catch(err => routeErr(res, next, err))
-}
+//function getEmployees(req, res, next) {
+//  User
+//    .findAll({
+//      where: {access: 'Employee', factoryId: 1},
+//      attributes: getEmployeesFields,
+//    })
+//    .then((users) => res.json({users: users}))
+//    .catch(err => routeErr(res, next, err))
+//}
 
 function getAuthenticatedUser(req, res, next) {
   res.json({user: req.session.user, err: false});
@@ -142,6 +143,7 @@ function authAdminUser(req, res, next) {
 
 function authEmployeeUser(req, res, next) {
   var auth = req.get('Authorization');
+  if(!auth) return noAuth(res)
   if(auth.substr(0,7) !== 'Bearer ') noAuth(res);
   var token = auth.substr(7, auth.length);
   jwt.verify(token, secret, function(err, decoded) {
@@ -181,9 +183,6 @@ function setUserSessionDataAndRespond(req, res, user) {
   res.json({err: false, user});
 }
 
-function noAuth(res) {
-  res.status(401).send('Not authorized');
-}
 
 function createUniqueAccessPin(callback, callcount) {
   callcount = callcount || 0;
@@ -216,7 +215,6 @@ module.exports = {
   createEmployeeUser: createEmployeeUser,
   authorizeEmployee: authorizeEmployee,
   logInUser: logInUser,
-  getEmployees: getEmployees,
   getAuthenticatedUser: getAuthenticatedUser,
   getLanguage: getLanguage,
   logout: logout,
@@ -236,9 +234,6 @@ const createEmployeeFields = [
 ]
 const createEmployeeFltrRes = [
   'name', 'language', 'accessPin'
-]
-const getEmployeesFields = [
-  'id', 'name', 'accessPin', 'picture', 'lastActivity'
 ]
 const authorizeEmployeeFields = [
   'id', 'name', 'access', 'factoryId', 'language'

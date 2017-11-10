@@ -3,12 +3,20 @@ import {
   sendPostRequest,
 } from '../utils/customRequests';
 
-function setFactoryEmployees(json) {
-  return {type: 'SET_FACTORY_EMPLOYEES', json}
-}
-
 function setFactoryInfo(factory, info) {
   return {type: 'SET_FACTORY_INFO', factory, info}
+}
+
+function setFactoryEmployees(factory, employees) {
+  return {type: 'SET_FACTORY_EMPLOYEES', factory, employees}
+}
+
+function setFactoryActionPlans(factory, actionPlans) {
+  return {
+    type: 'SET_FACTORY_ACTION_PLANS',
+    factory,
+    actionPlans
+  }
 }
 
 export function getFactoryInfo(factory) {
@@ -23,7 +31,7 @@ export function getFactoryUsers(factory) {
   return function thunk(dispatch) {
     const url = '/api/factories/'+factory+'/employees'
     sendGetRequest(url, (json) => {
-      dispatch(setFactoryEmployees(factory, json));
+      dispatch(setFactoryEmployees(factory, json.employees));
     })
   }
 }
@@ -35,6 +43,15 @@ export function createFactoryUser(name, callback) {
       {name, factoryId: 1, language: 'es'},
       (u) => {callback(u); dispatch(getFactoryUsers())}
     )
+  }
+}
+
+export function getFactoryActionPlans(factory) {
+  return function thunk(dispatch) {
+    const url = '/api/factories/'+ factory +'/action-plans'
+    sendGetRequest(url, (json) => {
+      dispatch(setFactoryActionPlans(factory, json.actionPlans))
+    })
   }
 }
 

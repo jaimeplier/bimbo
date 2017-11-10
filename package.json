@@ -35,7 +35,7 @@
     "request": "^2.81.0",
     "sass-loader": "^4.1.0",
     "sendgrid": "^5.2.2",
-    "sequelize": "^4.7.3",
+    "sequelize": "^4.22.6",
     "simple-react-modal": "^0.5.1",
     "validator": "^7.0.0",
     "xhr": "^2.4.0"

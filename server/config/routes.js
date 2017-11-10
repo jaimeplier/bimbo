@@ -36,10 +36,12 @@ module.exports = function(app) {
 
   // Factories
   // ------------------------------------------------------
+  const FC = FactoriesController;
   app.get('/api/dashboards/global', authM, DashboardsController.global);
-  app.get('/api/factories', authM, FactoriesController.getSlugs);
-  app.get('/api/factories/:slug', authA, FactoriesController.getFactoryInfo)
-  app.get('/api/factories/:slug/employees', authA, FactoriesController.getEmployees)
+  app.get('/api/factories', authM, FC.getSlugs);
+  app.get('/api/factories/:slug', authA, FC.getFactoryInfo)
+  app.get('/api/factories/:slug/employees', authA, FC.getEmployees)
+  app.get('/api/factories/:slug/action-plans', authA, FC.getActionPlans)
 
 
   // Scores

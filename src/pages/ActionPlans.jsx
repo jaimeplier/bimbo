@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ReactTable from 'react-table';
-import { sendGetRequest } from '../utils/customRequests';
 
 import { timeCell, lotCell } from '../utils/customTableCells';
 
@@ -9,6 +9,10 @@ import {
 } from 'react-feather';
 
 import Header from '../components/Header';
+
+import {
+  getFactoryActionPlans,
+} from './../actions/factoryActions';
 
 const columns = [{
   Header: 'Fecha',
@@ -28,7 +32,7 @@ const columns = [{
   accessor: 'correction',
 }]
 
-export default class ActionPlans extends Component {
+class ActionPlans extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,9 +41,9 @@ export default class ActionPlans extends Component {
   }
 
   componentWillMount() {
-    sendGetRequest('/api/action-plans', (data) => {
-      this.setState({tableData: data.actionPlans});
-    })
+    this.props.dispatch(getFactoryActionPlans(
+      this.props.match.params.factory
+    ))
   }
 
   render() {
@@ -74,4 +78,13 @@ export default class ActionPlans extends Component {
   }
 }
 
+function mapStateToProps(state, ownProps) {
+  const factory = ownProps.match.params.factory;
+  return {
+    factoryInfo: state.getIn(['factories', factory, 'info']),
+    actionPlans: state.getIn(['factories', factory, 'actionPlans']),
+  }
+}
+
+export default connect(mapStateToProps)(ActionPlans);
 

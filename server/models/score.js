@@ -41,9 +41,10 @@ module.exports = function(sequelize, DataTypes) {
   }, {paranoid: true});
 
   Score.associate = function(models) {
-    Score.belongsTo(models.Factory, {
+    Score.belongsToMany(models.Factory, {
+      through: 'FactoryProduct',
       foreignKey: 'factoryId',
-      onDelete: 'CASCADE',
+      as: 'factories',
     })
     Score.belongsTo(models.Product, {
       foreignKey: 'productId',

@@ -57,8 +57,9 @@ module.exports = function(sequelize, DataTypes) {
       as: 'actionPlans',
     })
     Factory.belongsToMany(models.Product, {
-      as: 'products',
       through: 'FactoryProduct',
+      foreignKey: 'productId',
+      as: 'products',
     });
     Factory.hasMany(models.Score, {
       foreignKey: 'factoryId',

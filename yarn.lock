@@ -3,12 +3,12 @@
 
 
 "@types/geojson@^1.0.0":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.3.tgz#fbcf7fa5eb6dd108d51385cc6987ec1f24214523"
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.6.tgz#3e02972728c69248c2af08d60a48cbb8680fffdf"
 
-"@types/node@^6.0.48":
-  version "6.0.87"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.87.tgz#5ab5774f8351a33a935099fa6be850aa0b0ad564"
+"@types/node@*":
+  version "8.0.51"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.51.tgz#b31d716fb8d58eeb95c068a039b9b6292817d5fb"
 
 abab@^1.0.3:
   version "1.0.3"
@@ -1026,7 +1026,11 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.4.6, bluebird@^3.5.0:
+bluebird@^3.4.6:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
+
+bluebird@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
@@ -1705,7 +1709,7 @@ debug@2.2.0:
   dependencies:
     ms "0.7.1"
 
-debug@2.6.7, debug@^2.2.0:
+debug@2.6.7:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
   dependencies:
@@ -1717,13 +1721,13 @@ debug@2.6.8, debug@^2.1.0, debug@^2.1.1, debug@^2.6.0, debug@^2.6.3, debug@^2.6.
   dependencies:
     ms "2.0.0"
 
-debug@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-3.0.0.tgz#1d2feae53349047b08b264ec41906ba17a8516e4"
+debug@^2.2.0, debug@^2.6.9:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   dependencies:
     ms "2.0.0"
 
-debug@^3.1.0:
+debug@^3.0.0, debug@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
@@ -2562,9 +2566,9 @@ generate-object-property@^1.1.0:
   dependencies:
     is-property "^1.0.0"
 
-generic-pool@^3.1.6:
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/generic-pool/-/generic-pool-3.1.7.tgz#dac22b2c7a7a04e41732f7d8d2d25a303c88f662"
+generic-pool@^3.1.8:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/generic-pool/-/generic-pool-3.2.0.tgz#c1d485ecbd6f18c0513d4741d098a6715eaeeca8"
 
 get-caller-file@^1.0.1:
   version "1.0.2"
@@ -4012,12 +4016,16 @@ minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0:
     minimist "0.0.8"
 
 moment-timezone@^0.5.4:
-  version "0.5.13"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.13.tgz#99ce5c7d827262eb0f1f702044177f60745d7b90"
+  version "0.5.14"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.14.tgz#4eb38ff9538b80108ba467a458f3ed4268ccfcb1"
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.10.6, moment@^2.13.0:
+"moment@>= 2.9.0", moment@^2.13.0:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
+
+moment@^2.10.6:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
@@ -5347,12 +5355,12 @@ restore-cursor@^1.0.1:
     exit-hook "^1.0.0"
     onetime "^1.0.0"
 
-retry-as-promised@^2.0.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/retry-as-promised/-/retry-as-promised-2.3.0.tgz#27bf5ccd999932b31665696825cf3630c27c562d"
+retry-as-promised@^2.3.1:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/retry-as-promised/-/retry-as-promised-2.3.2.tgz#cd974ee4fd9b5fe03cbf31871ee48221c07737b7"
   dependencies:
     bluebird "^3.4.6"
-    debug "^2.2.0"
+    debug "^2.6.9"
 
 right-align@^0.1.1:
   version "0.1.3"
@@ -5423,9 +5431,13 @@ scss-tokenizer@^0.2.3:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
 
-"semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.1.0, semver@^5.3.0, semver@~5.3.0:
+"semver@2 || 3 || 4 || 5", semver@^5.1.0, semver@^5.3.0, semver@~5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
+
+semver@^5.0.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
 
 send@0.15.4:
   version "0.15.4"
@@ -5465,26 +5477,26 @@ seq-queue@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/seq-queue/-/seq-queue-0.0.5.tgz#d56812e1c017a6e4e7c3e3a37a1da6d78dd3c93e"
 
-sequelize@^4.7.3:
-  version "4.7.3"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.7.3.tgz#c5354712fb6fc62a80d39fac30ae5bce8f860343"
+sequelize@^4.22.6:
+  version "4.22.6"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.22.6.tgz#33bc0c2e6367e22b08c5abd04472ae771fed0626"
   dependencies:
     bluebird "^3.4.6"
     cls-bluebird "^2.0.1"
     debug "^3.0.0"
     depd "^1.1.0"
     dottie "^2.0.0"
-    generic-pool "^3.1.6"
+    generic-pool "^3.1.8"
     inflection "1.12.0"
     lodash "^4.17.1"
     moment "^2.13.0"
     moment-timezone "^0.5.4"
-    retry-as-promised "^2.0.0"
+    retry-as-promised "^2.3.1"
     semver "^5.0.1"
     terraformer-wkt-parser "^1.1.2"
     toposort-class "^1.0.1"
     uuid "^3.0.0"
-    validator "^8.0.0"
+    validator "^9.1.0"
     wkx "^0.4.1"
 
 serve-index@^1.7.2:
@@ -6108,9 +6120,9 @@ validator@^7.0.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-7.2.0.tgz#a63dcbaba51d4350bf8df20988e0d5a54d711791"
 
-validator@^8.0.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-8.1.0.tgz#89cf6b512ff71eba886afd8d10d47f8dc800eac0"
+validator@^9.1.0:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-9.1.1.tgz#3bdd1065cbd28f9d96ac806dee01030d32fd97ef"
 
 value-equal@^0.2.0:
   version "0.2.1"
@@ -6291,10 +6303,10 @@ window-size@0.1.0:
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
 
 wkx@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/wkx/-/wkx-0.4.1.tgz#2fc171b5e9cb55c6256fef4bde1f21be413befee"
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/wkx/-/wkx-0.4.2.tgz#776d35a634a5c22e656e4744bdeb54f83fd2ce8d"
   dependencies:
-    "@types/node" "^6.0.48"
+    "@types/node" "*"
 
 wordwrap@0.0.2:
   version "0.0.2"

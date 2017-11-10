@@ -1,4 +1,5 @@
-import polyglot from './utils/i18n';
+// eslint-disable-next-line
+import Poly from './utils/i18n'; // get translations before doing anything else
 import React from 'react';
 import ReactDOM from 'react-dom';
 

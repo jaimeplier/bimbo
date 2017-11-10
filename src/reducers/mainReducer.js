@@ -15,11 +15,17 @@ export default function mainReducer(state = initialState, action) {
       return state.set('adminFactories', fromJS(action.factories));
 
     case 'SET_FACTORY_EMPLOYEES':
-      return state.set('employees', fromJS(action.json.users));
+      return state.setIn([
+        'factories', action.factory, 'employees'
+      ], fromJS(action.employees))
     case 'SET_FACTORY_INFO':
       return state.setIn([
         'factories', action.factory, 'info'
       ], fromJS(action.info))
+    case 'SET_FACTORY_ACTION_PLANS':
+      return state.setIn([
+        'factories', action.factory, 'actionPlans'
+      ], fromJS(action.actionPlans))
 
     default:
       return state;

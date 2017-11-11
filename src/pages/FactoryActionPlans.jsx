@@ -16,30 +16,27 @@ import {
 
 const columns = [{
   Header: 'Fecha',
-  accessor: 'createdAt',
+  id: 'createdAt',
+  accessor: (r) => r.get('createdAt'),
   Cell: timeCell,
   maxWidth: 160,
 }, {
   Header: 'No. Lote',
-  accessor: 'score.lot',
+  id: 'lot',
+  accessor: (r) => r.getIn(['score', 'lot']),
   Cell: lotCell,
   maxWidth: 160,
 }, {
   Header: 'Problema ó situación',
-  accessor: 'cause',
+  id: 'cause',
+  accessor: (r) => r.get('cause'),
 }, {
   Header: 'Solución',
-  accessor: 'correction',
+  id: 'correction',
+  accessor: (r) => r.get('correction'),
 }]
 
-class ActionPlans extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tableData: []
-    }
-  }
-
+class FactoryActionPlans extends Component {
   componentWillMount() {
     this.props.dispatch(getFactoryActionPlans(
       this.props.match.params.factory
@@ -47,6 +44,8 @@ class ActionPlans extends Component {
   }
 
   render() {
+    const actionPlans = this.props.actionPlans;
+    const factory = this.props.match.params.factory;
     return (
       <div className="action-plans">
         <Header />
@@ -59,7 +58,7 @@ class ActionPlans extends Component {
             <div className="col-6 no-margin-i float-right-i">
               <a
                 className="float-right button grey-btn"
-                href="/api/action-plans/download"
+                href={"/api/factories/"+ factory +"/action-plans/download"}
               >
                 <Download />
               </a>
@@ -67,7 +66,7 @@ class ActionPlans extends Component {
           </div>
           <ReactTable
             className="center custom-table"
-            data={this.state.tableData}
+            data={actionPlans && actionPlans.toArray()}
             columns={columns}
             showPagination={false}
             showPageSizeOptions={false}
@@ -86,5 +85,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(ActionPlans);
-
+export default connect(mapStateToProps)(FactoryActionPlans);

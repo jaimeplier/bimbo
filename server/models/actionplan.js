@@ -30,6 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     })
     ActionPlan.belongsTo(models.Product, {
       foreignKey: 'productId',
+      as: 'product',
       onDelete: 'CASCADE',
     })
     ActionPlan.belongsTo(models.Factory, {

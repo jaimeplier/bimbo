@@ -1,7 +1,6 @@
 var Promise = require('bluebird');
 var map = require('async/map')
 var sequelize = require('sequelize');
-var json2csv = require('json2csv')
 
 var routeErr = require('../utils/routeErr.js');
 
@@ -34,53 +33,6 @@ function getActionPlans(req, res, next) {
   ActionPlan
     .findAll({include: ['score']})
     .then(ap => res.json({err: false, actionPlans: ap}))
-    .catch(err => routeErr(res, next, err))
-}
-
-function downloadActionPlans(req, res, next) {
-  ActionPlan
-    .findAll({
-      include: [{
-        model: Score,
-        attributes: ['lot'],
-        as: 'score',
-      }, {
-        model: Product,
-        attributes: ['name'],
-      }, {
-        model: User,
-        attributes: ['name'],
-        as: 'createdUser',
-      }]
-    })
-    .then(ap => {
-      map(
-        ap,
-        (ap, next) => {
-          ap = ap.get({plain: true})
-          ap.lot = ap.score.lot;
-          ap.productName = ap.Product.name;
-          ap.createdBy = ap.createdUser.name;
-          next(false, ap)
-        },
-        (err, aps) => {
-          // TODO: Check the completedBy one shouldn't be working
-          var result = json2csv({
-            data: aps,
-            fields: [
-              "productName", "lot", "cause", "correction", "createdBy",
-              "completedAt", "createdAt",
-            ]
-          })
-
-          res
-            .set({
-              'Content-disposition':'attachment; filename=action-plans-'+Date.now()+'.csv'
-            })
-            .send(result);
-        }
-      )
-    })
     .catch(err => routeErr(res, next, err))
 }
 
@@ -142,5 +94,4 @@ module.exports = {
   get: getActionPlans,
   complete: markAsComplete,
   globalDashboardKPIs: globalDashboardKPIs,
-  downloadActionPlans: downloadActionPlans,
 }

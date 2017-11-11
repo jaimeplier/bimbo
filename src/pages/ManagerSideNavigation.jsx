@@ -12,7 +12,7 @@ import {
 
 import images from '../assets';
 
-import ActionPlans from './ActionPlans';
+import FactoryActionPlans from './FactoryActionPlans';
 import FactorySummary from './FactorySummary';
 import FactoryUsers from './FactoryUsers';
 
@@ -55,7 +55,7 @@ class ManagerSideNavigation extends Component {
         </div>
         <div id="main">
           <Route exact path={baseUrl} component={FactorySummary} />
-          <Route path={baseUrl+ ":factory/action-plans"} component={ActionPlans} />
+          <Route path={baseUrl+ ":factory/action-plans"} component={FactoryActionPlans} />
           <Route path={baseUrl+ ":factory/users"} component={FactoryUsers} />
         </div>
       </div>

@@ -42,6 +42,7 @@ module.exports = function(app) {
   app.get('/api/factories/:slug', authA, FC.getFactoryInfo)
   app.get('/api/factories/:slug/employees', authA, FC.getEmployees)
   app.get('/api/factories/:slug/action-plans', authA, FC.getActionPlans)
+  app.get('/api/factories/:slug/action-plans/download', authA, FC.downloadActionPlans)
 
 
   // Scores
@@ -55,7 +56,6 @@ module.exports = function(app) {
   // ------------------------------------------------------
   app.get('/api/action-plans', ActionPlansCtr.get);
   app.post('/api/action-plans/complete', ActionPlansCtr.complete)
-  app.get('/api/action-plans/download', authM, ActionPlansCtr.downloadActionPlans)
 
 
   // Error Handling

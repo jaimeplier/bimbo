@@ -1,7 +1,7 @@
 // Todo:
 // * Change database helpers to promises and run them in parallel
 
-var map = require('async/map')
+var json2csv = require('json2csv')
 
 var Factory = require('../models').Factory;
 var User = require('../models').User;
@@ -13,6 +13,7 @@ var routeErr = require('../utils/routeErr.js');
 
 var getUserFromReq = require('./../utils/databaseHelpers').getUserFromReq;
 var getFactoryFromSlug = require('./../utils/databaseHelpers').getFactoryFromSlug;
+var downloadAttachmentHeaders = require('./../utils/downloadAttachmentHeaders')
 
 var noAuth = require('./../utils/noAuth.js');
 
@@ -55,21 +56,48 @@ function getEmployees(req, res, next) {
 
 function getActionPlans(req, res, next) {
   authUserForFactory(req, res, next, (user, factory) => {
-    Factory
-      .findOne({
-        where: {id: factory.get('id')},
-        attributes: ['name'],
+    ActionPlan
+      .findAll({
+        where: {factoryId: factory.get('id')},
+        attributes: getActionPlansFields,
         include: [{
-          model: Product, as: 'products',
+          model: Product, as: 'product',
           attributes: getActionPlansProductsFields,
-          include: [{
-            model: ActionPlan, as: 'actionPlans',
-            attributes: getActionPlansFields,
-            limit: 5,
-          }]
+        }, {
+          model: Score, as: 'score',
+          attributes: getActionPlansScoreFields,
+        }],
+        limit: 20,
+      })
+      .then(actionPlans => res.json({err: false, actionPlans}))
+      .catch(err => routeErr(res, next, err))
+  })
+}
+
+function downloadActionPlans(req, res, next) {
+  authUserForFactory(req, res, next, (user, factory) => {
+    ActionPlan
+      .findAll({
+        where: {factoryId: factory.get('id')},
+        attributes: downloadActionPlansFields,
+        include: [{
+          model: Score, as: 'score',
+          attributes: ['lot', 'totalScore'],
+        }, {
+          model: Product, as: 'product',
+          attributes: ['name'],
         }]
       })
-      .then(factory => res.json({err: false, factory}))
+      .then(ap => {
+        json2csv({
+          data: ap,
+          fields: downloadActionPlansCSVFields,
+        }, (err, csv) => {
+            if(err) return routeErr(res, next, err)
+            const name = 'action-plans-'+ Date.now() + '.csv';
+            res.set(downloadAttachmentHeaders(name)).send(csv);
+        })
+      })
       .catch(err => routeErr(res, next, err))
   })
 }
@@ -101,6 +129,7 @@ module.exports = {
   getFactoryInfo,
   getEmployees,
   getActionPlans,
+  downloadActionPlans,
 }
 
 // SQL Attributes
@@ -114,11 +143,23 @@ const employeeWithScoreFields = [
   'lot', 'userId',
 ]
 const getActionPlansProductsFields = [
-  'id', 'name', 'slug', 
+  'name',
 ]
 const getActionPlansFields = [
-  'cause', 'correction', 'completedAt', 'productId',
+  'cause', 'correction', 'completedAt', 'productId', 'createdAt',
 ]
 const getActionPlansScoreFields = [
   'lot'
+]
+const downloadActionPlansFields = [
+  'cause', 'correction', 'completedAt', 'createdAt',
+]
+const downloadActionPlansCSVFields = [
+  {label: 'Lot', value: 'score.lot'},
+  {label: 'Product', value: 'product.name'},
+  {label: 'Score', value: 'score.totalScore'},
+  {label: 'Cause', value: 'cause'},
+  {label: 'Correction', value: 'correction'},
+  {label: 'Created At', value: 'createdAt'},
+  {label: 'Completed At', value: 'completedAt'},
 ]

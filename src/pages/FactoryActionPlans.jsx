@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
+import Poly from './../utils/i18n';
 
 import { timeCell, lotCell } from '../utils/customTableCells';
 
@@ -9,34 +10,44 @@ import {
 } from 'react-feather';
 
 import Header from '../components/Header';
+import CardHeader from '../components/CardHeader';
 
 import {
   getFactoryActionPlans,
 } from './../actions/factoryActions';
 
-const columns = [{
-  Header: 'Fecha',
-  id: 'createdAt',
-  accessor: (r) => r.get('createdAt'),
-  Cell: timeCell,
-  maxWidth: 160,
-}, {
-  Header: 'No. Lote',
-  id: 'lot',
-  accessor: (r) => r.getIn(['score', 'lot']),
-  Cell: lotCell,
-  maxWidth: 160,
-}, {
-  Header: 'Problema ó situación',
-  id: 'cause',
-  accessor: (r) => r.get('cause'),
-}, {
-  Header: 'Solución',
-  id: 'correction',
-  accessor: (r) => r.get('correction'),
-}]
 
 class FactoryActionPlans extends Component {
+  constructor(props) {
+    super(props)
+
+    this.columns = [{
+      Header: Poly.t('Date'),
+      id: 'createdAt',
+      accessor: (r) => r.get('createdAt'),
+      Cell: timeCell,
+      maxWidth: 160,
+    }, {
+      Header: Poly.t('Lot Number'),
+      id: 'lot',
+      accessor: (r) => r.getIn(['score', 'lot']),
+      Cell: lotCell,
+      maxWidth: 160,
+    }, {
+      Header: Poly.t('Product'),
+      id: 'product',
+      accessor: (r) => r.getIn(['product', 'name']),
+    }, {
+      Header: Poly.t('Cause'),
+      id: 'cause',
+      accessor: (r) => r.get('cause'),
+    }, {
+      Header: Poly.t('Correction'),
+      id: 'correction',
+      accessor: (r) => r.get('correction'),
+    }]
+  }
+
   componentWillMount() {
     this.props.dispatch(getFactoryActionPlans(
       this.props.match.params.factory
@@ -44,16 +55,21 @@ class FactoryActionPlans extends Component {
   }
 
   render() {
+    const factoryInfo = this.props.factoryInfo
     const actionPlans = this.props.actionPlans;
     const factory = this.props.match.params.factory;
     return (
       <div className="action-plans">
         <Header />
+        <div className="card card-2">
+          <CardHeader
+            title={Poly.t('Action Plans')}
+            subtitle={factoryInfo && factoryInfo.get('address')}
+          />
+        </div>
         <div className="card card-2 action-plans">
           <div className="row">
             <div className="col-6 no-margin-i">
-              <p className="card-title">Pan Blanco</p>
-              <p className="small-text">Acapotzalco, CDMX</p>
             </div>
             <div className="col-6 no-margin-i float-right-i">
               <a
@@ -67,7 +83,7 @@ class FactoryActionPlans extends Component {
           <ReactTable
             className="center custom-table"
             data={actionPlans && actionPlans.toArray()}
-            columns={columns}
+            columns={this.columns}
             showPagination={false}
             showPageSizeOptions={false}
           />

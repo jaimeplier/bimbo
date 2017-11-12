@@ -12,6 +12,7 @@ const userIsAuthenticated = connectedRouterRedirect({
   authenticatedSelector: state => !!state.get('user'),
   authenticatingSelector: state => state.get('isAuthenticating'),
   wrapperDisplayName: 'UserIsAuthenticated',
+  AuthenticatingComponent: () => (<p style={{textAlign:'center'}}>Loading</p>)
 });
 
 import Login from './pages/Login';
@@ -27,7 +28,7 @@ const Routes = () => (
       <Route exact path="/login" component={Login}/>
       <Route exact path="/register/:token" component={Register}/>
       <Route exact path="/logout" component={Logout} />
-      <Route path="/factory/:factory" component={ManagerSideNavigation} />
+      <Route path="/factory/:factory" component={userIsAuthenticated(ManagerSideNavigation)} />
       <Route path="/" component={userIsAuthenticated(AdminSideNavigation)} />
     </Switch>
   </Router>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Poly from '../utils/i18n';
 import { connect } from 'react-redux';
 
 import CreateUser from './../components/CreateUser';
@@ -10,6 +11,8 @@ import {
 
 import { formatDate } from '../utils/customTableCells';
 
+import Header from '../components/Header';
+import CardHeader from '../components/CardHeader';
 
 
 class FactoryUsers extends Component {
@@ -31,20 +34,16 @@ class FactoryUsers extends Component {
     const factoryInfo = this.props.factoryInfo
     return (
       <div className="factory-users">
+        <Header />
         <div className="card card-2">
-          <div className="row">
-            <div className="col-6">
-              <p className="card-title">Usuarios</p>
-              <p className="small-text" style={{marginBottom: '0px'}}>{ factoryInfo && factoryInfo.get('address') }</p>
-            </div>
-            <div className="col-6 right">
-              <CreateUser
-                type="factory"
-                submit={this.createUser}
-              />
-
-            </div>
-          </div>
+          <CardHeader
+            title={Poly.t('Users')}
+            subtitle={factoryInfo && factoryInfo.get('address')}
+            rightContent={<CreateUser 
+              type="factory"
+              submit={this.createUser}
+            />}
+          />
         </div>
         { this.props.users ?
             this.props.users.map((user, i) => {

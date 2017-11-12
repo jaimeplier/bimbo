@@ -13,5 +13,10 @@
   "Users": "Users",
   "Log out": "Log out",
   "Action Plans": "Action Plans",
-  "Global": "Global"
+  "Global": "Global",
+  "Date": "Date",
+  "Lot Number": "Lot Number",
+  "Product": "Product",
+  "Cause": "Cause",
+  "Correction": "Correction"
 }

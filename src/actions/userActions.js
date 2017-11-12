@@ -1,4 +1,5 @@
 import { sendGetRequest } from '../utils/customRequests';
+import { updatePoly } from  '../utils/i18n';
 
 export function setUser(user) {
   return {type: 'SET_USER', user}
@@ -10,10 +11,19 @@ export function setAuthenticatingComplete() {
 
 export function isUserLoggedIn() {
   return function thunk(dispatch) {
-   sendGetRequest('/api/users', (json) => {
-     dispatch(setUser(json.user));
-     dispatch(setAuthenticatingComplete());
-   }, null, true);
+    var user, req = 0;
+    var loaded = () => {
+      if(req < 1) return req++;
+      dispatch(setUser(user));
+      dispatch(setAuthenticatingComplete());
+    }
+
+    updatePoly(() => loaded())
+
+    sendGetRequest('/api/users', (json) => {
+      user = json.user
+      loaded()
+    }, null, true);
   }
 }
 

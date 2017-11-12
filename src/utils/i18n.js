@@ -7,20 +7,20 @@ var Poly = new Polyglot({
   allowMissing: true,
   onMissingKey: (key) => {
     if(loaded) {
-      console.log('warning: ');
       this.warn('Missing translation for key: "' + key + '"'); 
     }
     return key;
   }
 });
 
-export function updatePoly() {
+export function updatePoly(c) {
   sendGetRequest('/api/users/language', (res) => {
     Poly.extend(res);
     loaded = true;
+    c && c();
   }, null, false);
 }
 
-updatePoly();
+updatePoly()
 
 export default Poly;

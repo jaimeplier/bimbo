@@ -28,7 +28,7 @@ a {
   border-radius: 2px;
   background-color: $card-background;
   border: $card-border;
-  padding: 15px;
+  padding: $card-padding;
   margin: 10px;
 
   .card-title {

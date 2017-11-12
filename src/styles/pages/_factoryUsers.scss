@@ -1,11 +1,67 @@
 .factory-users {
-  .user-image {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    border-radius: 50px;
-    background-size: cover;
-    background-position: center;
-    background-color: #e4e4e4;
+  .user-card {
+    padding: 0px;
+    border: 0;
+  }
+
+  .user-card-title {
+    padding: ($card-padding - 8) $card-padding;
+    background-color: $primary-color;
+    width: initial;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+
+    p {
+      color: white;
+      margin: 0px;
+    }
+  }
+
+  .user-image-container {
+    box-sizing: border-box;
+    border-right: 1px solid $main-background-color;
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+
+    .user-image {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      margin-top: 20px;
+      border-radius: 50px;
+      background-size: cover;
+      background-position: center;
+      background-color: #e4e4e4;
+    }
+
+    .image-under-text {
+      margin-bottom: 8px;
+    }
+
+    .image-small-text {
+      margin-bottom: 20px;
+    }
+  }
+
+  
+  .activity-container {
+    width: 70%;
+    display: inline-block;
+    vertical-align: top;
+    p { margin: 0px; }
+    .line {box-sizing: border-box}
+    .line-bottom {border-bottom: 1px solid $main-background-color}
+    .line-right {border-right: 1px solid $main-background-color}
+    .column {
+      width: 50%;
+      display: inline-block;
+      margin: 0px;
+      padding: 5px;
+      padding-left: 15px;
+    }
+    .activity-header {
+      color: $primary-color;
+    }
   }
 }

@@ -18,5 +18,9 @@
   "Lot Number": "Lot Number",
   "Product": "Product",
   "Cause": "Cause",
-  "Correction": "Correction"
+  "Correction": "Correction",
+  "Last Activity": "Last Activity",
+  "Action": "Action",
+  "Time": "Time",
+  "Scored Lot": "Scored Lot"
 }

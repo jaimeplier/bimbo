@@ -140,7 +140,7 @@ const getEmployeesFields = [
   'id', 'name', 'accessPin', 'picture', 'lastActivity'
 ]
 const employeeWithScoreFields = [
-  'lot', 'userId',
+  'lot', 'userId', 'createdAt',
 ]
 const getActionPlansProductsFields = [
   'name',

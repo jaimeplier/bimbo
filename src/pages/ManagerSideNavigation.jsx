@@ -8,6 +8,7 @@ import {
   CheckCircle,
   Users as UsersIcon,
   Globe,
+  LogOut,
 } from 'react-feather';
 
 import images from '../assets';
@@ -51,6 +52,9 @@ class ManagerSideNavigation extends Component {
           </Link>
           <Link to={currentUrl + "/users"}>
             <UsersIcon /><p>{Poly.t('Users')}</p>
+          </Link>
+          <Link to={"/logout"}>
+            <LogOut /><p>{Poly.t('Log out')}</p>
           </Link>
         </div>
         <div id="main">

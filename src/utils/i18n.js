@@ -7,7 +7,7 @@ var Poly = new Polyglot({
   allowMissing: true,
   onMissingKey: (key) => {
     if(loaded) {
-      this.warn('Missing translation for key: "' + key + '"'); 
+      console.warn('Missing translation for key: "' + key + '"'); 
     }
     return key;
   }

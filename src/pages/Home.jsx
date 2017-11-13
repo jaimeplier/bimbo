@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import ScoringTable from '../components/ScoringTable';
 import ActionPlansInfo from '../components/ActionPlansInfo';
-import MonthlyLotsChart from '../components/MonthlyLotsChart';
 import Header from '../components/Header';
 
 import {
@@ -24,8 +22,6 @@ class Home extends Component {
         <ActionPlansInfo
           metrics={gbData && gbData.getIn(['actionPlans', 'metrics'])}
         />
-        <MonthlyLotsChart />
-        <ScoringTable />
       </div>
     )
   }

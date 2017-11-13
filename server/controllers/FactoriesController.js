@@ -102,7 +102,7 @@ function downloadActionPlans(req, res, next) {
   })
 }
 
-// Helper Functions
+// Exported Helper Functions
 // ------------------------------------------------------
 
 function authUserForFactory(req, res, next, callback) {
@@ -130,6 +130,8 @@ module.exports = {
   getEmployees,
   getActionPlans,
   downloadActionPlans,
+  // Non route exports
+  authUserForFactory,
 }
 
 // SQL Attributes

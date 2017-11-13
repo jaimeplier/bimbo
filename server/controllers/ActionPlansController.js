@@ -62,24 +62,42 @@ function globalDashboardKPIs() {
 
 }
 
+function factorySummaryKPIs(factory) {
+  return Promise
+    .all([
+      getActionsPlansMetrics(factory.get('id')),
+    ])
+    .then(data => { return {
+      metrics: data[0],
+    }})
+}
+
 // Helper Functions
 // ------------------------------------------------------
-function getActionsPlansMetrics() {
+function getActionsPlansMetrics(factoryId) {
   var timeScope = {
     $lt: new Date(),
     $gt: new Date(new Date() - 30*24*60*60*1000) // 1 month (days, hours, minutes, seconds, miliseconds)
   }
+  
+  var whereCompleted = {
+    'completedAt': {$eq: null},
+    'createdAt': timeScope,
+  }
+  var whereNotCompleted = {
+    'completedAt': {$not: null},
+    'createdAt': timeScope,
+  }
+
+  if(factoryId) {
+    whereCompleted.factoryId = factoryId;
+    whereNotCompleted.factoryId = factoryId;
+  }
 
   return Promise
     .all([
-      ActionPlan.count({where: {
-        'completedAt': {$eq: null},
-        'createdAt': timeScope,
-      }}),
-      ActionPlan.count({where: {
-        'completedAt': {$not: null},
-        'createdAt': timeScope,
-      }})
+      ActionPlan.count({where: whereCompleted}),
+      ActionPlan.count({where: whereNotCompleted})
     ])
     .then(data => { return {
       pending: data[0],
@@ -94,4 +112,5 @@ module.exports = {
   get: getActionPlans,
   complete: markAsComplete,
   globalDashboardKPIs: globalDashboardKPIs,
+  factorySummaryKPIs,
 }

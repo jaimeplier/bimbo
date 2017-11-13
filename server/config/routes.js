@@ -43,6 +43,7 @@ module.exports = function(app) {
   app.get('/api/factories/:slug/employees', authA, FC.getEmployees)
   app.get('/api/factories/:slug/action-plans', authA, FC.getActionPlans)
   app.get('/api/factories/:slug/action-plans/download', authA, FC.downloadActionPlans)
+  app.get('/api/factories/:slug/summary', authA, DashboardsController.factorySummary);
 
 
   // Scores

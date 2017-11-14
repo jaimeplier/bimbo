@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import ActionPlansInfo from '../components/ActionPlansInfo';
 import Header from '../components/Header';
+import GlobalKPIs from '../components/GlobalKPIs';
+import MonthlyLotsChart from '../components/MonthlyLotsChart';
 
 import {
   getGlobalDashboardData,
@@ -19,9 +20,11 @@ class Home extends Component {
     return (
       <div>
         <Header />
-        <ActionPlansInfo
-          metrics={gbData && gbData.getIn(['actionPlans', 'metrics'])}
+        <GlobalKPIs 
+          actionPlans={gbData && gbData.get('actionPlans')}
+          scores={gbData && gbData.get('scores')}
         />
+        <MonthlyLotsChart />
       </div>
     )
   }
@@ -29,7 +32,7 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    globalDashboard: state.get('globalDashboard')
+    globalDashboard: state.get('globalDashboard'),
   }
 }
 

@@ -19,6 +19,10 @@ function setFactoryActionPlans(factory, actionPlans) {
   }
 }
 
+function setFactorySummary(factory, json) {
+  return {type: 'SET_FACTORY_SUMMARY', factory, json}
+}
+
 export function getFactoryInfo(factory) {
   return function thunk(dispatch) {
     sendGetRequest('/api/factories/'+factory, (json) => {
@@ -51,6 +55,15 @@ export function getFactoryActionPlans(factory) {
     const url = '/api/factories/'+ factory +'/action-plans'
     sendGetRequest(url, (json) => {
       dispatch(setFactoryActionPlans(factory, json.actionPlans))
+    })
+  }
+}
+
+export function getFactorySummary(factory) {
+  return function thunk(dispatch) {
+    const url = '/api/factories/'+ factory +'/summary'
+    sendGetRequest(url, (json) => {
+      dispatch(setFactorySummary(factory, json))
     })
   }
 }

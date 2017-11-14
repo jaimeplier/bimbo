@@ -1,0 +1,51 @@
+.global-kpis {
+  .left-content {
+    display: inline-block;
+    width: 39%;
+    vertical-align: top;
+  }
+  .right-content {
+    display: inline-block;
+    float: right;
+    width: 60%;
+    vertical-align: top;
+  }
+  .score-totals {
+    border-radius: 3px;
+    color: white;
+    width: 49%;
+    display: inline-block;
+    padding: 10px 0px;
+    div { display: inline-block; }
+    svg {
+      height: 50px; width: auto;
+      margin: 14px 20px;
+    }
+  }
+
+  .score-text {
+    p:nth-child(1) { margin-bottom: 5px; text-transform: uppercase; }
+    p:nth-child(2) {
+      margin-top: 5px;
+      margin-bottom: 9px;
+      font-size: 30px;
+    }
+  }
+
+  .score-text-left {
+    margin-left: 15px;
+  }
+  .score-text-right {
+    float: right;
+    p { text-align: right; }
+    margin-right: 15px;
+  }
+
+  .success-totals {
+    background-color: #A4E8CB;
+  }
+  .unsuccess-totals {
+    background-color: #EF9696;
+    float: right;
+  }
+}

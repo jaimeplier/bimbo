@@ -46,7 +46,7 @@ function getEmployees(req, res, next) {
         include: [{
           model: Score, as: 'scores',
           attributes: employeeWithScoreFields,
-          limit: 5,
+          limit: 6,
         }],
       })
       .then(e => res.json({err: false, employees: e}))

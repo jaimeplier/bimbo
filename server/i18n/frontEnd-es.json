@@ -1,8 +1,8 @@
 {
   "KPIs": "KPI's",
-  "Created": "Creado",
-  "Completed": "Completado",
-  "Pending": "Pendiente",
+  "Created": "Creados",
+  "Completed": "Completados",
+  "Pending": "Pendientes",
   "Create User": "Crear Usuario",
   "Name": "Nombre",
   "Create": "Crear",
@@ -22,5 +22,8 @@
   "Last Activity": "Última actividad",
   "Action": "Acción",
   "Time": "Hora",
-  "Scored Lot": "Calificó Lote"
+  "Scored Lot": "Calificó Lote",
+  "Admin Users": "Usuarios Administrativos",
+  "Successful Lots": "Lotes Exitosos",
+  "Unsuccessful Lots": "Lotes Fallados"
 }

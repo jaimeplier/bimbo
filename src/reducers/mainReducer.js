@@ -1,6 +1,8 @@
 import { fromJS } from 'immutable';
 
-var initialState = fromJS({isAuthenticating: true, factories:{}});
+var initialState = fromJS({
+  isAuthenticating: true, factories:{}, sidenavFactoriesOpen: false,
+});
 
 export default function mainReducer(state = initialState, action) {
   switch(action.type) {
@@ -8,6 +10,8 @@ export default function mainReducer(state = initialState, action) {
       return state.set('isAuthenticating', false);
     case 'SET_USER':
       return state.set('user', fromJS(action.user));
+    case 'TOGGLE_SIDENAV_FACTORIES':
+      return state.update('sidenavFactoriesOpen', (r) => !r)
 
     case 'SET_GLOBAL_DASHBOARD_DATA':
       return state.set('globalDashboard', fromJS(action.json));
@@ -26,6 +30,10 @@ export default function mainReducer(state = initialState, action) {
       return state.setIn([
         'factories', action.factory, 'actionPlans'
       ], fromJS(action.actionPlans))
+    case 'SET_FACTORY_SUMMARY':
+      return state.setIn([
+        'factories', action.factory, 'summary'
+      ], fromJS(action.json))
 
     default:
       return state;

@@ -8,6 +8,9 @@ var genErr = require('../utils/generalError.js');
 var routeErr = require('../utils/routeErr.js');
 var ActionPlansCtr = require('./ActionPlansController.js');
 
+// Route Functions
+// ------------------------------------------------------
+
 function createScore(req, res, next) {
   var product = products[req.params.product];
   var auth = res.locals.jwtAuth;
@@ -80,7 +83,40 @@ function downloadScores(req, res, next) {
     .catch(err => routeErr(res, next, err))
 }
 
+// Non Route API Functions
+// ------------------------------------------------------
+
+function globalDashboardKPIs() {
+  return Promise
+    .all([
+      Score.count({where: {'totalScore': {$gt: 79}}}),
+      Score.count({where: {'totalScore': {$lt: 79}}}),
+    ])
+    .then(data => { return {
+      successful: data[0],
+      unsuccessful: data[1],
+    }})
+}
+
+function factorySummaryKPIs(factory) {
+  return Promise
+    .all([
+      getLatestScores(factory.get('id')),
+    ])
+    .then(data => { return {
+      latestScores: data[0],
+    }})
+}
+
+
 // ---------------- Helper Functions
+
+function getLatestScores(factoryId) {
+  return Score
+    .findAll({
+      where: {factoryId}
+    })
+}
 
 function determineLotTotalScore() {
 
@@ -91,4 +127,6 @@ module.exports = {
   create: createScore,
   get: getScores,
   downloadScores: downloadScores,
+  factorySummaryKPIs,
+  globalDashboardKPIs,
 }

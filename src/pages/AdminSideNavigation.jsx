@@ -6,27 +6,43 @@ import { connect } from 'react-redux';
 import {
   Home as HomeIcon,
   LogOut,
-  Users as UsersIcon,
   Box,
+  ChevronDown,
+  ChevronUp,
 } from 'react-feather';
 
 import {
-  getFactories
+  getFactories,
 } from './../actions/dashboardActions';
+
+import {
+  toggleFactorySideNav,
+} from '../actions/userActions';
 
 import images from '../assets';
 
 import Home from './Home';
+import AdminUsers from './AdminUsers';
 
 class AdminSideNavigation extends Component {
+  constructor(props) {
+    super(props)
+    this.toggleFactorySideNav = this.toggleFactorySideNav.bind(this)
+  }
+
   componentWillMount() {
     if(!this.props.adminFactories) {
       this.props.dispatch(getFactories())
     }
   }
 
+  toggleFactorySideNav() {
+    this.props.dispatch(toggleFactorySideNav())
+  }
+
   render() {
     const factories = this.props.adminFactories;
+    const factoryOpen = this.props.factoryNavOpen;
     return (
       <div>
         <div id="sidenav" className="card-2">
@@ -37,29 +53,33 @@ class AdminSideNavigation extends Component {
           <Link to="/" exact={true}>
               <HomeIcon /><p>Home</p>
           </Link>
-          <Link to="/factory">
+          <div
+            className={"link " +(factories && factories.size ? "" : "loading")}
+            onClick={this.toggleFactorySideNav}
+          >
               <Box /><p>{Poly.t('Factories')}</p>
-          </Link>
-          { factories && factories.map((factory) => {
-            return (
-              <Link
-                key={factory.get("slug")}
-                to={"/factory/"+ factory.get("slug")}
-                extraClass="submenu-link"
-              >
-                <p>{ factory.get('name') }</p>
-              </Link>
-            )
-          }) }
-          <Link to="/users">
-            <UsersIcon /><p>{Poly.t('Users')}</p>
-          </Link>
+              { factoryOpen ? <ChevronUp /> : <ChevronDown /> }
+          </div>
+          <div className={"dropdown " + (factoryOpen ? " dropdown-open" : "")}>
+            { factories && factories.map((factory) => {
+              return (
+                <Link
+                  key={factory.get("slug")}
+                  to={"/factory/"+ factory.get("slug")}
+                  extraClass="submenu-link"
+                >
+                  <p>{ factory.get('name') }</p>
+                </Link>
+              )
+            }) }
+          </div>
           <Link to="/logout">
               <LogOut /><p>{Poly.t('Log out')}</p>
           </Link>
         </div>
         <div id="main">
           <Route exact path="/" component={Home} />
+          <Route path="/users" component={AdminUsers} />
         </div>
       </div>
     )
@@ -86,7 +106,8 @@ function Link(props) {
 function mapStateToProps(state) {
   return {
     user: state.get('user'),
-    adminFactories: state.get('adminFactories')
+    adminFactories: state.get('adminFactories'),
+    factoryNavOpen: state.get('sidenavFactoriesOpen'),
   }
 }
 

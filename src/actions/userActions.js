@@ -9,6 +9,10 @@ export function setAuthenticatingComplete() {
   return {type: 'SET_AUTHENTICATING_COMPLETE'}
 }
 
+export function toggleFactorySideNav() {
+  return {type: 'TOGGLE_SIDENAV_FACTORIES'}
+}
+
 export function isUserLoggedIn() {
   return function thunk(dispatch) {
     var user, req = 0;

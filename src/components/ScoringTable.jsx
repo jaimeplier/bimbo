@@ -19,103 +19,105 @@ function scoreCell(row) {
 
 const columns = [{
   Header: 'Fecha',
-  accessor: 'createdAt',
+  id: 'createdAt',
+  accessor: (r) => r.get('createdAt'),
   Cell: timeCell,
   maxWidth: 160,
 }, {
   Header: 'No. Lote',
-  accessor: 'lot',
+  id: 'lot',
+  accessor: (r) => r.get('lot'),
   Cell: lotCell,
   maxWidth: 160,
 }, {
   id: 'hermeticidad',
   Header: 'Hermeticidad',
-  accessor: 'airTightness',
+  accessor: (r) => r.get('airTightness'),
   Cell: scoreCell,
 }, {
   id: 'Caracteristicas Fisicas',
   Header: 'Caracteristicas Fisicas',
-  accessor: 'packaging',
+  accessor: (r) => r.get('packaging'),
   Cell: scoreCell,
 }, {
   id: 'Tamano',
   Header: 'Tamaño',
-  accessor: 'size',
+  accessor: (r) => r.get('size'),
   Cell: scoreCell,
 }, {
   id: 'Limpieza',
   Header: 'Limpieza',
-  accessor: 'cleanliness',
+  accessor: (r) => r.get('cleanliness'),
   Cell: scoreCell,
 }, {
   id: 'Promociones',
   Header: 'Promociones',
-  accessor: 'promotions',
+  accessor: (r) => r.get('promotions'),
   Cell: scoreCell,
 }, {
   id: 'Condiciones Fisicas',
   Header: 'Condiciones Fisicas',
-  accessor: 'product',
+  accessor: (r) => r.get('product'),
   Cell: scoreCell,
 }, {
   id: 'Color del Empaque',
   Header: 'Color del Empaque',
-  accessor: 'color',
+  accessor: (r) => r.get('color'),
   Cell: scoreCell,
 }, {
   id: 'Olor',
   Header: 'Olor',
-  accessor: 'scent',
+  accessor: (r) => r.get('scent'),
   Cell: scoreCell,
 }, {
   id: 'Sabor',
   Header: 'Sabor',
-  accessor: 'taste',
+  accessor: (r) => r.get('taste'),
   Cell: scoreCell,
 }, {
   id: 'Comestiblidad / Textura',
   Header: 'Comestiblidad / Textura',
-  accessor: 'edibility',
+  accessor: (r) => r.get('edibility'),
   Cell: scoreCell,
 }, {
   id: 'Inocuidad',
   Header: 'Inocuidad',
-  accessor: 'harmlessness',
+  accessor: (r) => r.get('harmlessness'),
   Cell: scoreCell,
 }, {
   id: 'Peso',
   Header: 'Peso',
-  accessor: 'weight',
+  accessor: (r) => r.get('weight'),
   Cell: scoreCell,
 }, {
   id: 'Simetria',
   Header: 'Simetría',
-  accessor: 'symmetry',
+  accessor: (r) => r.get('symmetry'),
   Cell: scoreCell,
 }, {
   id: 'Numero de rebanadas',
   Header: 'Numero de rebanadas',
-  accessor: 'slicing',
+  accessor: (r) => r.get('slicing'),
   Cell: scoreCell,
 }, {
   id: 'corteza / pizo',
   Header: 'Corteza / Pizo',
-  accessor: 'crust',
+  accessor: (r) => r.get('crust'),
   Cell: scoreCell,
 }, {
   id: 'tamano',
   Header: 'Tamaño',
-  accessor: 'crumbSize',
+  accessor: (r) => r.get('crumbSize'),
   Cell: scoreCell,
 }, {
   id: 'color',
   Header: 'Color',
-  accessor: 'crumbColor',
+  accessor: (r) => r.get('crumbColor'),
   Cell: scoreCell,
 }, {
   id: 'Consistencia',
   Header: 'Consistencia',
-  accessor: 'crumbConsistency',
+  accessor: (r) => r.get('crumbConsistency'),
   Cell: scoreCell,
 }];
 
@@ -172,6 +174,7 @@ export default class ScoringTable extends Component {
   }
 
   render() {
+    const scores = this.props.scores;
     return (
       <div className="card card-2 scoring-table">
         <div className="row">
@@ -190,7 +193,7 @@ export default class ScoringTable extends Component {
         </div>
         <ReactTable
           className="center custom-table"
-          data={this.state.tableData}
+          data={scores && scores.toArray()}
           columns={columns}
           getTdProps={this.getTdProps}
           showPagination={false}

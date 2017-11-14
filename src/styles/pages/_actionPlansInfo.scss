@@ -1,22 +1,37 @@
 .action-plans-info {
-  color: $action-plans-main;
+  background-color: #307AB5;
+  color: white;
+  border-radius: 3px;
 
-  .bar-footer {
-    background-color: $action-plans-bar-footer;
-
-    p {
-      margin: 5px 0px;
-      min-height: 19px;
-    }
-
-    .bar-description {
-      opacity: 0.7;
-      text-transform: uppercase;
-    }
-
+  .title {
+    background-color: #6099C6;
+    border-radius: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 13px;
+    padding-left: 20px;
+    p { margin: 0px; }
   }
 
-  .bar-content {
-    background-image: $action-plans-bar-content;
+  .main-content {
+    padding: 0px 30px;
+  }
+
+  .border-line {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+  }
+
+  .action-plan {
+    padding: 30px 5px 30px 15px;
+    p {
+      text-transform: uppercase;
+      display: inline-block;
+      margin: 0px;
+      min-width: 60px;
+      text-align: center;
+    }
+    p:nth-child(1) { opacity: 0.8; }
+    .f-right { float: right; }
   }
 }

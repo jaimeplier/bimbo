@@ -3,6 +3,7 @@ var Promise = require('bluebird');
 var routeErr = require('../utils/routeErr.js');
 
 var ActionPlansCtr = require('./ActionPlansController.js');
+var ScoresController = require('./ScoreController.js');
 
 var FactoriesController = require('./FactoriesController.js');
 var authUserForFactory = FactoriesController.authUserForFactory;
@@ -13,10 +14,12 @@ var authUserForFactory = FactoriesController.authUserForFactory;
 function globalDashboard(req, res, next) {
   Promise.all([
     ActionPlansCtr.globalDashboardKPIs(),
+    ScoresController.globalDashboardKPIs(),
   ])
   .then(data => res.json({
     err: false,
     actionPlans: data[0],
+    scores: data[1],
   }))
   .catch(err => routeErr(res, next, err))
 }
@@ -24,11 +27,13 @@ function globalDashboard(req, res, next) {
 function factorySummary(req, res, next) {
   authUserForFactory(req, res, next, (user, factory) => {
     Promise.all([
-      ActionPlansCtr.factorySummaryKPIs(factory)
+      ActionPlansCtr.factorySummaryKPIs(factory),
+      ScoresController.factorySummaryKPIs(factory)
     ])
     .then(data => res.json({
       err: false,
       actionPlans: data[0],
+      scores: data[1],
     }))
     .catch(err => routeErr(res, next, err))
   })

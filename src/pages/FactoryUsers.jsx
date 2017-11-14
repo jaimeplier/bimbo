@@ -26,7 +26,8 @@ class FactoryUsers extends Component {
   }
 
   createUser(name, callback) {
-    this.props.dispatch(createFactoryUser(name, callback))
+    const factory = this.props.match.params.factory
+    this.props.dispatch(createFactoryUser(factory, name, callback))
   }
 
   render() {

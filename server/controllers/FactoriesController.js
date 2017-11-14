@@ -110,6 +110,7 @@ function authUserForFactory(req, res, next, callback) {
     if(err) return routeErr(res, next, err)
     getFactoryFromSlug(req.params.slug, (err, factory) => {
       if(err) return routeErr(res, next, err)
+      // TODO: If no factory then factory no found
       if(
         user.get('access') === 'Master' ||
         user.get('factoryId') === factory.get('id')

@@ -40,12 +40,12 @@ export function getFactoryUsers(factory) {
   }
 }
 
-export function createFactoryUser(name, callback) {
+export function createFactoryUser(factory, name, callback) {
   return function thunk(dispatch) {
-    sendPostRequest(
-      '/api/users/employee/create',
-      {name, factoryId: 1, language: 'es'},
-      (u) => {callback(u); dispatch(getFactoryUsers())}
+    const url = '/api/factories/'+ factory +'/employees'
+    sendPostRequest(url,
+      {name, language: 'es'},
+      (u) => {callback(u); dispatch(getFactoryUsers(factory))}
     )
   }
 }

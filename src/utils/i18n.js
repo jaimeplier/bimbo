@@ -21,6 +21,4 @@ export function updatePoly(c) {
   }, null, false);
 }
 
-updatePoly()
-
 export default Poly;

@@ -23,5 +23,7 @@
   "Action": "Action",
   "Time": "Time",
   "Scored Lot": "Scored Lot",
-  "Admin Users": "Admin Users"
+  "Admin Users": "Admin Users",
+  "Successful Lots": "Successful Lots",
+  "Unsuccessful Lots": "Unsuccessful Lots"
 }

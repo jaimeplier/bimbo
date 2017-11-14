@@ -29,27 +29,30 @@ module.exports = function(app) {
   app.post('/api/users/masters/create', UsersController.createMasterUser);
   app.post('/api/users/register', UsersController.registerUser);
   app.post('/api/users/log-in', UsersController.logInUser);
-  app.post('/api/users/employee/create', authA, UsersController.createEmployeeUser);
+  // app.post('/api/users/employee/create', authA, UsersController.createEmployeeUser);
   app.post('/api/users/employee/log-in', UsersController.authorizeEmployee);
   app.get('/api/users/language', UsersController.getLanguage);
 
+  // Dashboards
+  // ------------------------------------------------------
+  app.get('/api/dashboards/global', authM, DashboardsController.global);
 
   // Factories
   // ------------------------------------------------------
   const FC = FactoriesController;
-  app.get('/api/dashboards/global', authM, DashboardsController.global);
   app.get('/api/factories', authM, FC.getSlugs);
   app.get('/api/factories/:slug', authA, FC.getFactoryInfo)
+  app.get('/api/factories/:slug/summary', authA, DashboardsController.factorySummary);
   app.get('/api/factories/:slug/employees', authA, FC.getEmployees)
+  app.post('/api/factories/:slug/employees', authA, UsersController.createEmployee)
   app.get('/api/factories/:slug/action-plans', authA, FC.getActionPlans)
   app.get('/api/factories/:slug/action-plans/download', authA, FC.downloadActionPlans)
-  app.get('/api/factories/:slug/summary', authA, DashboardsController.factorySummary);
 
 
   // Scores
   // ------------------------------------------------------
   app.post('/api/scores/:product', authE, ScoresController.create)
-  app.get('/api/scores/', authM, ScoresController.get)
+  app.get('/api/scores', authM, ScoresController.get)
   app.get('/api/scores/download', authM, ScoresController.downloadScores)
 
 

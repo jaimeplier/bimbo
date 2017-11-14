@@ -5,6 +5,9 @@ var secret = process.env.SESSION_SECRET;
 
 var User = require('../models').User;
 
+var FactoriesController = require('./FactoriesController.js');
+var authUserForFactory = FactoriesController.authUserForFactory;
+
 var routeErr = require('./../utils/routeErr.js');
 var genErr = require('./../utils/generalError.js');
 var filterDbObj = require('./../utils/filterDbObjectKeys.js');
@@ -13,6 +16,7 @@ var noAuth = require('./../utils/noAuth.js');
 
 var frontEndEnglish = require('./../i18n/frontEnd-en.json');
 var frontEndSpanish = require('./../i18n/frontEnd-es.json');
+
 
 
 // Route Functions
@@ -31,20 +35,22 @@ function createMasterUser(req, res, next) {
     .catch(err => routeErr(res, next, err))
 }
 
-function createEmployeeUser(req, res, next) {
-  var user = req.body;
-  user.access = 'Employee';
-  if(!user.factoryId) return routeErr(res, next, {msg: 'No factory ID'});
-  createUniqueAccessPin((err, pin) => {
-    if(err) return routeErr(res, next, err);
-    user.accessPin = pin;
-    User
-      .create(user, {fields: createEmployeeFields})
-      .then((user) => {
-        res.json(filterDbObj(user, createEmployeeFltrRes))
-      })
-      .catch(err => routeErr(res, next, err))
-  });
+function createEmployee(req, res, next) {
+  authUserForFactory(req, res, next, (reqUser, factory) => {
+    var user = req.body
+    user.access = 'Employee'
+    user.factoryId = factory.get('id')
+    createUniqueAccessPin((err, pin) => {
+      if(err) return routeErr(res, next, err);
+      user.accessPin = pin;
+      User
+        .create(user, {fields: createEmployeeFields})
+        .then((user) => {
+          res.json(filterDbObj(user, createEmployeeFltrRes))
+        })
+        .catch(err => routeErr(res, next, err))
+    })
+  })
 }
 
 function registerUser(req, res, next) {
@@ -94,16 +100,6 @@ function authorizeEmployee(req, res, next) {
       })
     })
 }
-
-//function getEmployees(req, res, next) {
-//  User
-//    .findAll({
-//      where: {access: 'Employee', factoryId: 1},
-//      attributes: getEmployeesFields,
-//    })
-//    .then((users) => res.json({users: users}))
-//    .catch(err => routeErr(res, next, err))
-//}
 
 function getAuthenticatedUser(req, res, next) {
   res.json({user: req.session.user, err: false});
@@ -212,7 +208,7 @@ function createUniqueAccessPin(callback, callcount) {
 module.exports = {
   createMasterUser: createMasterUser,
   registerUser: registerUser,
-  createEmployeeUser: createEmployeeUser,
+  createEmployee,
   authorizeEmployee: authorizeEmployee,
   logInUser: logInUser,
   getAuthenticatedUser: getAuthenticatedUser,

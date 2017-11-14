@@ -18,7 +18,7 @@ module.exports = {
       slug: {
         allowNull: false,
         type: Sequelize.STRING
-      }
+      },
       latitude: {
         allowNull: false,
         type: Sequelize.DECIMAL(10, 8),
@@ -34,6 +34,10 @@ module.exports = {
       address: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      country: {
+        allowNull: false,
+        type: Sequelize.STRING(2),
       },
       createdAt: {
         allowNull: false,

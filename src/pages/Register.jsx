@@ -86,7 +86,7 @@ class Register extends Component {
               <RaisedButton
                 label="Sign In"
                 fullWidth={true}
-                onTouchTap={this._handleSubmit.bind(this)}
+                onClick={this._handleSubmit.bind(this)}
                 primary={true} />
             </div>
           </div>

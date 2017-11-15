@@ -13,8 +13,6 @@ import './styles/application.scss';
 
 import Routes from './routes';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 

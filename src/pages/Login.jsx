@@ -83,7 +83,7 @@ class Login extends Component {
                 label="Log In"
                 fullWidth={true}
                 primary={true}
-                onTouchTap={this._handleSubmit.bind(this)}
+                onClick={this._handleSubmit.bind(this)}
               />
             </div>
           </div>

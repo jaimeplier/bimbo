@@ -1,6 +1,7 @@
 // Todo:
 // * Change database helpers to promises and run them in parallel
 
+var map = require('async/map')
 var json2csv = require('json2csv')
 
 var Factory = require('../models').Factory;
@@ -8,6 +9,7 @@ var User = require('../models').User;
 var Score = require('../models').Score;
 var Product = require('../models').Product;
 var ActionPlan = require('../models').ActionPlan;
+var sequelize = require('../models').sequelize;
 
 var routeErr = require('../utils/routeErr.js');
 
@@ -102,6 +104,36 @@ function downloadActionPlans(req, res, next) {
   })
 }
 
+// Non Route API Functions
+// ------------------------------------------------------
+
+function globalDashboardKPIs() {
+  return Promise
+    .all([
+      getFactoryInfoForGlobalDashboard(),
+      Score.find({attributes: scoreAverageAttributes}),
+    ])
+    .then((data) => {
+      const avgScr = Number(data[1].get('averageScore')).toFixed(2);
+      return new Promise((resolve, reject) => {
+         map(
+          data[0],
+          (factory, next) => {
+            factory = factory.get({plain:true})
+            const factoryAvg = Number(factory.averageScore).toFixed(2)
+            factory.averageScore = factoryAvg;
+            factory.diffWithAverage = ((factoryAvg - avgScr).toFixed(2) + '%');
+            next(false, factory)
+          },
+          (err, factories) => {
+            if(err) return reject(err)
+            resolve(factories)
+          }
+        )
+      })
+    })
+}
+
 // Exported Helper Functions
 // ------------------------------------------------------
 
@@ -121,6 +153,24 @@ function authUserForFactory(req, res, next, callback) {
   })
 }
 
+// Exported Helper Functions
+// ------------------------------------------------------
+
+function getFactoryInfoForGlobalDashboard() {
+  return Factory
+    .findAll({
+      attributes: getFactoriesGlobalDashboard,
+      include: [{
+        model: Score, as: 'scores',
+        attributes: [],
+        include: [{
+          model: ActionPlan, as: 'actionPlan',
+          attributes: [],
+        }]
+      }],
+      group: ['factory.id'],
+    })
+}
 
 // Exports
 // ------------------------------------------------------
@@ -131,6 +181,7 @@ module.exports = {
   getEmployees,
   getActionPlans,
   downloadActionPlans,
+  globalDashboardKPIs,
   // Non route exports
   authUserForFactory,
 }
@@ -165,4 +216,14 @@ const downloadActionPlansCSVFields = [
   {label: 'Correction', value: 'correction'},
   {label: 'Created At', value: 'createdAt'},
   {label: 'Completed At', value: 'completedAt'},
+]
+const getFactoriesGlobalDashboard = [
+  'name', 'slug', 'country', 
+  [sequelize.fn('COUNT', sequelize.col('Scores.id')), 'totalScores'],
+  [sequelize.fn('AVG', sequelize.col('Scores.totalScore')), 'averageScore'],
+  [sequelize.fn('COUNT', sequelize.col('scores->actionPlan.id')), 'totalActionPlans'],
+  [sequelize.fn('MAX', sequelize.col('Scores.createdAt')), 'lastActivity']
+]
+const scoreAverageAttributes = [
+ [sequelize.fn('AVG', sequelize.col('Score.totalScore')), 'averageScore']
 ]

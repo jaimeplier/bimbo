@@ -48,6 +48,14 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: true,
         notNull: true
       }
+    },
+    country: {
+      type: DataTypes.STRING(2),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        notNull: true,
+      }
     }
   }, {paranoid: true});
 

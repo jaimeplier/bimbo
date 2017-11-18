@@ -14,8 +14,8 @@ var filterDbObj = require('./../utils/filterDbObjectKeys.js');
 var sendEmails = require('./../utils/sendEmails.js');
 var noAuth = require('./../utils/noAuth.js');
 
-var frontEndEnglish = require('./../i18n/frontEnd-en.json');
-var frontEndSpanish = require('./../i18n/frontEnd-es.json');
+var frontEndEnglish = require('./../i18n/frontEnd-en.js');
+var frontEndSpanish = require('./../i18n/frontEnd-es.js');
 
 
 

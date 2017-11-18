@@ -69,6 +69,9 @@ class FactoryActionPlans extends Component {
         </div>
         <div className="card card-2 action-plans">
           <div className="row">
+      Header: 'Differencia con el promedio',
+      id: 'diffWithAverage',
+      accessor: (r) => r.get('totalScores'),
             <div className="col-6 no-margin-i">
             </div>
             <div className="col-6 no-margin-i float-right-i">

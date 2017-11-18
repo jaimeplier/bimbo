@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import GlobalKPIs from '../components/GlobalKPIs';
 import MonthlyLotsChart from '../components/MonthlyLotsChart';
+import GlobalFactories from '../components/GlobalFactories';
 
 import {
   getGlobalDashboardData,
@@ -25,6 +26,9 @@ class Home extends Component {
           scores={gbData && gbData.get('scores')}
         />
         <MonthlyLotsChart />
+        <GlobalFactories
+          factories={gbData && gbData.get('factories')}
+        />
       </div>
     )
   }

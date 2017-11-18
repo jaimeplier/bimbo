@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { sendGetRequest } from '../utils/customRequests';
 import ReactTable from 'react-table';
 import { ReactTableDefaults } from 'react-table';
 
@@ -126,19 +125,6 @@ Object.assign(ReactTableDefaults.column, {
 });
 
 export default class ScoringTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tableData: []
-    }
-
-  }
-
-  componentWillMount() {
-    sendGetRequest('/api/scores', (data) => {
-      this.setState({tableData: data.scores});
-    })
-  }
 
   tdStyle(state, rowInfo, column) {
     let style = '';

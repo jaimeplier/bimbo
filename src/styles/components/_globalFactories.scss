@@ -1,0 +1,30 @@
+.global-factories {
+  .avg-cell {
+    svg {
+      height: 14px;
+      margin-right: 5px;
+      margin-bottom: -2px;
+    }
+  }
+
+  .avg-cell-positive {
+    color: #4ECB73;
+  }
+  .avg-cell-negative {
+    color: #D64446;
+  }
+  .factory-name {
+    text-align: left;
+    div {
+      width: 35px;
+      height: 35px;
+      margin: 0px 15px;
+      display: inline-block;
+      vertical-align: middle;
+      background-size: cover;
+      background-position: center;
+      border-radius: 50px;
+    }
+    p { display: inline-block; }
+  }
+}

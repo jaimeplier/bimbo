@@ -13,8 +13,11 @@ var Poly = new Polyglot({
   }
 });
 
+export var languageObject = {};
+
 export function updatePoly(c) {
   sendGetRequest('/api/users/language', (res) => {
+    languageObject = res;
     Poly.extend(res);
     loaded = true;
     c && c();

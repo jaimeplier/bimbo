@@ -52,7 +52,6 @@ module.exports = function(app) {
   // Scores
   // ------------------------------------------------------
   app.post('/api/scores/:product', authE, ScoresController.create)
-  app.get('/api/scores', authM, ScoresController.get)
   app.get('/api/scores/download', authM, ScoresController.downloadScores)
 
 

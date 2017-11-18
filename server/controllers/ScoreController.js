@@ -1,5 +1,7 @@
 var map = require('async/map')
+var Promise = require('bluebird');
 var json2csv = require('json2csv')
+
 
 var Score = require('../models').Score;
 var Product = require('../models').Product;
@@ -26,13 +28,6 @@ function createScore(req, res, next) {
   Score
     .create(data, { fields: product })
     .then(scr => ActionPlansCtr.createOrReturnScore(req, res, next, scr))
-    .catch(err => routeErr(res, next, err))
-}
-
-function getScores(req, res, next) {
-  Score
-    .findAll()
-    .then(scrs => res.json({err: false, scores: scrs}))
     .catch(err => routeErr(res, next, err))
 }
 
@@ -125,7 +120,6 @@ function determineLotTotalScore() {
 
 module.exports = {
   create: createScore,
-  get: getScores,
   downloadScores: downloadScores,
   factorySummaryKPIs,
   globalDashboardKPIs,

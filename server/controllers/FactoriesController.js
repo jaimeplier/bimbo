@@ -107,7 +107,7 @@ function downloadActionPlans(req, res, next) {
 // Non Route API Functions
 // ------------------------------------------------------
 
-function globalDashboardKPIs() {
+function globalDashboardFactoriesKPIs() {
   return Promise
     .all([
       getFactoryInfoForGlobalDashboard(),
@@ -116,8 +116,7 @@ function globalDashboardKPIs() {
     .then((data) => {
       const avgScr = Number(data[1].get('averageScore')).toFixed(2);
       return new Promise((resolve, reject) => {
-         map(
-          data[0],
+         map(data[0],
           (factory, next) => {
             factory = factory.get({plain:true})
             const factoryAvg = Number(factory.averageScore).toFixed(2)
@@ -128,6 +127,32 @@ function globalDashboardKPIs() {
           (err, factories) => {
             if(err) return reject(err)
             resolve(factories)
+          }
+        )
+      })
+    })
+}
+
+function globalDashboardMapKPIs() {
+  return Factory
+    .findAll({
+      attributes: getFactoriesMapGlobalDashboard,
+      include: [{
+        model: Score, as: 'scores',
+        attributes: [],
+      }],
+      group: ['factory.country']
+    })
+    .then(data => {
+      return new Promise((resolve, reject) => {
+        map(data,
+          (c, next) => next(false, [
+            c.get('country'), c.get('totalScores')
+          ]),
+          (err, countries) => {
+            if(err) return reject(err)
+            countries.unshift(['Country', 'Scores'])
+            resolve(countries)
           }
         )
       })
@@ -181,7 +206,8 @@ module.exports = {
   getEmployees,
   getActionPlans,
   downloadActionPlans,
-  globalDashboardKPIs,
+  globalDashboardFactoriesKPIs,
+  globalDashboardMapKPIs,
   // Non route exports
   authUserForFactory,
 }
@@ -226,4 +252,8 @@ const getFactoriesGlobalDashboard = [
 ]
 const scoreAverageAttributes = [
  [sequelize.fn('AVG', sequelize.col('Score.totalScore')), 'averageScore']
+]
+const getFactoriesMapGlobalDashboard = [
+  'country',
+  [sequelize.fn('COUNT', sequelize.col('Scores.id')), 'totalScores'],
 ]

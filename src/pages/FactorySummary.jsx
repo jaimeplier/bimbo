@@ -19,9 +19,16 @@ class FactorySummary extends Component {
 
   render() {
     const data = this.props.summary;
+    const factorySlug = this.props.match.params.factory;
+    const info = this.props.factoryInfo;
     return (
       <div className="factory-summary">
-        <Header />
+        <Header 
+          crumb={[{
+            name: (info && info.get('name')),
+            to: '/factory/'+factorySlug,
+          }]}
+        />
         <ActionPlansChart
           metrics={data && data.getIn(['actionPlans', 'metrics'])}
         />
@@ -38,6 +45,7 @@ function mapStateToProps(state, ownProps) {
   const factory = ownProps.match.params.factory;
   return {
     summary: state.getIn(['factories', factory, 'summary']),
+    factoryInfo: state.getIn(['factories', factory, 'info']),
   }
 }
 

@@ -45,7 +45,7 @@ class ManagerSideNavigation extends Component {
             </Link>
           : null }
           <Link to={currentUrl} exact={true}>
-            <HomeIcon /><p>Home</p>
+            <HomeIcon /><p>{Poly.t('Summary')}</p>
           </Link>
           <Link to={currentUrl + "/action-plans"}>
             <CheckCircle /><p>{Poly.t('Action Plans')}</p>

@@ -32,9 +32,18 @@ class FactoryUsers extends Component {
 
   render() {
     const factoryInfo = this.props.factoryInfo
+    const factorySlug = this.props.match.params.factory
     return (
       <div className="factory-users">
-        <Header />
+        <Header
+          crumb={[{
+            name: (factoryInfo && factoryInfo.get('name')),
+            to: '/factory/'+factorySlug,
+          }, {
+            name: Poly.t('Users'),
+            to: '/factory/'+factorySlug+'/users',
+          }]}
+        />
         <div className="card card-2">
           <CardHeader
             title={Poly.t('Users')}

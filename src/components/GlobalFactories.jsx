@@ -44,29 +44,27 @@ export default class GlobalFactories extends Component {
       sortMethod: this.diffWithAvgSort,
     }, {
       // TODO: Probably will need a custom sorting function for this
-      Header: 'Ultima Actividad',
+      Header: Poly.t('Last Activity'),
       id: 'lastActivty',
       accessor: (r) => r.get('lastActivity'),
       Cell: this.timeAgoCell.bind(this),
     }]
 
     this.timeAgoFormat = buildFormatter(languageObject.TimeAgoStrings)
-    console.log('the format', this.timeAgoFormat)
-    console.log('the times:', languageObject.TimeAgoStrings)
   }
 
   diffWithAvgSort(a, b, desc) {
     const aIsNeg = (a.charAt(0) === '-')
     const bIsNeg = (b.charAt(0) === '-')
     if(aIsNeg && bIsNeg) {
-      const aNum = parseInt(a.substring(1, a.length-1));
-      const bNum = parseInt(b.substring(1, b.length1));
+      const aNum = parseInt(a.substring(1, a.length-1), 10);
+      const bNum = parseInt(b.substring(1, b.length1), 10);
       return aNum < bNum ? 1 : -1;
     }
     if(aIsNeg && !bIsNeg) return -1;
     if(!aIsNeg && bIsNeg) return 1;
-    const aNum = parseInt(a.substring(0, a.length-1))
-    const bNum = parseInt(b.substring(0, b.length-1))
+    const aNum = parseInt(a.substring(0, a.length-1), 10)
+    const bNum = parseInt(b.substring(0, b.length-1), 10)
     return aNum > bNum ? -1 : 1;
   }
 

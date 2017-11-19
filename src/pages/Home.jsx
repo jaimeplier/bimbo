@@ -5,13 +5,14 @@ import Header from '../components/Header';
 import GlobalKPIs from '../components/GlobalKPIs';
 import MonthlyLotsChart from '../components/MonthlyLotsChart';
 import GlobalFactories from '../components/GlobalFactories';
+import GlobalFactoriesMap from '../components/GlobalFactoriesMap';
 
 import {
   getGlobalDashboardData,
 } from '../actions/dashboardActions';
 
 class Home extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.dispatch(getGlobalDashboardData())
   }
 
@@ -26,6 +27,9 @@ class Home extends Component {
           scores={gbData && gbData.get('scores')}
         />
         <MonthlyLotsChart />
+        <GlobalFactoriesMap
+          mapData={gbData && gbData.get('factoriesMap')}
+        />
         <GlobalFactories
           factories={gbData && gbData.get('factories')}
         />

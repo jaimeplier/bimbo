@@ -18,9 +18,9 @@ export default class Header extends Component {
             </NavLink>
             { this.props.crumb && this.props.crumb.map((c) => {
               return (
-                <NavLink to={c.get('to')} key={c.get('to')}>
-                  <HomeIcon className="icon-sm"/>
-                  <p>{c.get('name')}</p>
+                <NavLink to={c.to} key={c.to}>
+                  <p>&#62;</p>
+                  <p>{c.name}</p>
                 </NavLink>
               )
             })}

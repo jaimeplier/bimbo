@@ -49,18 +49,25 @@ class FactoryActionPlans extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getFactoryActionPlans(
-      this.props.match.params.factory
-    ))
+    const factorySlug = this.props.match.params.factory;
+    this.props.dispatch(getFactoryActionPlans(factorySlug))
   }
 
   render() {
     const factoryInfo = this.props.factoryInfo
     const actionPlans = this.props.actionPlans;
-    const factory = this.props.match.params.factory;
+    const factorySlug = this.props.match.params.factory;
     return (
       <div className="action-plans">
-        <Header />
+        <Header
+          crumb={[{
+            name: (factoryInfo && factoryInfo.get('name')),
+            to: '/factory/'+factorySlug,
+          }, {
+            name: Poly.t('Action Plans'),
+            to: '/factory/'+factorySlug+'/action-plans',
+          }]}
+        />
         <div className="card card-2">
           <CardHeader
             title={Poly.t('Action Plans')}
@@ -69,15 +76,12 @@ class FactoryActionPlans extends Component {
         </div>
         <div className="card card-2 action-plans">
           <div className="row">
-      Header: 'Differencia con el promedio',
-      id: 'diffWithAverage',
-      accessor: (r) => r.get('totalScores'),
             <div className="col-6 no-margin-i">
             </div>
             <div className="col-6 no-margin-i float-right-i">
               <a
                 className="float-right button grey-btn"
-                href={"/api/factories/"+ factory +"/action-plans/download"}
+                href={"/api/factories/"+ factorySlug +"/action-plans/download"}
               >
                 <Download />
               </a>

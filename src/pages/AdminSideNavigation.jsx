@@ -9,6 +9,7 @@ import {
   Box,
   ChevronDown,
   ChevronUp,
+  Copy as CompareIcon,
 } from 'react-feather';
 
 import {
@@ -23,6 +24,7 @@ import images from '../assets';
 
 import Home from './Home';
 import AdminUsers from './AdminUsers';
+import AdminCompareFactories from './AdminCompareFactories';
 
 class AdminSideNavigation extends Component {
   constructor(props) {
@@ -67,12 +69,15 @@ class AdminSideNavigation extends Component {
                   key={factory.get("slug")}
                   to={"/factory/"+ factory.get("slug")}
                   extraClass="submenu-link"
-                >
+               >
                   <p>{ factory.get('name') }</p>
                 </Link>
               )
             }) }
           </div>
+          <Link to="/compare">
+              <CompareIcon /><p>{Poly.t('Compare')}</p>
+          </Link>
           <Link to="/logout">
               <LogOut /><p>{Poly.t('Log out')}</p>
           </Link>
@@ -80,6 +85,7 @@ class AdminSideNavigation extends Component {
         <div id="main">
           <Route exact path="/" component={Home} />
           <Route path="/users" component={AdminUsers} />
+          <Route path="/compare" component={AdminCompareFactories} />
         </div>
       </div>
     )

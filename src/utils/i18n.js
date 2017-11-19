@@ -1,3 +1,5 @@
+// TODO: Should probably change the export name
+// from Poly to i18n.
 import Polyglot from 'node-polyglot';
 import { sendGetRequest } from './customRequests';
 

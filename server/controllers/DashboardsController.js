@@ -15,13 +15,15 @@ function globalDashboard(req, res, next) {
   Promise.all([
     ActionPlansCtr.globalDashboardKPIs(),
     ScoresController.globalDashboardKPIs(),
-    FactoriesController.globalDashboardKPIs(),
+    FactoriesController.globalDashboardFactoriesKPIs(),
+    FactoriesController.globalDashboardMapKPIs(),
   ])
   .then(data => res.json({
     err: false,
     actionPlans: data[0],
     scores: data[1],
     factories: data[2],
+    factoriesMap: data[3],
   }))
   .catch(err => routeErr(res, next, err))
 }

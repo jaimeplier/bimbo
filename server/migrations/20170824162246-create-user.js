@@ -49,6 +49,10 @@ module.exports = {
       lastActivity: {
         type: Sequelize.DATE
       },
+      active: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

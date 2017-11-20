@@ -15,6 +15,8 @@ const userIsAuthenticated = connectedRouterRedirect({
   AuthenticatingComponent: () => (<p style={{textAlign:'center'}}>Loading</p>)
 });
 
+import ScrollToTop from './components/ScrollToTop';
+
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Logout from './pages/Logout';
@@ -24,13 +26,15 @@ import ManagerSideNavigation from './pages/ManagerSideNavigation';
 
 const Routes = () => (
   <Router>
-    <Switch>
-      <Route exact path="/login" component={Login}/>
-      <Route exact path="/register/:token" component={Register}/>
-      <Route exact path="/logout" component={Logout} />
-      <Route path="/factory/:factory" component={userIsAuthenticated(ManagerSideNavigation)} />
-      <Route path="/" component={userIsAuthenticated(AdminSideNavigation)} />
-    </Switch>
+    <ScrollToTop>
+      <Switch>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/register/:token" component={Register}/>
+        <Route exact path="/logout" component={Logout} />
+        <Route path="/factory/:factory" component={userIsAuthenticated(ManagerSideNavigation)} />
+        <Route path="/" component={userIsAuthenticated(AdminSideNavigation)} />
+      </Switch>
+    </ScrollToTop>
   </Router>
 )
       // <Route component={NotFound} />

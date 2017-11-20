@@ -141,13 +141,15 @@ function globalDashboardMapKPIs() {
         model: Score, as: 'scores',
         attributes: [],
       }],
-      group: ['factory.country']
+      group: ['Factory.country'],
+      raw: true,
     })
     .then(data => {
+      return data;
       return new Promise((resolve, reject) => {
         map(data,
           (c, next) => next(false, [
-            c.get('country'), c.get('totalScores')
+            c.country, c.totalScores
           ]),
           (err, countries) => {
             if(err) return reject(err)
@@ -255,5 +257,5 @@ const scoreAverageAttributes = [
 ]
 const getFactoriesMapGlobalDashboard = [
   'country',
-  [sequelize.fn('COUNT', sequelize.col('Scores.id')), 'totalScores'],
+  [sequelize.fn('COUNT', sequelize.col('scores.id')), 'totalScores'],
 ]

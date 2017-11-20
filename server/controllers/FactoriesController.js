@@ -195,7 +195,7 @@ function getFactoryInfoForGlobalDashboard() {
           attributes: [],
         }]
       }],
-      group: ['factory.id'],
+      group: ['Factory.id'],
     })
 }
 
@@ -247,10 +247,10 @@ const downloadActionPlansCSVFields = [
 ]
 const getFactoriesGlobalDashboard = [
   'name', 'slug', 'country', 
-  [sequelize.fn('COUNT', sequelize.col('Scores.id')), 'totalScores'],
-  [sequelize.fn('AVG', sequelize.col('Scores.totalScore')), 'averageScore'],
+  [sequelize.fn('COUNT', sequelize.col('scores.id')), 'totalScores'],
+  [sequelize.fn('AVG', sequelize.col('scores.totalScore')), 'averageScore'],
   [sequelize.fn('COUNT', sequelize.col('scores->actionPlan.id')), 'totalActionPlans'],
-  [sequelize.fn('MAX', sequelize.col('Scores.createdAt')), 'lastActivity']
+  [sequelize.fn('MAX', sequelize.col('scores.createdAt')), 'lastActivity']
 ]
 const scoreAverageAttributes = [
  [sequelize.fn('AVG', sequelize.col('Score.totalScore')), 'averageScore']

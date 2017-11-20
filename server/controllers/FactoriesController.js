@@ -145,7 +145,6 @@ function globalDashboardMapKPIs() {
       raw: true,
     })
     .then(data => {
-      return data;
       return new Promise((resolve, reject) => {
         map(data,
           (c, next) => next(false, [

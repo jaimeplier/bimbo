@@ -61,7 +61,6 @@ export default class GlobalFactoriesMap extends Component {
   updateMap() {
     const options = {
       colorAxis: {colors: ['#efe6dc', '#0091B2']},
-      // backgroundColor: '#fbfbfb',
     }
     var data = google.visualization.arrayToDataTable(
       this.props.mapData.toJS()

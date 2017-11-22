@@ -65,7 +65,7 @@ export default class GlobalFactories extends Component {
     if(!aIsNeg && bIsNeg) return 1;
     const aNum = parseInt(a.substring(0, a.length-1), 10)
     const bNum = parseInt(b.substring(0, b.length-1), 10)
-    return aNum > bNum ? -1 : 1;
+    return aNum > bNum ? 1 : -1;
   }
 
   timeAgoCell(row) {

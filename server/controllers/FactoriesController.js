@@ -235,8 +235,6 @@ function getFactoryInfoForGlobalDashboard() {
 }
 
 function sendCSVFile(data, fields, fieldNames, res, next) {
-  console.log('the fileds: ', fields.length)
-  console.log('the filedsNames: ', fieldNames.length)
   json2csv({data, fields, fieldNames}, (err, csv) => {
     if(err) return routeErr(res, next, err)
     const name = 'action-plans-'+ Date.now() +'.csv'

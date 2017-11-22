@@ -3,6 +3,8 @@
 
 var map = require('async/map')
 var json2csv = require('json2csv')
+var js2xmlparser = require('js2xmlparser');
+
 
 var Factory = require('../models').Factory;
 var User = require('../models').User;
@@ -76,6 +78,33 @@ function getActionPlans(req, res, next) {
   })
 }
 
+function downloadScores(req, res, next) {
+  Score
+    .findAll({
+      include: [{
+        model: Product, attributes: ['name'],
+      }]
+    })
+    .then((scrs) => {
+      const fileType = req.params.fileType;
+      switch(fileType) {
+        case 'csv':
+          return sendCSVFile(scrs, 
+            downloadScoresCSVFields,
+            downloadScoresCSVFieldNames,
+            res, next
+          )
+        case 'xml':
+          return sendXMLFile(scrs,
+            'scores', 'scores', res
+          )
+        default:
+          console.log('Err: Downloading scores fileType not found')
+          return res.json({err: true, message: 'Download type not found'})
+      }
+    })
+}
+
 function downloadActionPlans(req, res, next) {
   authUserForFactory(req, res, next, (user, factory) => {
     ActionPlan
@@ -91,14 +120,21 @@ function downloadActionPlans(req, res, next) {
         }]
       })
       .then(ap => {
-        json2csv({
-          data: ap,
-          fields: downloadActionPlansCSVFields,
-        }, (err, csv) => {
-            if(err) return routeErr(res, next, err)
-            const name = 'action-plans-'+ Date.now() + '.csv';
-            res.set(downloadAttachmentHeaders(name)).send(csv);
-        })
+        const fileType = req.params.fileType;
+        switch(fileType) {
+          case 'csv':
+            return sendCSVFile(ap,
+              downloadActionPlansCSVFields,
+              null, res, next
+            )
+          case 'xml':
+            return sendXMLFile(ap,
+              'action-plans', 'ActionPlans', res
+            )
+          default:
+            console.log('Err: Downloading action plans fileType not found')
+            return res.json({err: true, message: 'Download type not found'})
+        }
       })
       .catch(err => routeErr(res, next, err))
   })
@@ -179,7 +215,7 @@ function authUserForFactory(req, res, next, callback) {
   })
 }
 
-// Exported Helper Functions
+// Helper Functions
 // ------------------------------------------------------
 
 function getFactoryInfoForGlobalDashboard() {
@@ -198,6 +234,23 @@ function getFactoryInfoForGlobalDashboard() {
     })
 }
 
+function sendCSVFile(data, fields, fieldNames, res, next) {
+  console.log('the fileds: ', fields.length)
+  console.log('the filedsNames: ', fieldNames.length)
+  json2csv({data, fields, fieldNames}, (err, csv) => {
+    if(err) return routeErr(res, next, err)
+    const name = 'action-plans-'+ Date.now() +'.csv'
+    res.set(downloadAttachmentHeaders(name)).send(csv)
+  })
+}
+
+function sendXMLFile(data, fName, tag, res) {
+  data = data.map(r => r.toJSON())
+  const name = fName+ Date.now() +'.xml'
+  const xml = js2xmlparser.parse(tag, data)
+  res.set(downloadAttachmentHeaders(name)).send(xml)
+}
+
 // Exports
 // ------------------------------------------------------
 
@@ -206,6 +259,7 @@ module.exports = {
   getFactoryInfo,
   getEmployees,
   getActionPlans,
+  downloadScores,
   downloadActionPlans,
   globalDashboardFactoriesKPIs,
   globalDashboardMapKPIs,
@@ -257,4 +311,18 @@ const scoreAverageAttributes = [
 const getFactoriesMapGlobalDashboard = [
   'country',
   [sequelize.fn('COUNT', sequelize.col('scores.id')), 'totalScores'],
+]
+const downloadScoresCSVFields = [
+  'Product.name', 'lot', 'label', 'airTightness', 'packaging',
+  'size', 'cleanliness', 'promotions', 'product', 'color', 'scent',
+  'taste', 'edibility', 'harmlessness', 'weight', 'symmetry',
+  'slicing', 'crust', 'crumbSize', 'crumbColor', 'crumbConsistency',
+  'note', 'createdAt',
+]
+const downloadScoresCSVFieldNames = [
+  'productName', 'lot', 'label', 'airTightness', 'packaging',
+  'size', 'cleanliness', 'promotions', 'product', 'color', 'scent',
+  'taste', 'edibility', 'harmlessness', 'weight', 'symmetry',
+  'slicing', 'crust', 'crumbSize', 'crumbColor', 'crumbConsistency',
+  'note', 'time',
 ]

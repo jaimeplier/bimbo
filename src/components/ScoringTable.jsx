@@ -1,12 +1,20 @@
+/*global domtoimage*/
+
+// TODO: Probably move the loadscript to utils
+// the file name const at least because it's also
+// being used on FactoryActionPlans.jsx
 import React, { Component } from 'react';
+import Poly from './../utils/i18n';
+import loadScript from './../utils/loadScript.js';
 import ReactTable from 'react-table';
+import NProgress from 'nprogress';
 import { ReactTableDefaults } from 'react-table';
+
 
 import { timeCell, lotCell } from '../utils/customTableCells';
 
-import {
-  Download
-} from 'react-feather';
+import CardHeader from './CardHeader';
+import DownloadButtonDropdown from './DownloadButtonDropdown';
 
 function scoreCell(row) {
   return (
@@ -21,7 +29,6 @@ const columns = [{
   id: 'createdAt',
   accessor: (r) => r.get('createdAt'),
   Cell: timeCell,
-  maxWidth: 160,
 }, {
   Header: 'No. Lote',
   id: 'lot',
@@ -125,12 +132,14 @@ Object.assign(ReactTableDefaults.column, {
 });
 
 export default class ScoringTable extends Component {
+  constructor(props) {
+    super(props)
+    this.handleDownload = this.handleDownload.bind(this)
+  }
 
   tdStyle(state, rowInfo, column) {
     let style = '';
     const value = rowInfo && rowInfo.row && rowInfo.row[column.id];
-
-    console.log("The value", value);
 
     switch(value) {
       case 'Success':
@@ -159,24 +168,45 @@ export default class ScoringTable extends Component {
     return { style: {backgroundColor: color} };
   }
 
+  handleDownload(e, v) {
+    if(v === 'png') return this.downloadPNG()
+    const factorySlug = this.props.factorySlug
+    window.location = "/api/factories/"+ factorySlug +"/scores/download/" + v
+  }
+
+  downloadPNG() {
+    if(NProgress.status !== null) NProgress.done()
+    if(typeof domtoimage === 'undefined')
+      return this.loadPNGDownloadScript()
+    var el = document.getElementsByClassName('rt-table')[0]
+    var firstChildWidth = el.firstChild.style.minWidth
+    el.style.minWidth = firstChildWidth;
+    const fileName = 'scores-'+ Date.now() +'.png'
+    domtoimage.toBlob(el)
+      .then(blob => {
+        el.style.minWidth = 'auto'
+        window.saveAs(blob, fileName)
+      })
+  }
+
+  loadPNGDownloadScript() {
+    const script = '/lib-js/dom-to-image-filesaver.min.js'
+    loadScript(script, this.downloadPNG)
+  }
+
   render() {
     const scores = this.props.scores;
     return (
       <div className="card card-2 scoring-table">
-        <div className="row">
-          <div className="col-6 no-margin-i">
-            <p className="card-title">Pan Blanco</p>
-            <p className="small-text">Acapotzalco, CDMX</p>
-          </div>
-          <div className="col-6 no-margin-i float-right-i">
-            <a
-              className="float-right button grey-btn"
-              href="/api/scores/download"
-            >
-              <Download />
-            </a>
-          </div>
-        </div>
+        <CardHeader
+          title={Poly.t('Lots')}
+          noMargin={true}
+          rightContent={
+            <DownloadButtonDropdown
+              handleDownload={this.handleDownload}
+            />
+          }
+        />
         <ReactTable
           className="center custom-table"
           data={scores && scores.toArray()}

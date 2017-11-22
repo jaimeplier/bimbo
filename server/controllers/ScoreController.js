@@ -1,6 +1,4 @@
-var map = require('async/map')
 var Promise = require('bluebird');
-var json2csv = require('json2csv')
 
 
 var Score = require('../models').Score;
@@ -31,52 +29,6 @@ function createScore(req, res, next) {
     .catch(err => routeErr(res, next, err))
 }
 
-function downloadScores(req, res, next) {
-  Score
-    .findAll({
-      include: [{
-        model: Product,
-        attributes: ['name'],
-      }]
-    })
-    .then((scrs) => {
-      map(
-        scrs,
-        (scr, next) => {
-          scr = scr.get({plain:true});
-          scr.productName = scr.Product.name;
-          next(false, scr);
-        },
-        function(err, scores) {
-          var result = json2csv({
-            data: scores,
-            fields: [
-              'productName', 'lot', 'label', 'airTightness', 'packaging',
-              'size', 'cleanliness', 'promotions', 'product', 'color', 'scent',
-              'taste', 'edibility', 'harmlessness', 'weight', 'symmetry',
-              'slicing', 'crust', 'crumbSize', 'crumbColor', 'crumbConsistency',
-              'note', 'createdAt',
-            ],
-            fieldNames: [
-              'productName', 'lot', 'label', 'airTightness', 'packaging',
-              'size', 'cleanliness', 'promotions', 'product', 'color', 'scent',
-              'taste', 'edibility', 'harmlessness', 'weight', 'symmetry',
-              'slicing', 'crust', 'crumbSize', 'crumbColor', 'crumbConsistency',
-              'note', 'time',
-            ]
-          })
-
-          res
-            .set({
-              'Content-disposition':'attachment; filename=scores-'+Date.now()+'.csv'
-            })
-            .send(result);
-
-        }
-      )
-    })
-    .catch(err => routeErr(res, next, err))
-}
 
 // Non Route API Functions
 // ------------------------------------------------------
@@ -120,7 +72,6 @@ function determineLotTotalScore() {
 
 module.exports = {
   create: createScore,
-  downloadScores: downloadScores,
   factorySummaryKPIs,
   globalDashboardKPIs,
 }

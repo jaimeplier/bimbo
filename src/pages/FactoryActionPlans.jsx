@@ -1,16 +1,18 @@
+/*global domtoimage*/
+
 import React, { Component } from 'react';
+import Poly from './../utils/i18n';
+import loadScript from './../utils/loadScript.js';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
-import Poly from './../utils/i18n';
+import NProgress from 'nprogress';
+
 
 import { timeCell, lotCell } from '../utils/customTableCells';
 
-import {
-  Download
-} from 'react-feather';
-
 import Header from '../components/Header';
 import CardHeader from '../components/CardHeader';
+import DownloadButtonDropdown from '../components/DownloadButtonDropdown';
 
 import {
   getFactoryActionPlans,
@@ -26,7 +28,6 @@ class FactoryActionPlans extends Component {
       id: 'createdAt',
       accessor: (r) => r.get('createdAt'),
       Cell: timeCell,
-      maxWidth: 160,
     }, {
       Header: Poly.t('Lot Number'),
       id: 'lot',
@@ -46,11 +47,36 @@ class FactoryActionPlans extends Component {
       id: 'correction',
       accessor: (r) => r.get('correction'),
     }]
+
+    this.handleDownload = this.handleDownload.bind(this)
+    this.downloadPNG = this.downloadPNG.bind(this)
+    this.loadPNGDownloadScript = this.loadPNGDownloadScript.bind(this)
   }
 
   componentWillMount() {
     const factorySlug = this.props.match.params.factory;
     this.props.dispatch(getFactoryActionPlans(factorySlug))
+  }
+
+  handleDownload(e, v) {
+    if(v === 'png') return this.downloadPNG();
+    const factorySlug = this.props.match.params.factory;
+    window.location = "/api/factories/"+ factorySlug +"/action-plans/download/" + v
+  }
+
+  downloadPNG() {
+    if(NProgress.status !== null) NProgress.done()
+    if(typeof domtoimage === 'undefined')
+      return this.loadPNGDownloadScript()
+    var el = document.getElementsByClassName('rt-table')[0]
+    const fileName = 'action-plans-'+ Date.now() +'.png'
+    domtoimage.toBlob(el)
+      .then(blob => window.saveAs(blob, fileName))
+  }
+
+  loadPNGDownloadScript() {
+    const script = '/lib-js/dom-to-image-filesaver.min.js'
+    loadScript(script, this.downloadPNG)
   }
 
   render() {
@@ -75,16 +101,13 @@ class FactoryActionPlans extends Component {
           />
         </div>
         <div className="card card-2 action-plans">
-          <div className="row">
+          <div className="row card-btn-row">
             <div className="col-6 no-margin-i">
             </div>
             <div className="col-6 no-margin-i float-right-i">
-              <a
-                className="float-right button grey-btn"
-                href={"/api/factories/"+ factorySlug +"/action-plans/download"}
-              >
-                <Download />
-              </a>
+              <DownloadButtonDropdown
+                handleDownload={this.handleDownload}
+              />
             </div>
           </div>
           <ReactTable

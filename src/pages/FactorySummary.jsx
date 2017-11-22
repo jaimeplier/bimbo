@@ -35,6 +35,7 @@ class FactorySummary extends Component {
         <MonthlyLotsChart />
         <ScoringTable
           scores={data && data.getIn(['scores', 'latestScores'])}
+          factorySlug={factorySlug}
         />
       </div>
     )

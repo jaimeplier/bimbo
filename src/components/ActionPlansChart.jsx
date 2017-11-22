@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import Poly from './../utils/i18n';
 
+import CardHeader from './CardHeader';
+
 export default class ActionPlansChart extends Component {
   render() {
     const metrics = this.props.metrics;
     return (
       <div className="card card-2 action-plans-chart">
-        <p className="card-title">{Poly.t('KPIs')}</p>
+        <CardHeader
+          title={Poly.t('KPIs')}
+        />
         <div className="bar-content">
           <div className="row">
             <div className="col-12">

@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import Poly from './../utils/i18n';
+import loadScript from './../utils/loadScript';
 
 import CardHeader from './CardHeader';
 
@@ -13,15 +14,11 @@ export default class GlobalFactoriesMap extends Component {
     super(props)
     this.mapLoaded = this.mapLoaded.bind(this)
     this.updateMap = this.updateMap.bind(this)
+    this.chartsLoaded = this.chartsLoaded.bind(this)
   }
   componentWillMount() {
     if(this.isGoogleVisualizationLoaded()) return true;
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = GoogleChartsScript;
-    var head = document.head||document.getElementsByTagName("head")[0];
-    head.appendChild(s)
-    s.onload = this.chartsLoaded.bind(this);
+    loadScript(GoogleChartsScript, this.chartsLoaded)
   }
 
 

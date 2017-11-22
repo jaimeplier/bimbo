@@ -8,7 +8,7 @@ export default class CardHeader extends Component {
           <p className="card-title">{this.props.title}</p>
           <p className="small-text">{this.props.subtitle}</p>
         </div>
-        <div className="col-6 right">
+        <div className={"col-6 right f-right-i " + (this.props.noMargin? "no-margin-i":"")}>
           {this.props.rightContent}
         </div>
       </div>

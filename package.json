@@ -13,6 +13,7 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "immutable": "^3.8.2",
+    "js2xmlparser": "^3.0.0",
     "json2csv": "^3.11.5",
     "jsonwebtoken": "^8.1.0",
     "material-ui": "^0.19.4",

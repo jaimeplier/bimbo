@@ -46,13 +46,13 @@ module.exports = function(app) {
   app.get('/api/factories/:slug/employees', authA, FC.getEmployees)
   app.post('/api/factories/:slug/employees', authA, UsersController.createEmployee)
   app.get('/api/factories/:slug/action-plans', authA, FC.getActionPlans)
-  app.get('/api/factories/:slug/action-plans/download', authA, FC.downloadActionPlans)
+  app.get('/api/factories/:slug/action-plans/download/:fileType', authA, FC.downloadActionPlans)
+  app.get('/api/factories/:slug/scores/download/:fileType', authA, FC.downloadScores)
 
 
   // Scores
   // ------------------------------------------------------
   app.post('/api/scores/:product', authE, ScoresController.create)
-  app.get('/api/scores/download', authM, ScoresController.downloadScores)
 
 
   // Action Plans

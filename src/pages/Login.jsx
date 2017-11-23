@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { updatePoly } from './../utils/i18n';
 import isEmail from 'validator/lib/isEmail';
 import { connect } from 'react-redux';
 
@@ -6,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import { sendPostRequest } from './../utils/customRequests';
+
 import images from './../assets';
 
 import { setUser } from '../actions/userActions';
@@ -39,8 +41,10 @@ class Login extends Component {
 
     sendPostRequest('/api/users/log-in', body, (json) => {
       if(json.err) return this.setState({errors: json.errors});
-      this.props.dispatch(setUser(json.user));
-      this.props.history.push('/');
+      updatePoly(() => {
+        this.props.dispatch(setUser(json.user));
+        this.props.history.push('/');
+      })
     }, (s) => {
       console.log('the error: ', s);
       this.setState({errors:{general: s}})

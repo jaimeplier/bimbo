@@ -35,6 +35,22 @@ function createMasterUser(req, res, next) {
     .catch(err => routeErr(res, next, err))
 }
 
+function createManager(req, res, next) {
+  authUserForFactory(req, res, next, (reqUser, factory) => {
+    var user = req.body
+    user.access = 'Admin'
+    user.factoryId = factory.get('id')
+    user.resetToken = uuid.v1()
+    User
+      .create(user, {fields: createManagerFields})
+      .then((user) => {
+        sendEmails.welcomeRegister(user)
+        res.json(user)
+      })
+      .catch(err => routeErr(res, next, err))
+  })
+}
+
 function createEmployee(req, res, next) {
   authUserForFactory(req, res, next, (reqUser, factory) => {
     var user = req.body
@@ -208,6 +224,7 @@ function createUniqueAccessPin(callback, callcount) {
 module.exports = {
   createMasterUser: createMasterUser,
   registerUser: registerUser,
+  createManager,
   createEmployee,
   authorizeEmployee: authorizeEmployee,
   logInUser: logInUser,
@@ -225,6 +242,9 @@ module.exports = {
 const createMasterUserFields = [
   'name', 'email', 'access', 'resetToken', 'password', 'language'
 ];
+const createManagerFields = [
+  'name', 'email', 'access', 'resetToken', 'language', 'factoryId',
+]
 const createEmployeeFields = [
   'name', 'access', 'language', 'accessPin', 'factoryId'
 ]

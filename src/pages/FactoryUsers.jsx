@@ -28,7 +28,7 @@ class FactoryUsers extends Component {
   createUser(name, callback) {
     const factory = this.props.match.params.factory
     this.props.dispatch(createFactoryUser(factory, name, callback))
-  }
+ }
 
   render() {
     const factoryInfo = this.props.factoryInfo
@@ -40,8 +40,8 @@ class FactoryUsers extends Component {
             name: (factoryInfo && factoryInfo.get('name')),
             to: '/factory/'+factorySlug,
           }, {
-            name: Poly.t('Users'),
-            to: '/factory/'+factorySlug+'/users',
+            name: Poly.t('Scorers'),
+            to: '/factory/'+factorySlug+'/scorers',
           }]}
         />
         <div className="card card-2">

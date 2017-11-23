@@ -45,7 +45,10 @@ function getEmployees(req, res, next) {
   authUserForFactory(req, res, next, (user, factory) => {
     User
       .findAll({
-        where: {factoryId: factory.get('id')},
+        where: {
+          factoryId: factory.get('id'),
+          access: 'Employee',
+        },
         attributes: getEmployeesFields,
         include: [{
           model: Score, as: 'scores',
@@ -54,6 +57,21 @@ function getEmployees(req, res, next) {
         }],
       })
       .then(e => res.json({err: false, employees: e}))
+      .catch(err => routeErr(res, next, err))
+  })
+}
+
+function getManagers(req, res, next) {
+  authUserForFactory(req, res, next, (user, factory) => {
+    User
+      .findAll({
+        where: {
+          factoryId: factory.get('id'),
+          access: 'Admin',
+        },
+        attributes: getManagerAttributes,
+      })
+      .then(managers => res.json({managers}))
       .catch(err => routeErr(res, next, err))
   })
 }
@@ -256,6 +274,7 @@ module.exports = {
   getSlugs: getFactoriesSlugs,
   getFactoryInfo,
   getEmployees,
+  getManagers,
   getActionPlans,
   downloadScores,
   downloadActionPlans,
@@ -270,7 +289,10 @@ module.exports = {
 
 const factoryInfoFields = ['name', 'slug', 'address']
 const getEmployeesFields = [
-  'id', 'name', 'accessPin', 'picture', 'lastActivity'
+  'id', 'name', 'accessPin', 'picture', 'lastActivity',
+]
+const getManagerAttributes = [
+  'id', 'name', 'email', 'picture', 'lastActivity',
 ]
 const employeeWithScoreFields = [
   'lot', 'userId', 'createdAt',

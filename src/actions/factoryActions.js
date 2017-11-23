@@ -11,6 +11,10 @@ function setFactoryEmployees(factory, employees) {
   return {type: 'SET_FACTORY_EMPLOYEES', factory, employees}
 }
 
+function setFactoryManagers(factory, managers) {
+  return {type: 'SET_FACTORY_MANAGERS', factory, managers}
+}
+
 function setFactoryActionPlans(factory, actionPlans) {
   return {
     type: 'SET_FACTORY_ACTION_PLANS',
@@ -40,12 +44,29 @@ export function getFactoryUsers(factory) {
   }
 }
 
-export function createFactoryUser(factory, name, callback) {
+export function getFactoryManagers(factory) {
+  return function thunk(dispatch) {
+    const url = '/api/factories/'+ factory +'/managers'
+    sendGetRequest(url, (json) => {
+      dispatch(setFactoryManagers(factory, json.managers))
+    })
+  }
+}
+
+export function createFactoryUser(factory, reqObj, callback) {
   return function thunk(dispatch) {
     const url = '/api/factories/'+ factory +'/employees'
-    sendPostRequest(url,
-      {name, language: 'es'},
+    sendPostRequest(url, reqObj,
       (u) => {callback(u); dispatch(getFactoryUsers(factory))}
+    )
+  }
+}
+
+export function createFactoryManager(factory, reqObj, callback) {
+  return function thunk(dispatch) {
+    const url = '/api/factories/'+ factory +'/managers'
+    sendPostRequest(url, reqObj,
+      (u) => {callback(u); dispatch(getFactoryManagers(factory))}
     )
   }
 }

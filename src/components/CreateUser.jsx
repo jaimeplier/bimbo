@@ -33,12 +33,22 @@ export default class CreateUser extends Component {
   }
 
   handleSubmit() {
+    const type = this.props.type
     this.setState({errors: {}});
     if(!this.state.name) return this.setState({errors:{name:'Nombre requerido'}});
-    this.props.submit(this.state.name, this.createdUser)
+    if(
+      type === 'manager' &&
+      !this.state.email
+    ) return this.setState({errors:{email:'Correo requerido'}});
+    this.props.submit({
+      name: this.state.name,
+      email: this.state.email,
+      language: 'es',
+    }, this.createdUser)
   }
 
   render() {
+    const type = this.props.type
     return (
       <div className="create-user">
         <RaisedButton
@@ -62,6 +72,15 @@ export default class CreateUser extends Component {
                   onChange={this.handleInputChange.bind(this)}
                   floatingLabelText={Poly.t('Name')}
                 />
+                { this.props.type === 'manager' ?
+                  <TextField
+                    className="input"
+                    name="email"
+                    errorText={this.state.errors && this.state.errors.name}
+                    onChange={this.handleInputChange.bind(this)}
+                    floatingLabelText={Poly.t('Email')}
+                  />
+                : null }
                 <div className="float-fix">
                   <RaisedButton
                     label={Poly.t('Create')}
@@ -73,8 +92,17 @@ export default class CreateUser extends Component {
               </div>
             :
               <div>
-                <p>{Poly.t('Successfully created user')}</p>
-                <p>{Poly.t('User PIN')}: {this.state.user.accessPin}</p>
+                <p>{Poly.t("Successfully created user")}</p>
+                { this.props.type === "factory" ?
+                  <p>
+                    {Poly.t("User PIN")}: {this.state.user.accessPin}
+                  </p>
+                : null }
+                { this.props.type === "manager" ?
+                  <p>
+                    { Poly.t("Registration instructions sent to")}: { this.state.user.email }
+                  </p>
+                : null }
               </div>
             }
           </div>

@@ -7,6 +7,7 @@ import {
   Home as HomeIcon,
   CheckCircle,
   Users as UsersIcon,
+  Smartphone,
   Globe,
   LogOut,
 } from 'react-feather';
@@ -16,6 +17,7 @@ import images from '../assets';
 import FactoryActionPlans from './FactoryActionPlans';
 import FactorySummary from './FactorySummary';
 import FactoryUsers from './FactoryUsers';
+import FactoryManagers from './FactoryManagers';
 
 import {
   getFactoryInfo,
@@ -50,8 +52,11 @@ class ManagerSideNavigation extends Component {
           <Link to={currentUrl + "/action-plans"}>
             <CheckCircle /><p>{Poly.t('Action Plans')}</p>
           </Link>
-          <Link to={currentUrl + "/users"}>
-            <UsersIcon /><p>{Poly.t('Users')}</p>
+          <Link to={currentUrl + "/scorers"}>
+            <Smartphone /><p>{Poly.t('Scorers')}</p>
+          </Link>
+          <Link to={currentUrl + "/managers"}>
+            <UsersIcon /><p>{Poly.t('Managers')}</p>
           </Link>
           <Link to={"/logout"}>
             <LogOut /><p>{Poly.t('Log out')}</p>
@@ -60,7 +65,8 @@ class ManagerSideNavigation extends Component {
         <div id="main">
           <Route exact path={baseUrl+":factory"} component={FactorySummary} />
           <Route path={baseUrl+ ":factory/action-plans"} component={FactoryActionPlans} />
-          <Route path={baseUrl+ ":factory/users"} component={FactoryUsers} />
+          <Route path={baseUrl+ ":factory/scorers"} component={FactoryUsers} />
+          <Route path={baseUrl+ ":factory/managers"} component={FactoryManagers} />
         </div>
       </div>
     )

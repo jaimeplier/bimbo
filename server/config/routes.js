@@ -1,3 +1,8 @@
+// TODO: Probably should divide the factories functions
+// into their own controller instead of having them all
+// on the factory controller. (e.g: /scores on the
+// scores controller instead of factory controller)
+
 var FactoriesController = require ('./../controllers/FactoriesController.js');
 var UsersController = require('./../controllers/UsersController.js');
 var ScoresController = require('./../controllers/ScoreController.js');
@@ -44,10 +49,12 @@ module.exports = function(app) {
   app.get('/api/factories/:slug', authA, FC.getFactoryInfo)
   app.get('/api/factories/:slug/summary', authA, DashboardsController.factorySummary);
   app.get('/api/factories/:slug/employees', authA, FC.getEmployees)
-  app.post('/api/factories/:slug/employees', authA, UsersController.createEmployee)
   app.get('/api/factories/:slug/action-plans', authA, FC.getActionPlans)
   app.get('/api/factories/:slug/action-plans/download/:fileType', authA, FC.downloadActionPlans)
   app.get('/api/factories/:slug/scores/download/:fileType', authA, FC.downloadScores)
+  app.get('/api/factories/:slug/managers', authA, FC.getManagers)
+  app.post('/api/factories/:slug/employees', authA, UsersController.createEmployee)
+  app.post('/api/factories/:slug/managers', authA, UsersController.createManager)
 
 
   // Scores

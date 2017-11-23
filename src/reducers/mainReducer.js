@@ -20,19 +20,23 @@ export default function mainReducer(state = initialState, action) {
 
     case 'SET_FACTORY_EMPLOYEES':
       return state.setIn([
-        'factories', action.factory, 'employees'
+        'factories', action.factory, 'employees',
       ], fromJS(action.employees))
+    case 'SET_FACTORY_MANAGERS':
+      return state.setIn([
+        'factories', action.factory, 'managers',
+      ], fromJS(action.managers))
     case 'SET_FACTORY_INFO':
       return state.setIn([
-        'factories', action.factory, 'info'
+        'factories', action.factory, 'info',
       ], fromJS(action.info))
     case 'SET_FACTORY_ACTION_PLANS':
       return state.setIn([
-        'factories', action.factory, 'actionPlans'
+        'factories', action.factory, 'actionPlans',
       ], fromJS(action.actionPlans))
     case 'SET_FACTORY_SUMMARY':
       return state.setIn([
-        'factories', action.factory, 'summary'
+        'factories', action.factory, 'summary',
       ], fromJS(action.json))
 
     default:

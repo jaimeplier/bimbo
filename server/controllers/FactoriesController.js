@@ -1,44 +1,49 @@
 // Todo:
 // * Change database helpers to promises and run them in parallel
 
-var map = require('async/map')
-var json2csv = require('json2csv')
-var js2xmlparser = require('js2xmlparser');
+const map = require('async/map');
+const json2csv = require('json2csv');
+const js2xmlparser = require('js2xmlparser');
 
 
-var Factory = require('../models').Factory;
-var User = require('../models').User;
-var Score = require('../models').Score;
-var Product = require('../models').Product;
-var ActionPlan = require('../models').ActionPlan;
-var sequelize = require('../models').sequelize;
+const {
+  Factory,
+  User,
+  Score,
+  Product,
+  ActionPlan,
+  sequelize,
+} = require('../models');
 
-var routeErr = require('../utils/routeErr.js');
+const routeErr = require('../utils/routeErr.js');
 
-var getUserFromReq = require('./../utils/databaseHelpers').getUserFromReq;
-var getFactoryFromSlug = require('./../utils/databaseHelpers').getFactoryFromSlug;
-var downloadAttachmentHeaders = require('./../utils/downloadAttachmentHeaders')
+const {
+  getUserFromReq,
+  getFactoryFromSlug,
+} = require('./../utils/databaseHelpers');
 
-var noAuth = require('./../utils/noAuth.js');
+const downloadAttachmentHeaders = require('./../utils/downloadAttachmentHeaders');
+
+const noAuth = require('./../utils/noAuth.js');
 
 // Route Functions
 // ------------------------------------------------------
 
 function getFactoriesSlugs(req, res, next) {
   Factory
-    .findAll({attributes: ['slug', 'name']})
-    .then(factories => res.json({err: false, factories}))
-    .catch(err => routeErr(res, next, err))
+    .findAll({ attributes: ['slug', 'name'] })
+    .then(factories => res.json({ err: false, factories }))
+    .catch(err => routeErr(res, next, err));
 }
 
 function getFactoryInfo(req, res, next) {
   Factory
     .find({
-      where: {slug: req.params.slug},
-      attributes: factoryInfoFields
+      where: { slug: req.params.slug },
+      attributes: factoryInfoFields,
     })
-    .then(factory => res.json({err: false, factory}))
-    .catch(err => routeErr(res, next, err))
+    .then(factory => res.json({ err: false, factory }))
+    .catch(err => routeErr(res, next, err));
 }
 
 function getEmployees(req, res, next) {
@@ -51,14 +56,15 @@ function getEmployees(req, res, next) {
         },
         attributes: getEmployeesFields,
         include: [{
-          model: Score, as: 'scores',
+          model: Score,
+          as: 'scores',
           attributes: employeeWithScoreFields,
           limit: 6,
         }],
       })
-      .then(e => res.json({err: false, employees: e}))
-      .catch(err => routeErr(res, next, err))
-  })
+      .then(e => res.json({ err: false, employees: e }))
+      .catch(err => routeErr(res, next, err));
+  });
 }
 
 function getManagers(req, res, next) {
@@ -71,29 +77,31 @@ function getManagers(req, res, next) {
         },
         attributes: getManagerAttributes,
       })
-      .then(managers => res.json({managers}))
-      .catch(err => routeErr(res, next, err))
-  })
+      .then(managers => res.json({ managers }))
+      .catch(err => routeErr(res, next, err));
+  });
 }
 
 function getActionPlans(req, res, next) {
   authUserForFactory(req, res, next, (user, factory) => {
     ActionPlan
       .findAll({
-        where: {factoryId: factory.get('id')},
+        where: { factoryId: factory.get('id') },
         attributes: getActionPlansFields,
         include: [{
-          model: Product, as: 'product',
+          model: Product,
+          as: 'product',
           attributes: getActionPlansProductsFields,
         }, {
-          model: Score, as: 'score',
+          model: Score,
+          as: 'score',
           attributes: getActionPlansScoreFields,
         }],
         limit: 20,
       })
-      .then(actionPlans => res.json({err: false, actionPlans}))
-      .catch(err => routeErr(res, next, err))
-  })
+      .then(actionPlans => res.json({ err: false, actionPlans }))
+      .catch(err => routeErr(res, next, err));
+  });
 }
 
 function downloadScores(req, res, next) {
@@ -101,61 +109,67 @@ function downloadScores(req, res, next) {
     .findAll({
       include: [{
         model: Product, attributes: ['name'],
-      }]
+      }],
     })
     .then((scrs) => {
-      const fileType = req.params.fileType;
-      switch(fileType) {
+      const { fileType } = req.params;
+      switch (fileType) {
         case 'csv':
-          return sendCSVFile(scrs, 
+          return sendCSVFile(
+            scrs,
             downloadScoresCSVFields,
             downloadScoresCSVFieldNames,
-            res, next
-          )
+            res, next,
+          );
         case 'xml':
-          return sendXMLFile(scrs,
-            'scores', 'scores', res
-          )
+          return sendXMLFile(
+            scrs,
+            'scores', 'scores', res,
+          );
         default:
-          console.log('Err: Downloading scores fileType not found')
-          return res.json({err: true, message: 'Download type not found'})
+          console.log('Err: Downloading scores fileType not found');
+          return res.json({ err: true, message: 'Download type not found' });
       }
-    })
+    });
 }
 
 function downloadActionPlans(req, res, next) {
   authUserForFactory(req, res, next, (user, factory) => {
     ActionPlan
       .findAll({
-        where: {factoryId: factory.get('id')},
+        where: { factoryId: factory.get('id') },
         attributes: downloadActionPlansFields,
         include: [{
-          model: Score, as: 'score',
+          model: Score,
+          as: 'score',
           attributes: ['lot', 'totalScore'],
         }, {
-          model: Product, as: 'product',
+          model: Product,
+          as: 'product',
           attributes: ['name'],
-        }]
+        }],
       })
-      .then(ap => {
-        const fileType = req.params.fileType;
-        switch(fileType) {
+      .then((ap) => {
+        const { fileType } = req.params;
+        switch (fileType) {
           case 'csv':
-            return sendCSVFile(ap,
+            return sendCSVFile(
+              ap,
               downloadActionPlansCSVFields,
-              null, res, next
-            )
+              null, res, next,
+            );
           case 'xml':
-            return sendXMLFile(ap,
-              'action-plans', 'ActionPlans', res
-            )
+            return sendXMLFile(
+              ap,
+              'action-plans', 'ActionPlans', res,
+            );
           default:
-            console.log('Err: Downloading action plans fileType not found')
-            return res.json({err: true, message: 'Download type not found'})
+            console.log('Err: Downloading action plans fileType not found');
+            return res.json({ err: true, message: 'Download type not found' });
         }
       })
-      .catch(err => routeErr(res, next, err))
-  })
+      .catch(err => routeErr(res, next, err));
+  });
 }
 
 // Non Route API Functions
@@ -165,26 +179,27 @@ function globalDashboardFactoriesKPIs() {
   return Promise
     .all([
       getFactoryInfoForGlobalDashboard(),
-      Score.find({attributes: scoreAverageAttributes}),
+      Score.find({ attributes: scoreAverageAttributes }),
     ])
     .then((data) => {
       const avgScr = Number(data[1].get('averageScore')).toFixed(2);
       return new Promise((resolve, reject) => {
-         map(data[0],
-          (factory, next) => {
-            factory = factory.get({plain:true})
-            const factoryAvg = Number(factory.averageScore).toFixed(2)
+        map(
+          data[0],
+          (f, next) => {
+            const factory = f.get({ plain: true });
+            const factoryAvg = Number(factory.averageScore).toFixed(2);
             factory.averageScore = factoryAvg;
-            factory.diffWithAverage = ((factoryAvg - avgScr).toFixed(2) + '%');
-            next(false, factory)
+            factory.diffWithAverage = (`${(factoryAvg - avgScr).toFixed(2)}%`);
+            next(false, factory);
           },
           (err, factories) => {
-            if(err) return reject(err)
-            resolve(factories)
-          }
-        )
-      })
-    })
+            if (err) return reject(err);
+            resolve(factories);
+          },
+        );
+      });
+    });
 }
 
 function globalDashboardMapKPIs() {
@@ -192,26 +207,26 @@ function globalDashboardMapKPIs() {
     .findAll({
       attributes: getFactoriesMapGlobalDashboard,
       include: [{
-        model: Score, as: 'scores',
+        model: Score,
+        as: 'scores',
         attributes: [],
       }],
       group: ['Factory.country'],
       raw: true,
     })
-    .then(data => {
-      return new Promise((resolve, reject) => {
-        map(data,
-          (c, next) => next(false, [
-            c.country, c.totalScores
-          ]),
-          (err, countries) => {
-            if(err) return reject(err)
-            countries.unshift(['Country', 'Scores'])
-            resolve(countries)
-          }
-        )
-      })
-    })
+    .then(data => new Promise((resolve, reject) => {
+      map(
+        data,
+        (c, next) => next(false, [
+          c.country, c.totalScores,
+        ]),
+        (err, countries) => {
+          if (err) return reject(err);
+          countries.unshift(['Country', 'Scores']);
+          resolve(countries);
+        },
+      );
+    }));
 }
 
 // Exported Helper Functions
@@ -219,18 +234,18 @@ function globalDashboardMapKPIs() {
 
 function authUserForFactory(req, res, next, callback) {
   getUserFromReq(req, (err, user) => {
-    if(err) return routeErr(res, next, err)
+    if (err) return routeErr(res, next, err);
     getFactoryFromSlug(req.params.slug, (err, factory) => {
-      if(err) return routeErr(res, next, err)
+      if (err) return routeErr(res, next, err);
       // TODO: If no factory then factory no found
-      if(
+      if (
         user.get('access') === 'Master' ||
         user.get('factoryId') === factory.get('id')
       ) {
-        callback(user, factory)
-      } else { noAuth(res) }
-    })
-  })
+        callback(user, factory);
+      } else { noAuth(res); }
+    });
+  });
 }
 
 // Helper Functions
@@ -241,30 +256,32 @@ function getFactoryInfoForGlobalDashboard() {
     .findAll({
       attributes: getFactoriesGlobalDashboard,
       include: [{
-        model: Score, as: 'scores',
+        model: Score,
+        as: 'scores',
         attributes: [],
         include: [{
-          model: ActionPlan, as: 'actionPlan',
+          model: ActionPlan,
+          as: 'actionPlan',
           attributes: [],
-        }]
+        }],
       }],
       group: ['Factory.id'],
-    })
+    });
 }
 
 function sendCSVFile(data, fields, fieldNames, res, next) {
-  json2csv({data, fields, fieldNames}, (err, csv) => {
-    if(err) return routeErr(res, next, err)
-    const name = 'action-plans-'+ Date.now() +'.csv'
-    res.set(downloadAttachmentHeaders(name)).send(csv)
-  })
+  json2csv({ data, fields, fieldNames }, (err, csv) => {
+    if (err) return routeErr(res, next, err);
+    const name = `action-plans-${Date.now()}.csv`;
+    res.set(downloadAttachmentHeaders(name)).send(csv);
+  });
 }
 
-function sendXMLFile(data, fName, tag, res) {
-  data = data.map(r => r.toJSON())
-  const name = fName+ Date.now() +'.xml'
-  const xml = js2xmlparser.parse(tag, data)
-  res.set(downloadAttachmentHeaders(name)).send(xml)
+function sendXMLFile(d, fName, tag, res) {
+  const data = d.map(r => r.toJSON());
+  const name = `${fName + Date.now()}.xml`;
+  const xml = js2xmlparser.parse(tag, data);
+  res.set(downloadAttachmentHeaders(name)).send(xml);
 }
 
 // Exports
@@ -282,67 +299,67 @@ module.exports = {
   globalDashboardMapKPIs,
   // Non route exports
   authUserForFactory,
-}
+};
 
 // SQL Attributes
 // ------------------------------------------------------
 
-const factoryInfoFields = ['name', 'slug', 'address']
+const factoryInfoFields = ['name', 'slug', 'address'];
 const getEmployeesFields = [
   'id', 'name', 'accessPin', 'picture', 'lastActivity',
-]
+];
 const getManagerAttributes = [
   'id', 'name', 'email', 'picture', 'lastActivity',
-]
+];
 const employeeWithScoreFields = [
   'lot', 'userId', 'createdAt',
-]
+];
 const getActionPlansProductsFields = [
   'name',
-]
+];
 const getActionPlansFields = [
   'cause', 'correction', 'completedAt', 'productId', 'createdAt',
-]
+];
 const getActionPlansScoreFields = [
-  'lot'
-]
+  'lot',
+];
 const downloadActionPlansFields = [
   'cause', 'correction', 'completedAt', 'createdAt',
-]
+];
 const downloadActionPlansCSVFields = [
-  {label: 'Lot', value: 'score.lot'},
-  {label: 'Product', value: 'product.name'},
-  {label: 'Score', value: 'score.totalScore'},
-  {label: 'Cause', value: 'cause'},
-  {label: 'Correction', value: 'correction'},
-  {label: 'Created At', value: 'createdAt'},
-  {label: 'Completed At', value: 'completedAt'},
-]
+  { label: 'Lot', value: 'score.lot' },
+  { label: 'Product', value: 'product.name' },
+  { label: 'Score', value: 'score.totalScore' },
+  { label: 'Cause', value: 'cause' },
+  { label: 'Correction', value: 'correction' },
+  { label: 'Created At', value: 'createdAt' },
+  { label: 'Completed At', value: 'completedAt' },
+];
 const getFactoriesGlobalDashboard = [
-  'name', 'slug', 'country', 
+  'name', 'slug', 'country',
   [sequelize.fn('COUNT', sequelize.col('scores.id')), 'totalScores'],
   [sequelize.fn('AVG', sequelize.col('scores.totalScore')), 'averageScore'],
   [sequelize.fn('COUNT', sequelize.col('scores->actionPlan.id')), 'totalActionPlans'],
-  [sequelize.fn('MAX', sequelize.col('scores.createdAt')), 'lastActivity']
-]
+  [sequelize.fn('MAX', sequelize.col('scores.createdAt')), 'lastActivity'],
+];
 const scoreAverageAttributes = [
- [sequelize.fn('AVG', sequelize.col('Score.totalScore')), 'averageScore']
-]
+  [sequelize.fn('AVG', sequelize.col('Score.totalScore')), 'averageScore'],
+];
 const getFactoriesMapGlobalDashboard = [
   'country',
   [sequelize.fn('COUNT', sequelize.col('scores.id')), 'totalScores'],
-]
+];
 const downloadScoresCSVFields = [
   'Product.name', 'lot', 'label', 'airTightness', 'packaging',
   'size', 'cleanliness', 'promotions', 'product', 'color', 'scent',
   'taste', 'edibility', 'harmlessness', 'weight', 'symmetry',
   'slicing', 'crust', 'crumbSize', 'crumbColor', 'crumbConsistency',
   'note', 'createdAt',
-]
+];
 const downloadScoresCSVFieldNames = [
   'productName', 'lot', 'label', 'airTightness', 'packaging',
   'size', 'cleanliness', 'promotions', 'product', 'color', 'scent',
   'taste', 'edibility', 'harmlessness', 'weight', 'symmetry',
   'slicing', 'crust', 'crumbSize', 'crumbColor', 'crumbConsistency',
   'note', 'time',
-]
+];

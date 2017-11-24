@@ -1,13 +1,13 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var Factory = sequelize.define('Factory', {
+
+module.exports = (sequelize, DataTypes) => {
+  const Factory = sequelize.define('Factory', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
         notNull: true,
-      }
+      },
     },
     slug: {
       type: DataTypes.STRING,
@@ -15,13 +15,14 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notEmpty: true,
         notNull: true,
-      }
+      },
     },
     latitude: {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        min: -90, max: 90,
+        min: -90,
+        max: 90,
         notNull: true,
       },
     },
@@ -29,7 +30,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        min: -180, max: 180,
+        min: -180,
+        max: 180,
         notNull: true,
       },
     },
@@ -39,15 +41,15 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notEmpty: true,
         notNull: true,
-      }
+      },
     },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
-        notNull: true
-      }
+        notNull: true,
+      },
     },
     country: {
       type: DataTypes.STRING(2),
@@ -55,15 +57,15 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notEmpty: true,
         notNull: true,
-      }
-    }
-  }, {paranoid: true});
+      },
+    },
+  }, { paranoid: true });
 
-  Factory.associate = function(models) {
+  Factory.associate = (models) => {
     Factory.hasMany(models.ActionPlan, {
       foreignKey: 'factoryId',
       as: 'actionPlans',
-    })
+    });
     Factory.belongsToMany(models.Product, {
       through: 'FactoryProduct',
       foreignKey: 'productId',
@@ -72,12 +74,12 @@ module.exports = function(sequelize, DataTypes) {
     Factory.hasMany(models.Score, {
       foreignKey: 'factoryId',
       as: 'scores',
-    })
+    });
     Factory.hasMany(models.User, {
       foreignKey: 'factoryId',
       as: 'users',
-    })
-  }
+    });
+  };
 
   return Factory;
 };

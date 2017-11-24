@@ -7,14 +7,6 @@ import {
 
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 
-const userIsAuthenticated = connectedRouterRedirect({
-  redirectPath: '/login',
-  authenticatedSelector: state => !!state.get('user'),
-  authenticatingSelector: state => state.get('isAuthenticating'),
-  wrapperDisplayName: 'UserIsAuthenticated',
-  AuthenticatingComponent: () => (<p style={{textAlign:'center'}}>Loading</p>)
-});
-
 import ScrollToTop from './components/ScrollToTop';
 
 import Login from './pages/Login';
@@ -23,6 +15,15 @@ import Logout from './pages/Logout';
 //import NotFound from './pages/NotFound';
 import AdminSideNavigation from './pages/AdminSideNavigation';
 import ManagerSideNavigation from './pages/ManagerSideNavigation';
+
+const userIsAuthenticated = connectedRouterRedirect({
+  redirectPath: '/login',
+  authenticatedSelector: state => !!state.get('user'),
+  authenticatingSelector: state => state.get('isAuthenticating'),
+  wrapperDisplayName: 'UserIsAuthenticated',
+  AuthenticatingComponent: () => (<p style={{textAlign:'center'}}>Loading</p>)
+});
+
 
 const Routes = () => (
   <Router>

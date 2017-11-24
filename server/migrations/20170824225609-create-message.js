@@ -1,19 +1,19 @@
-'use strict';
+
 module.exports = {
-  up: function(queryInterface, Sequelize) {
+  up(queryInterface, Sequelize) {
     return queryInterface.createTable('Messages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       subject: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       message: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       to: {
         type: Sequelize.INTEGER,
@@ -21,8 +21,8 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-          as: 'to'
-        }
+          as: 'to',
+        },
       },
       from: {
         type: Sequelize.INTEGER,
@@ -30,23 +30,23 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-          as: 'from'
-        }
+          as: 'from',
+        },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       deletedAt: {
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  down: function(queryInterface, Sequelize) {
+  down(queryInterface) {
     return queryInterface.dropTable('Messages');
-  }
+  },
 };

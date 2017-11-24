@@ -1,21 +1,19 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var attribute = function() {
-    return {
-      type: DataTypes.ENUM('Success', 'Warning', 'Failure'),
-      validate: {
-        isIn: [['Success', 'Warning', 'Failure']]
-      }
-    }
-  }
 
-  var Score = sequelize.define('Score', {
+module.exports = (sequelize, DataTypes) => {
+  const attribute = () => ({
+    type: DataTypes.ENUM('Success', 'Warning', 'Failure'),
+    validate: {
+      isIn: [['Success', 'Warning', 'Failure']],
+    },
+  });
+
+  const Score = sequelize.define('Score', {
     lot: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
-      }
+      },
     },
     label: attribute(),
     airTightness: attribute(),
@@ -37,30 +35,30 @@ module.exports = function(sequelize, DataTypes) {
     crumbColor: attribute(),
     crumbConsistency: attribute(),
     note: DataTypes.STRING,
-    totalScore: DataTypes.INTEGER
-  }, {paranoid: true});
+    totalScore: DataTypes.INTEGER,
+  }, { paranoid: true });
 
-  Score.associate = function(models) {
+  Score.associate = (models) => {
     Score.belongsToMany(models.Factory, {
       through: 'FactoryProduct',
       foreignKey: 'factoryId',
       as: 'factories',
-    })
+    });
     Score.belongsTo(models.Product, {
       foreignKey: 'productId',
       onDelete: 'CASCADE',
-    })
+    });
     Score.belongsTo(models.User, {
       foreignKey: 'userId',
       as: 'user',
       onDelete: 'CASCADE',
-    })
+    });
 
     Score.hasOne(models.ActionPlan, {
       foreignKey: 'scoreId',
       as: 'actionPlan',
-    })
-  }
+    });
+  };
 
   return Score;
 };

@@ -1,12 +1,12 @@
-'use strict';
+
 module.exports = {
-  up: function(queryInterface, Sequelize) {
+  up(queryInterface, Sequelize) {
     return queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING,
@@ -14,18 +14,18 @@ module.exports = {
       },
       email: {
         unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       access: {
         allowNull: false,
-        type: Sequelize.ENUM('Master', 'Admin', 'Employee')
+        type: Sequelize.ENUM('Master', 'Admin', 'Employee'),
       },
       accessPin: {
         type: Sequelize.INTEGER(6).ZEROFILL,
         unique: true,
       },
       picture: {
-        type: Sequelize.STRING(400)
+        type: Sequelize.STRING(400),
       },
       resetToken: {
         type: Sequelize.STRING,
@@ -37,17 +37,17 @@ module.exports = {
           model: 'Factories',
           key: 'id',
           as: 'factoryId',
-        }
+        },
       },
       language: {
         type: Sequelize.ENUM('en', 'es'),
         allowNull: false,
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       lastActivity: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       active: {
         type: Sequelize.BOOLEAN,
@@ -55,18 +55,18 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       deletedAt: {
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  down: function(queryInterface, Sequelize) {
+  down(queryInterface) {
     return queryInterface.dropTable('Users');
-  }
+  },
 };

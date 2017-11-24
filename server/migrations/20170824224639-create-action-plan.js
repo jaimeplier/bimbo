@@ -1,12 +1,12 @@
-'use strict';
+
 module.exports = {
-  up: function(queryInterface, Sequelize) {
+  up(queryInterface, Sequelize) {
     return queryInterface.createTable('ActionPlans', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       scoreId: {
         type: Sequelize.INTEGER,
@@ -15,7 +15,7 @@ module.exports = {
           model: 'Scores',
           key: 'id',
           as: 'scoreId',
-        }
+        },
       },
       createdBy: {
         type: Sequelize.INTEGER,
@@ -24,7 +24,7 @@ module.exports = {
           model: 'Users',
           key: 'id',
           as: 'createdBy',
-        }
+        },
       },
       productId: {
         type: Sequelize.INTEGER,
@@ -33,7 +33,7 @@ module.exports = {
           model: 'Products',
           key: 'id',
           as: 'productId',
-        }
+        },
       },
       factoryId: {
         type: Sequelize.INTEGER,
@@ -42,18 +42,18 @@ module.exports = {
           model: 'Factories',
           key: 'id',
           as: 'factoryId',
-        }
+        },
       },
       cause: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       correction: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       completedAt: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       completedBy: {
         type: Sequelize.INTEGER,
@@ -61,22 +61,22 @@ module.exports = {
           model: 'Users',
           key: 'id',
           as: 'completedBy',
-        }
+        },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       deletedAt: {
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  down: function(queryInterface, Sequelize) {
+  down(queryInterface) {
     return queryInterface.dropTable('ActionPlans');
-  }
+  },
 };

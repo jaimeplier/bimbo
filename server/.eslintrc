@@ -1,0 +1,16 @@
+env:
+  node: true
+  es6: true
+
+parser: esprima
+
+parserOptions:
+  parserOptions": 6
+
+extends: airbnb-base
+
+rules:
+  no-console: off
+  no-use-before-define: off
+  no-shadow: off
+  consistent-return: off

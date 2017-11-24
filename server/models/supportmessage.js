@@ -1,13 +1,13 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var SupportMessage = sequelize.define('SupportMessage', {
+
+module.exports = (sequelize, DataTypes) => {
+  const SupportMessage = sequelize.define('SupportMessage', {
     subject: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
         notNull: true,
-      }
+      },
     },
     message: {
       type: DataTypes.STRING,
@@ -15,16 +15,16 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notEmpty: true,
         notNull: true,
-      }
-    }
-  }, {paranoid: true});
+      },
+    },
+  }, { paranoid: true });
 
-  SupportMessage.associate = function(models) {
+  SupportMessage.associate = (models) => {
     SupportMessage.belongsTo(models.User, {
       foreignKey: 'from',
       onDelete: 'CASCADE',
-    })
-  }
+    });
+  };
 
   return SupportMessage;
 };

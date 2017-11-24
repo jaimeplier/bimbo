@@ -1,8 +1,8 @@
-'use strict';
+
 
 module.exports = {
-  up: function(queryInterface, Sequelize) {
-    var atttribute = {
+  up(queryInterface, Sequelize) {
+    const atttribute = {
       type: Sequelize.ENUM('Success', 'Warning', 'Failure'),
     };
 
@@ -11,7 +11,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -20,7 +20,7 @@ module.exports = {
           model: 'Users',
           key: 'id',
           as: 'userId',
-        }
+        },
       },
       productId: {
         type: Sequelize.INTEGER,
@@ -29,7 +29,7 @@ module.exports = {
           model: 'Products',
           key: 'id',
           as: 'productId',
-        }
+        },
       },
       factoryId: {
         type: Sequelize.INTEGER,
@@ -38,11 +38,11 @@ module.exports = {
           model: 'Factories',
           key: 'id',
           as: 'factoryId',
-        }
+        },
       },
       lot: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       label: atttribute,
       airTightness: atttribute,
@@ -64,25 +64,25 @@ module.exports = {
       crumbColor: atttribute,
       crumbConsistency: atttribute,
       note: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       totalScore: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       deletedAt: {
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  down: function(queryInterface, Sequelize) {
+  down(queryInterface) {
     return queryInterface.dropTable('Scores');
-  }
+  },
 };

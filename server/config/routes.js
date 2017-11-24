@@ -3,26 +3,24 @@
 // on the factory controller. (e.g: /scores on the
 // scores controller instead of factory controller)
 
-var FactoriesController = require ('./../controllers/FactoriesController.js');
-var UsersController = require('./../controllers/UsersController.js');
-var ScoresController = require('./../controllers/ScoreController.js');
-var ActionPlansCtr = require('./../controllers/ActionPlansController.js');
-var DashboardsController = require('./../controllers/DashboardsController.js');
+const FactoriesController = require('./../controllers/FactoriesController.js');
+const UsersController = require('./../controllers/UsersController.js');
+const ScoresController = require('./../controllers/ScoreController.js');
+const ActionPlansCtr = require('./../controllers/ActionPlansController.js');
+const DashboardsController = require('./../controllers/DashboardsController.js');
 
-var Errors = require('./../utils/errorResponses.js');
+const Errors = require('./../utils/errorResponses.js');
 
-var request = require('request');
-var path = require('path');
+const path = require('path');
 
-var authM = UsersController.authMasterUser;
-var authA = UsersController.authAdminUser;
-var authE = UsersController.authEmployeeUser;
+const authM = UsersController.authMasterUser;
+const authA = UsersController.authAdminUser;
+const authE = UsersController.authEmployeeUser;
 
-module.exports = function(app) {
-
-  if(process.env.NODE_ENV === 'development') {
-    app.get('/api/session', function(req, res) {
-      res.json({err: false, session: req.session});
+module.exports = function routes(app) {
+  if (process.env.NODE_ENV === 'development') {
+    app.get('/api/session', (req, res) => {
+      res.json({ err: false, session: req.session });
     });
   }
 
@@ -46,42 +44,40 @@ module.exports = function(app) {
   // ------------------------------------------------------
   const FC = FactoriesController;
   app.get('/api/factories', authM, FC.getSlugs);
-  app.get('/api/factories/:slug', authA, FC.getFactoryInfo)
+  app.get('/api/factories/:slug', authA, FC.getFactoryInfo);
   app.get('/api/factories/:slug/summary', authA, DashboardsController.factorySummary);
-  app.get('/api/factories/:slug/employees', authA, FC.getEmployees)
-  app.get('/api/factories/:slug/action-plans', authA, FC.getActionPlans)
-  app.get('/api/factories/:slug/action-plans/download/:fileType', authA, FC.downloadActionPlans)
-  app.get('/api/factories/:slug/scores/download/:fileType', authA, FC.downloadScores)
-  app.get('/api/factories/:slug/managers', authA, FC.getManagers)
-  app.post('/api/factories/:slug/employees', authA, UsersController.createEmployee)
-  app.post('/api/factories/:slug/managers', authA, UsersController.createManager)
+  app.get('/api/factories/:slug/employees', authA, FC.getEmployees);
+  app.get('/api/factories/:slug/action-plans', authA, FC.getActionPlans);
+  app.get('/api/factories/:slug/action-plans/download/:fileType', authA, FC.downloadActionPlans);
+  app.get('/api/factories/:slug/scores/download/:fileType', authA, FC.downloadScores);
+  app.get('/api/factories/:slug/managers', authA, FC.getManagers);
+  app.post('/api/factories/:slug/employees', authA, UsersController.createEmployee);
+  app.post('/api/factories/:slug/managers', authA, UsersController.createManager);
 
 
   // Scores
   // ------------------------------------------------------
-  app.post('/api/scores/:product', authE, ScoresController.create)
+  app.post('/api/scores/:product', authE, ScoresController.create);
 
 
   // Action Plans
   // ------------------------------------------------------
   app.get('/api/action-plans', ActionPlansCtr.get);
-  app.post('/api/action-plans/complete', ActionPlansCtr.complete)
+  app.post('/api/action-plans/complete', ActionPlansCtr.complete);
 
 
   // Error Handling
   // ------------------------------------------------------
-  
-  app.all('/api/*', function(req, res, next) {
-    var err = res.locals && res.locals.err;
-    if(err && err.name == 'SequelizeValidationError') return Errors.resWithValidationError(req, res, err);
-    if(err && err.name == 'General') return Errors.resWithGeneralError(req, res, err);
-    if(err) return Errors.resWithServerError(req, res, err);
-    res.status(404).json({err: true, message: 'Route not found'});
+
+  app.all('/api/*', (req, res) => {
+    const err = res.locals && res.locals.err;
+    if (err && err.name === 'SequelizeValidationError') return Errors.resWithValidationError(req, res, err);
+    if (err && err.name === 'General') return Errors.resWithGeneralError(req, res, err);
+    if (err) return Errors.resWithServerError(req, res, err);
+    res.status(404).json({ err: true, message: 'Route not found' });
   });
 
-  app.get('/*', function(req, res, next) {
-    res.sendFile(path.join(__dirname + './../../build', 'index.html'));
-  })
-
-}
-
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(`${__dirname}./../../build`, 'index.html'));
+  });
+};

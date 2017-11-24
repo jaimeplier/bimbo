@@ -1,24 +1,23 @@
-var Promise = require('bluebird');
+const Promise = require('bluebird');
 
 
-var Score = require('../models').Score;
-var Product = require('../models').Product;
-var products = require('../config/products.js');
-var genErr = require('../utils/generalError.js');
-var routeErr = require('../utils/routeErr.js');
-var ActionPlansCtr = require('./ActionPlansController.js');
+const { Score } = require('../models');
+const products = require('../config/products.js');
+const genErr = require('../utils/generalError.js');
+const routeErr = require('../utils/routeErr.js');
+const ActionPlansCtr = require('./ActionPlansController.js');
 
 // Route Functions
 // ------------------------------------------------------
 
 function createScore(req, res, next) {
-  var product = products[req.params.product];
-  var auth = res.locals.jwtAuth;
-  if(!product) return genErr(res, next, 'productDoesNotExist');
+  let product = products[req.params.product];
+  const auth = res.locals.jwtAuth;
+  if (!product) return genErr(res, next, 'productDoesNotExist');
 
   product = product.concat(['lot', 'factoryId', 'productId', 'userId']);
 
-  var data = req.body.score;
+  const data = req.body.score;
   data.factoryId = auth.factoryId;
   data.productId = 1;
   data.userId = auth.id;
@@ -26,7 +25,7 @@ function createScore(req, res, next) {
   Score
     .create(data, { fields: product })
     .then(scr => ActionPlansCtr.createOrReturnScore(req, res, next, scr))
-    .catch(err => routeErr(res, next, err))
+    .catch(err => routeErr(res, next, err));
 }
 
 
@@ -36,13 +35,13 @@ function createScore(req, res, next) {
 function globalDashboardKPIs() {
   return Promise
     .all([
-      Score.count({where: {'totalScore': {$gt: 79}}}),
-      Score.count({where: {'totalScore': {$lt: 79}}}),
+      Score.count({ where: { totalScore: { $gt: 79 } } }),
+      Score.count({ where: { totalScore: { $lt: 79 } } }),
     ])
-    .then(data => { return {
+    .then(data => ({
       successful: data[0],
       unsuccessful: data[1],
-    }})
+    }));
 }
 
 function factorySummaryKPIs(factory) {
@@ -50,9 +49,9 @@ function factorySummaryKPIs(factory) {
     .all([
       getLatestScores(factory.get('id')),
     ])
-    .then(data => { return {
+    .then(data => ({
       latestScores: data[0],
-    }})
+    }));
 }
 
 
@@ -61,10 +60,11 @@ function factorySummaryKPIs(factory) {
 function getLatestScores(factoryId) {
   return Score
     .findAll({
-      where: {factoryId}
-    })
+      where: { factoryId },
+    });
 }
 
+// eslint-disable-next-line
 function determineLotTotalScore() {
 
 }
@@ -74,4 +74,4 @@ module.exports = {
   create: createScore,
   factorySummaryKPIs,
   globalDashboardKPIs,
-}
+};

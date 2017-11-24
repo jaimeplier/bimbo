@@ -41,9 +41,10 @@ class Login extends Component {
 
     sendPostRequest('/api/users/log-in', body, (json) => {
       if(json.err) return this.setState({errors: json.errors});
+      this.props.dispatch(setUser(json.user));
       updatePoly(() => {
-        this.props.dispatch(setUser(json.user));
-        // if(user)
+        if(json.user.access === 'Admin')
+          return this.props.history.push('/factory/'+ json.user.factorySlug);
         this.props.history.push('/');
       })
     }, (s) => {

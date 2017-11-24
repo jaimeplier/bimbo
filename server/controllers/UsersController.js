@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const secret = process.env.SESSION_SECRET;
 
-const { User } = require('../models');
+const { User, Factory } = require('../models');
 const { Op } = require('sequelize');
 
 const { authUserForFactory } = require('./FactoriesController.js');
@@ -92,6 +92,11 @@ function logInUser(req, res, next) {
         email: req.body.email,
         [Op.or]: [{ access: 'Master' }, { access: 'Admin' }],
       },
+      include: [{
+        model: Factory,
+        as: 'factory',
+        attributes: ['slug'],
+      }],
     })
     .then((user) => {
       if (!user) return genErr(res, next, 'emailDoesNotExist');
@@ -195,9 +200,11 @@ function setUserSessionDataAndRespond(req, res, user) {
   req.session.userId = user.id;
   req.session.access = user.access;
   req.session.language = user.language;
+  const plainUser = user.get({ plain: true });
   const filteredUser = filterDbObj(user, ['name', 'email', 'access', 'language']);
+  filteredUser.factorySlug = plainUser.factory && plainUser.factory.slug;
   req.session.user = filteredUser;
-  res.json({ err: false, filteredUser });
+  res.json({ err: false, user: filteredUser });
 }
 
 

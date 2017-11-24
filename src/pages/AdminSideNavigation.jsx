@@ -30,9 +30,18 @@ class AdminSideNavigation extends Component {
   constructor(props) {
     super(props)
     this.toggleFactorySideNav = this.toggleFactorySideNav.bind(this)
+    console.log('the user: ', this.props.user.toJS())
+    const user = this.props.user;
+    if(this.props.user.get('access') !== 'Master') {
+      const factorySlug = user.get('factorySlug');
+      this.noAccess = true;
+      return this.props.history.push('/factory/'+ factorySlug);
+    }
+
   }
 
   componentWillMount() {
+    if(this.noAccess) return;
     if(!this.props.adminFactories) {
       this.props.dispatch(getFactories())
     }
@@ -45,6 +54,7 @@ class AdminSideNavigation extends Component {
   render() {
     const factories = this.props.adminFactories;
     const factoryOpen = this.props.factoryNavOpen;
+    if(this.noAccess) return null;
     return (
       <div>
         <div id="sidenav" className="card-2">

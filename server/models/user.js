@@ -66,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = (models) => {
     User.belongsTo(models.Factory, {
       foreignKey: 'factoryId',
+      as: 'factory',
       onDelete: 'CASCADE',
     });
 

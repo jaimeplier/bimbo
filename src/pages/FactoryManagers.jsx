@@ -22,6 +22,7 @@ class FactoryManagers extends Component {
       Header: Poly.t('Profile Picture'),
       id: 'picture',
       accessor: (r) => '',
+      Cell: this.profilePicCell,
     }, {
       Header: Poly.t('Name'),
       id: 'name',
@@ -47,6 +48,13 @@ class FactoryManagers extends Component {
   createManager(reqObj, callback) {
     const factory = this.props.match.params.factory
     this.props.dispatch(createFactoryManager(factory, reqObj, callback))
+  }
+
+  profilePicCell(row) {
+    return (<div
+      className="profile-pic"
+      style={{backgroundImage: row.value ? `url(${row.value})` : ''}}
+    />)
   }
 
   render() {

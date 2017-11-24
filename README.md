@@ -1,7 +1,7 @@
 # Welcome to Bimbo Skyline
 QA Assurance software @ Bimbo Group factories
 
-##Intro
+## Intro
 Hi there, welcome to Bimbo's Skyline repo.  
 Good to have you here. :)
 
@@ -12,6 +12,7 @@ Some info that might be useful:
   - Admin Uses are the ones that have access only to one factory data
   - Employee are the ones who do the QA from the App, they don't even have
     access to the website  
+
   _Note: There is a small mess on this. The frontend is using Admin, Manager
          and Scorer instead of the above and components sometimes use Users
          for Scorer. (I know, I know my bad. This should be fixed eventually tho)_

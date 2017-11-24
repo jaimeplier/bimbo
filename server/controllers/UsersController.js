@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.SESSION_SECRET;
 
 const { User } = require('../models');
+const { Op } = require('sequelize');
 
 const { authUserForFactory } = require('./FactoriesController.js');
 
@@ -86,7 +87,12 @@ function registerUser(req, res, next) {
 
 function logInUser(req, res, next) {
   User
-    .findOne({ where: { email: req.body.email } })
+    .findOne({
+      where: {
+        email: req.body.email,
+        [Op.or]: [{ access: 'Master' }, { access: 'Admin' }],
+      },
+    })
     .then((user) => {
       if (!user) return genErr(res, next, 'emailDoesNotExist');
       if (!user.get('password')) return genErr(res, next, 'registerFirst');

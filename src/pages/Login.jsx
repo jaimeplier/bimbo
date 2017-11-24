@@ -43,6 +43,7 @@ class Login extends Component {
       if(json.err) return this.setState({errors: json.errors});
       updatePoly(() => {
         this.props.dispatch(setUser(json.user));
+        // if(user)
         this.props.history.push('/');
       })
     }, (s) => {

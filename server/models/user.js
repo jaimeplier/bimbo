@@ -6,7 +6,7 @@ function hashPassword(user) {
   if (!user.changed('password') || !user.password) return;
   console.log('hashing password...'); // Test this won't run on every update (basically the .changed() method works)
   // eslint-disable-next-line
-  bcrypt.hash(user.password, 12).then((hash) => { user.password = hash; });
+  return bcrypt.hash(user.password, 12).then((hash) => { user.password = hash; });
 }
 
 module.exports = (sequelize, DataTypes) => {

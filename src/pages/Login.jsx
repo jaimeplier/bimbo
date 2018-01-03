@@ -61,7 +61,7 @@ class Login extends Component {
   render() {
     return (
       <div className="auth">
-        <div className="col-7 card">
+        <div className="col-4 card">
           <div className="row">
             <div  className="col-12 center">
               <img className="bimbo-logo" src={images.bimboLogo} alt='' />

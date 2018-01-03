@@ -1,5 +1,5 @@
 .action-plans-chart {
-  color: $action-plans-main;
+  // color: $action-plans-main;
 
   .bar-footer {
     background-color: $action-plans-bar-footer;
@@ -7,6 +7,7 @@
     p {
       margin: 5px 0px;
       min-height: 19px;
+      color: white;
     }
 
     .bar-description {
@@ -16,7 +17,7 @@
 
   }
 
-  .bar-content {
-    background-image: $action-plans-bar-content;
-  }
+  // .bar-content {
+  //   background-image: $action-plans-bar-content;
+  // }
 }

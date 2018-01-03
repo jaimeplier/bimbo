@@ -13,6 +13,7 @@ export default function mainReducer(state = initialState, action) {
     case 'TOGGLE_SIDENAV_FACTORIES':
       return state.update('sidenavFactoriesOpen', (r) => !r)
 
+    // DasbhoardActions
     case 'SET_GLOBAL_DASHBOARD_DATA':
       return state.set('globalDashboard', fromJS(action.json));
     case 'SET_ADMIN_FACTORIES':

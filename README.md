@@ -24,8 +24,3 @@ Some info that might be useful:
     on the App. (I know, it'll be a mess; Not looking forward to it)
 
 ## Additonal Notes
-
-- Most components are using things like factorySlug coming from the props or react
-  router params. Should look into setting them in the components itself (this.name)
-  on the constructor and using that one everywhere instead of creating a new variable
-  on each function.

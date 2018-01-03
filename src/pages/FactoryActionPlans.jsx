@@ -116,6 +116,7 @@ class FactoryActionPlans extends Component {
             columns={this.columns}
             showPagination={false}
             showPageSizeOptions={false}
+            pageSize={actionPlans && actionPlans.toArray().length}
           />
         </div>
       </div>

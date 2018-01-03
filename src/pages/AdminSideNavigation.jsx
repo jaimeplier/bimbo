@@ -10,7 +10,7 @@ import {
   ChevronDown,
   ChevronUp,
   Copy as CompareIcon,
-} from 'react-feather';
+} from 'react-feather'
 
 import {
   getFactories,

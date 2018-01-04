@@ -8,6 +8,7 @@ module.exports = {
   Cause: 'Causa',
   Compare: 'Comparar',
   Completed: 'Completados',
+  'Copy to clipboard': 'Copiar al portapapeles',
   Correction: 'Corrección',
   Create: 'Crear',
   'Create User': 'Crear Usuario',

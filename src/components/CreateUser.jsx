@@ -47,6 +47,15 @@ export default class CreateUser extends Component {
     }, this.createdUser)
   }
 
+  copyToClipboard() {
+    const textField = document.createElement('textarea');
+    textField.innerText = this.state.user.accessPin;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
+  }
+
   render() {
     const type = this.props.type
     return (
@@ -94,9 +103,16 @@ export default class CreateUser extends Component {
               <div>
                 <p>{Poly.t("Successfully created user")}</p>
                 { this.props.type === "factory" ?
-                  <p>
-                    {Poly.t("User PIN")}: {this.state.user.accessPin}
-                  </p>
+                  <div>
+                    <p>
+                      {Poly.t("User PIN")}: {this.state.user.accessPin}
+                    </p>
+                    <RaisedButton
+                      label={Poly.t('Copy to clipboard')}
+                      primary={true}
+                      onClick={this.copyToClipboard.bind(this)}
+                    />
+                  </div>
                 : null }
                 { this.props.type === "manager" ?
                   <p>

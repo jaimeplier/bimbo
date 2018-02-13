@@ -66,7 +66,7 @@ module.exports = function routes(app) {
   // Scores
   // ------------------------------------------------------
   app.get('/api/factories/:slug/score', authA, ScoresController.getScore);
-  app.post('/api/products/:product/scoring', authE, ScoresController.createScores);
+  app.post('/api/products/:product/scoring', authE, ScoresController.create);
 
 
   // Action Plans

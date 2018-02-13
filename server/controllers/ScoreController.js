@@ -17,8 +17,7 @@ const {
   getFactoryFromSlug,
 } = require('./../utils/databaseHelpers');
 
-const products = require('../config/products.js');
-const genErr = require('../utils/generalError.js');
+const routeErr = require('../utils/routeErr.js');
 const { getProductFromSlug } = require('../utils/databaseHelpers.js');
 
 // Route Functions

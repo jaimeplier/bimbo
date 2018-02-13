@@ -33,12 +33,10 @@ function factorySummary(req, res, next) {
   authUserForFactory(req, res, next, (user, factory) => {
     Promise.all([
       ActionPlansCtr.factorySummaryKPIs(factory),
-      ScoresController.factorySummaryKPIs(factory),
     ])
       .then(data => res.json({
         err: false,
         actionPlans: data[0],
-        scores: data[1],
       }))
       .catch(err => routeErr(res, next, err));
   });

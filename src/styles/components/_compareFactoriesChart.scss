@@ -1,0 +1,18 @@
+.compare-chart {
+    border: 1px solid #eeeeee;
+    min-width: 100%;
+
+    .compare-row {
+        display: flex;
+        min-width: 100%;
+        height: 60px;
+    }
+    .compare-column {
+        min-width: 25%;
+        max-width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+}

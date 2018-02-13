@@ -68,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Factory.belongsToMany(models.Product, {
       through: 'FactoryProduct',
-      foreignKey: 'productId',
+      foreignKey: 'factoryId',
       as: 'products',
     });
     Factory.hasMany(models.Score, {
@@ -78,6 +78,11 @@ module.exports = (sequelize, DataTypes) => {
     Factory.hasMany(models.User, {
       foreignKey: 'factoryId',
       as: 'users',
+    });
+    Factory.belongsToMany(models.Organization, {
+      through: 'FactoryOrganization',
+      foreignKey: 'factoryId',
+      as: 'organizations',
     });
   };
 

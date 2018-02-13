@@ -3,7 +3,7 @@ import Poly from './../utils/i18n';
 
 export default class ActionPlansInfo extends Component {
   render() {
-    const metrics = this.props.metrics;
+    const { metrics } = this.props;
     return (
       <div className="action-plans-info">
         <div className="title">
@@ -24,6 +24,6 @@ export default class ActionPlansInfo extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

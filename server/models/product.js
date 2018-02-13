@@ -9,6 +9,14 @@ module.exports = (sequelize, DataTypes) => {
         notNull: true,
       },
     },
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        notNull: true,
+      },
+    },
     type: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -23,8 +31,9 @@ module.exports = (sequelize, DataTypes) => {
 
   Product.associate = (models) => {
     Product.belongsToMany(models.Factory, {
-      as: 'factories',
       through: 'FactoryProduct',
+      foreignKey: 'productId',
+      as: 'factories',
     });
 
     Product.hasMany(models.ActionPlan, {
@@ -34,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
     Product.hasMany(models.Score, {
       foreignKey: 'productId',
       as: 'scores',
+    });
+    Product.hasMany(models.ProductAttribute, {
+      foreignKey: 'productId',
+      as: 'productAttributes',
     });
   };
 

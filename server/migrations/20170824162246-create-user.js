@@ -49,7 +49,7 @@ module.exports = {
       lastActivity: {
         type: Sequelize.DATE,
       },
-      active: {
+      isArchived: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
       },

@@ -84,8 +84,10 @@ function getManagers(req, res, next) {
 
 function getActionPlans(req, res, next) {
   authUserForFactory(req, res, next, (user, factory) => {
+    const page = parseInt(req.query.pageNo, 10);
+    const limit = parseInt(req.query.size, 10);
     ActionPlan
-      .findAll({
+      .findAndCountAll({
         where: { factoryId: factory.get('id') },
         attributes: getActionPlansFields,
         include: [{
@@ -97,9 +99,14 @@ function getActionPlans(req, res, next) {
           as: 'score',
           attributes: getActionPlansScoreFields,
         }],
-        limit: 20,
+        limit,
+        offset: limit * (page),
       })
-      .then(actionPlans => res.json({ err: false, actionPlans }))
+      .then((actionPlans) => {
+        const pages = Math.ceil(actionPlans.count / limit);
+        const result = Object.assign({}, { actionPlans: actionPlans.rows }, { pageCount: pages });
+        return res.json({ err: false, result });
+      })
       .catch(err => routeErr(res, next, err));
   });
 }

@@ -28,7 +28,7 @@ a {
 }
 
 .card {
-  border-radius: 2px;
+  border-radius: 8px;
   background-color: $card-background;
   border: $card-border;
   padding: $card-padding;
@@ -112,4 +112,45 @@ a {
 
 .card-btn-row {
   margin-bottom: 5px;
+}
+
+.ReactTable {
+  border-radius: 0px 0px 0px 0px;
+  border: none;
+}
+
+.ReactTable .rt-thead.-header {
+  box-shadow: none;
+  border: none;
+}
+
+.ReactTable .rt-th {
+  background-color: #FAFAFA;
+  height: 40px;
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+}
+
+.ReactTable .rt-thead .rt-resizable-header-content {
+  font-family: Lato;
+  font-weight: 900;
+  color: #2E5980;
+}
+
+.ReactTable .rt-table {
+  border: none;
+  background-color: none;
+}
+
+.ReactTable .rt-td {
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+  white-space: normal;
+}
+
+.card-header {
+  padding: 6px 15px;
+  font-weight: 800;
 }

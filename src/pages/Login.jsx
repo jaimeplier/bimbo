@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { updatePoly } from './../utils/i18n';
 import isEmail from 'validator/lib/isEmail';
-import { connect } from 'react-redux';
-
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { connect } from 'react-redux';
 
+import { updatePoly } from './../utils/i18n';
 import { sendPostRequest } from './../utils/customRequests';
+
+import Form from './../components/Form';
 
 import images from './../assets';
 
 import { setUser } from '../actions/userActions';
-
 
 
 class Login extends Component {
@@ -24,37 +24,39 @@ class Login extends Component {
         general: '',
         email: '',
         password: '',
-      }
+      },
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  _handleSubmit() {
-    this.setState({errors: {general:'', email:'', password: ''}});
+  handleSubmit() {
+    this.setState({ errors: { general: '', email: '', password: '' } });
 
-    if(!isEmail(this.state.email)) return this.setState({errors:{email:'Please use valid email'}});
-    if(this.state.password.length < 5) return this.setState({errors:{password:'Password is too short'}});
+    if (!isEmail(this.state.email)) return this.setState({ errors: { email: 'Please use valid email' } });
+    if (this.state.password.length < 5) return this.setState({ errors: { password: 'Password is too short' } });
 
     const body = {
       email: this.state.email,
-      password: this.state.password
-    }
+      password: this.state.password,
+    };
 
     sendPostRequest('/api/users/log-in', body, (json) => {
-      if(json.err) return this.setState({errors: json.errors});
+      if (json.err) return this.setState({ errors: json.errors });
       this.props.dispatch(setUser(json.user));
       updatePoly(() => {
-        if(json.user.access === 'Admin')
-          return this.props.history.push('/factory/'+ json.user.factorySlug);
+        if (json.user.access === 'Admin') { return this.props.history.push(`/factory/${json.user.factorySlug}`); }
         this.props.history.push('/');
-      })
+      });
     }, (s) => {
       console.log('the error: ', s);
-      this.setState({errors:{general: s}})
+      this.setState({ errors: { general: s } });
     });
   }
 
-  _handleInputChange(e) {
-    this.setState({[e.target.name]: e.target.value});
+  handleInputChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
 
@@ -62,45 +64,49 @@ class Login extends Component {
     return (
       <div className="auth">
         <div className="col-4 card">
-          <div className="row">
-            <div  className="col-12 center">
-              <img className="bimbo-logo" src={images.bimboLogo} alt='' />
+          <Form onSubmit={this.handleSubmit}>
+            <div className="row">
+              <div className="col-12 center">
+                <img className="bimbo-logo" src={images.bimboLogo} alt="" />
+              </div>
+              <div className="col-12 center">
+                <p className="error">{ this.state.errors.general}</p>
+                <TextField
+                  className="input"
+                  name="email"
+                  errorText={this.state.errors && this.state.errors.email}
+                  onChange={this.handleInputChange}
+                  floatingLabelText="Email"
+                />
+              </div>
+              <div className="col-12 center">
+                <TextField
+                  className="input"
+                  type="password"
+                  name="password"
+                  errorText={this.state.errors && this.state.errors.password}
+                  onChange={this.handleInputChange}
+                  floatingLabelText="Password"
+                />
+              </div>
+              <div className="col-12">
+                <RaisedButton
+                  type="submit"
+                  label="Log In"
+                  fullWidth
+                  primary
+                />
+              </div>
             </div>
-            <div className="col-12 center">
-              <p className="error">{ this.state.errors.general}</p>
-              <TextField
-                className="input"
-                name="email"
-                errorText={this.state.errors && this.state.errors.email}
-                onChange={this._handleInputChange.bind(this)}
-                floatingLabelText="Email" />
-            </div>
-            <div className="col-12 center">
-              <TextField
-                className="input"
-                type="password"
-                name="password"
-                errorText={this.state.errors && this.state.errors.password}
-                onChange={this._handleInputChange.bind(this)}
-                floatingLabelText="Password" />
-            </div>
-            <div className="col-12">
-              <RaisedButton
-                label="Log In"
-                fullWidth={true}
-                primary={true}
-                onClick={this._handleSubmit.bind(this)}
-              />
-            </div>
-          </div>
+          </Form>
         </div>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps() {
-  return {}
+  return {};
 }
 
 export default connect(mapStateToProps)(Login);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  logout
+  logout,
 } from '../actions/userActions';
 
 class Logout extends Component {
@@ -15,12 +15,12 @@ class Logout extends Component {
   render() {
     return (
       <p className="center">Loging out...</p>
-    )
+    );
   }
 }
 
-function mapStateToProps(state) {
-  return {}
+function mapStateToProps() {
+  return {};
 }
 
 export default connect(mapStateToProps)(Logout);

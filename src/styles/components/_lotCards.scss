@@ -1,0 +1,105 @@
+.lot-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 12px;
+
+    .lot-card {
+        min-width: 260px;
+        max-width: 260px;
+        background-color: white;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 250px;
+        border-radius: 4px;
+        margin-right: 12px;
+        margin-bottom: 12px;
+        box-shadow: 0 1px 3px 0 rgba(173,173,173,0.50);  
+    }
+    
+    .lot-data {
+        min-width: 50%;
+        max-width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        font-size: 14px;
+        padding: 0 0 0 20px;
+    
+        p {
+            margin: 1px;
+        }
+    }
+
+    .lot-name {
+        font-size: 16px;
+    }
+    
+    .lot-score {
+        min-width: 20%;
+        max-width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 36px;
+        margin: 10px 20px 10px 0;
+        border-radius: 5%;
+
+        &-green {
+            background-color: green;
+        }
+        &-red {
+            background-color: #D92626;    
+            color: white;        
+        }
+        &-yellow {
+            background-color: #F4E844;
+            color: #666666;
+        }
+    }
+    
+    .lot-card-header {
+        background-color: #295FA0;
+        display: flex;
+        color: white;  
+        max-height: 25%; 
+        border-radius: 4px 4px 0 0; 
+        justify-content: space-between;
+    }
+    
+    .lot-score-attributes {
+        padding: 8px 24px;
+        font-size: 12px;
+    }
+
+    .lot-score-attribute {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin: 12px 0;
+    }
+
+    .lot-score-attribute-name {
+        display: flex;
+        align-items: baseline;        
+    }
+
+    .score-dot {
+        min-width: 10px;
+        max-width: 10px;
+        min-height: 10px;
+        max-height: 10px;
+        border-radius: 50%;
+        margin-right: 12px;
+        
+        &-yellow {
+            background-color: #F4E844;
+        }
+
+        &-red {
+            background-color: #D92626;
+        }
+    }
+}

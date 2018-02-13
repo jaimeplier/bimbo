@@ -7,6 +7,7 @@ import CreateUser from '../components/CreateUser';
 
 class AdminUsers extends Component {
   createUser() {
+
   }
 
   render() {
@@ -15,15 +16,15 @@ class AdminUsers extends Component {
         <Header />
         <div className="card card-2">
           <CardHeader
-            title={Poly.t("Admin Users")}
-            rightContent={<CreateUser 
+            title={Poly.t('Admin Users')}
+            rightContent={<CreateUser
               type="admin"
               submit={this.createUser}
             />}
           />
         </div>
       </div>
-    )
+    );
   }
 }
 

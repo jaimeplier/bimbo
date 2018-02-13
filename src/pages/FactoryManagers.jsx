@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Poly from './../utils/i18n';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
+
+import Poly from './../utils/i18n';
 
 import Header from './../components/Header';
 import CardHeader from './../components/CardHeader';
@@ -12,67 +13,65 @@ import {
   getFactoryManagers,
 } from './../actions/factoryActions';
 
-import { timeCell } from '../utils/customTableCells';
 
 class FactoryManagers extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.columns = [{
       Header: Poly.t('Profile Picture'),
       id: 'picture',
-      accessor: (r) => '',
       Cell: this.profilePicCell,
     }, {
       Header: Poly.t('Name'),
       id: 'name',
-      accessor: (r) => r.get('name'),
+      accessor: r => r.get('name'),
     }, {
       Header: Poly.t('Email'),
       id: 'email',
-      accessor: (r) => r.get('email'),
+      accessor: r => r.get('email'),
     }, {
       Header: Poly.t('Last Activity'),
       id: 'lastActivity',
-      accessor: (r) => r.get('lastActivity') || Poly.t('No Activity'),
-    }]
+      accessor: r => r.get('lastActivity') || Poly.t('No Activity'),
+    }];
 
-    this.createManager = this.createManager.bind(this)
+    this.createManager = this.createManager.bind(this);
   }
 
   componentWillMount() {
-    const factorySlug = this.props.match.params.factory
-    this.props.dispatch(getFactoryManagers(factorySlug))
+    const factorySlug = this.props.match.params.factory;
+    this.props.dispatch(getFactoryManagers(factorySlug));
   }
 
   createManager(reqObj, callback) {
-    const factory = this.props.match.params.factory
-    this.props.dispatch(createFactoryManager(factory, reqObj, callback))
+    const { factory } = this.props.match.params;
+    this.props.dispatch(createFactoryManager(factory, reqObj, callback));
   }
 
   profilePicCell(row) {
     return (<div
       className="profile-pic"
-      style={{backgroundImage: row.value ? `url(${row.value})` : ''}}
-    />)
+      style={{ backgroundImage: row.value ? `url(${row.value})` : '' }}
+    />);
   }
 
   render() {
-    const factoryInfo = this.props.factoryInfo
-    const factorySlug = this.props.match.params.factory
-    const managers = this.props.managers
+    const { factoryInfo } = this.props;
+    const { factory: factorySlug } = this.props.match.params;
+    const { managers } = this.props;
     return (
       <div className="factory-managers">
         <Header
           crumb={[{
             name: (factoryInfo && factoryInfo.get('name')),
-            to: '/factory/'+factorySlug,
+            to: `/factory/${factorySlug}`,
           }, {
             name: Poly.t('Managers'),
-            to: '/factory/'+factorySlug+'/managers',
+            to: `/factory/${factorySlug}/managers`,
           }]}
         />
-        <div className="card card-2">
+        <div className="card card-2 card-header">
           <CardHeader
             title={Poly.t('Managers')}
             subtitle={factoryInfo && factoryInfo.get('address')}
@@ -92,17 +91,17 @@ class FactoryManagers extends Component {
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state, ownProps) {
-  const factory = ownProps.match.params.factory;
+  const { factory } = ownProps.match.params;
   return {
     managers: state.getIn(['factories', factory, 'managers']),
     factoryInfo: state.getIn(['factories', factory, 'info']),
-  }
+  };
 }
 
 
-export default connect(mapStateToProps)(FactoryManagers)
+export default connect(mapStateToProps)(FactoryManagers);

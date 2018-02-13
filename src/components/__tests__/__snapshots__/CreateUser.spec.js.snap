@@ -1,0 +1,587 @@
+exports[`CreateUser Component shuold render 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <CreateUser />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <RaisedButton
+          disabled={false}
+          fullWidth={false}
+          label="Create User"
+          labelPosition="after"
+          onClick={[Function]}
+          primary={true}
+          secondary={false} />,
+        <Modal
+          onHide={[Function]}
+          show={false}>
+          <div
+                    className="left modal-content card-padding">
+                    <p
+                              className="card-title inline">
+                              Create User
+                    </p>
+                    <button
+                              className="button grey-btn"
+                              onClick={[Function]}>
+                              X
+                    </button>
+                    <div>
+                              <TextField
+                                        className="input"
+                                        disabled={false}
+                                        errorText={undefined}
+                                        floatingLabelFixed={false}
+                                        floatingLabelText="Name"
+                                        fullWidth={false}
+                                        multiLine={false}
+                                        name="name"
+                                        onChange={[Function]}
+                                        rows={1}
+                                        type="text"
+                                        underlineShow={true} />
+                              <div
+                                        className="float-fix">
+                                        <CreateUser
+                                                  className="float-right"
+                                                  label="Create"
+                                                  onFormSubmit={[Function]}
+                                                  primary={true} />
+                              </div>
+                    </div>
+          </div>
+</Modal>,
+      ],
+      "className": "create-user",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "disabled": false,
+          "fullWidth": false,
+          "label": "Create User",
+          "labelPosition": "after",
+          "onClick": [Function],
+          "primary": true,
+          "secondary": false,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <div
+            className="left modal-content card-padding">
+            <p
+                        className="card-title inline">
+                        Create User
+            </p>
+            <button
+                        className="button grey-btn"
+                        onClick={[Function]}>
+                        X
+            </button>
+            <div>
+                        <TextField
+                                    className="input"
+                                    disabled={false}
+                                    errorText={undefined}
+                                    floatingLabelFixed={false}
+                                    floatingLabelText="Name"
+                                    fullWidth={false}
+                                    multiLine={false}
+                                    name="name"
+                                    onChange={[Function]}
+                                    rows={1}
+                                    type="text"
+                                    underlineShow={true} />
+                        <div
+                                    className="float-fix">
+                                    <CreateUser
+                                                className="float-right"
+                                                label="Create"
+                                                onFormSubmit={[Function]}
+                                                primary={true} />
+                        </div>
+            </div>
+</div>,
+          "onHide": [Function],
+          "show": false,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <p
+                className="card-title inline">
+                Create User
+</p>,
+              <button
+                className="button grey-btn"
+                onClick={[Function]}>
+                X
+</button>,
+              <div>
+                <TextField
+                                className="input"
+                                disabled={false}
+                                errorText={undefined}
+                                floatingLabelFixed={false}
+                                floatingLabelText="Name"
+                                fullWidth={false}
+                                multiLine={false}
+                                name="name"
+                                onChange={[Function]}
+                                rows={1}
+                                type="text"
+                                underlineShow={true} />
+                <div
+                                className="float-fix">
+                                <CreateUser
+                                                className="float-right"
+                                                label="Create"
+                                                onFormSubmit={[Function]}
+                                                primary={true} />
+                </div>
+</div>,
+            ],
+            "className": "left modal-content card-padding",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Create User",
+                "className": "card-title inline",
+              },
+              "ref": null,
+              "rendered": "Create User",
+              "type": "p",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "X",
+                "className": "button grey-btn",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": "X",
+              "type": "button",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <TextField
+                    className="input"
+                    disabled={false}
+                    errorText={undefined}
+                    floatingLabelFixed={false}
+                    floatingLabelText="Name"
+                    fullWidth={false}
+                    multiLine={false}
+                    name="name"
+                    onChange={[Function]}
+                    rows={1}
+                    type="text"
+                    underlineShow={true} />,
+                  null,
+                  <div
+                    className="float-fix">
+                    <CreateUser
+                                        className="float-right"
+                                        label="Create"
+                                        onFormSubmit={[Function]}
+                                        primary={true} />
+</div>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "className": "input",
+                    "disabled": false,
+                    "errorText": undefined,
+                    "floatingLabelFixed": false,
+                    "floatingLabelText": "Name",
+                    "fullWidth": false,
+                    "multiLine": false,
+                    "name": "name",
+                    "onChange": [Function],
+                    "rows": 1,
+                    "type": "text",
+                    "underlineShow": true,
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                null,
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <CreateUser
+                      className="float-right"
+                      label="Create"
+                      onFormSubmit={[Function]}
+                      primary={true} />,
+                    "className": "float-fix",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "className": "float-right",
+                      "label": "Create",
+                      "onFormSubmit": [Function],
+                      "primary": true,
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "div",
+                },
+              ],
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <RaisedButton
+            disabled={false}
+            fullWidth={false}
+            label="Create User"
+            labelPosition="after"
+            onClick={[Function]}
+            primary={true}
+            secondary={false} />,
+          <Modal
+            onHide={[Function]}
+            show={false}>
+            <div
+                        className="left modal-content card-padding">
+                        <p
+                                    className="card-title inline">
+                                    Create User
+                        </p>
+                        <button
+                                    className="button grey-btn"
+                                    onClick={[Function]}>
+                                    X
+                        </button>
+                        <div>
+                                    <TextField
+                                                className="input"
+                                                disabled={false}
+                                                errorText={undefined}
+                                                floatingLabelFixed={false}
+                                                floatingLabelText="Name"
+                                                fullWidth={false}
+                                                multiLine={false}
+                                                name="name"
+                                                onChange={[Function]}
+                                                rows={1}
+                                                type="text"
+                                                underlineShow={true} />
+                                    <div
+                                                className="float-fix">
+                                                <CreateUser
+                                                            className="float-right"
+                                                            label="Create"
+                                                            onFormSubmit={[Function]}
+                                                            primary={true} />
+                                    </div>
+                        </div>
+            </div>
+</Modal>,
+        ],
+        "className": "create-user",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "disabled": false,
+            "fullWidth": false,
+            "label": "Create User",
+            "labelPosition": "after",
+            "onClick": [Function],
+            "primary": true,
+            "secondary": false,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": <div
+              className="left modal-content card-padding">
+              <p
+                            className="card-title inline">
+                            Create User
+              </p>
+              <button
+                            className="button grey-btn"
+                            onClick={[Function]}>
+                            X
+              </button>
+              <div>
+                            <TextField
+                                          className="input"
+                                          disabled={false}
+                                          errorText={undefined}
+                                          floatingLabelFixed={false}
+                                          floatingLabelText="Name"
+                                          fullWidth={false}
+                                          multiLine={false}
+                                          name="name"
+                                          onChange={[Function]}
+                                          rows={1}
+                                          type="text"
+                                          underlineShow={true} />
+                            <div
+                                          className="float-fix">
+                                          <CreateUser
+                                                        className="float-right"
+                                                        label="Create"
+                                                        onFormSubmit={[Function]}
+                                                        primary={true} />
+                            </div>
+              </div>
+</div>,
+            "onHide": [Function],
+            "show": false,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <p
+                  className="card-title inline">
+                  Create User
+</p>,
+                <button
+                  className="button grey-btn"
+                  onClick={[Function]}>
+                  X
+</button>,
+                <div>
+                  <TextField
+                                    className="input"
+                                    disabled={false}
+                                    errorText={undefined}
+                                    floatingLabelFixed={false}
+                                    floatingLabelText="Name"
+                                    fullWidth={false}
+                                    multiLine={false}
+                                    name="name"
+                                    onChange={[Function]}
+                                    rows={1}
+                                    type="text"
+                                    underlineShow={true} />
+                  <div
+                                    className="float-fix">
+                                    <CreateUser
+                                                      className="float-right"
+                                                      label="Create"
+                                                      onFormSubmit={[Function]}
+                                                      primary={true} />
+                  </div>
+</div>,
+              ],
+              "className": "left modal-content card-padding",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Create User",
+                  "className": "card-title inline",
+                },
+                "ref": null,
+                "rendered": "Create User",
+                "type": "p",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "X",
+                  "className": "button grey-btn",
+                  "onClick": [Function],
+                },
+                "ref": null,
+                "rendered": "X",
+                "type": "button",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <TextField
+                      className="input"
+                      disabled={false}
+                      errorText={undefined}
+                      floatingLabelFixed={false}
+                      floatingLabelText="Name"
+                      fullWidth={false}
+                      multiLine={false}
+                      name="name"
+                      onChange={[Function]}
+                      rows={1}
+                      type="text"
+                      underlineShow={true} />,
+                    null,
+                    <div
+                      className="float-fix">
+                      <CreateUser
+                                            className="float-right"
+                                            label="Create"
+                                            onFormSubmit={[Function]}
+                                            primary={true} />
+</div>,
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "className": "input",
+                      "disabled": false,
+                      "errorText": undefined,
+                      "floatingLabelFixed": false,
+                      "floatingLabelText": "Name",
+                      "fullWidth": false,
+                      "multiLine": false,
+                      "name": "name",
+                      "onChange": [Function],
+                      "rows": 1,
+                      "type": "text",
+                      "underlineShow": true,
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  null,
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <CreateUser
+                        className="float-right"
+                        label="Create"
+                        onFormSubmit={[Function]}
+                        primary={true} />,
+                      "className": "float-fix",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "className": "float-right",
+                        "label": "Create",
+                        "onFormSubmit": [Function],
+                        "primary": true,
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    "type": "div",
+                  },
+                ],
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

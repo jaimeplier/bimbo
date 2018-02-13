@@ -1,19 +1,26 @@
 .custom-table {
-  .rt-table {
-    background-color: white;
-  }
-
+  border: 1px solid rgba(0,0,0,0.1);
+  
   .success {
+    min-width: 100%;
+    min-height: 100%;
+    align-self: flex-start;
     background-color: $success-color;
     color: $table-score-text-color;
   }
 
   .warning {
+    min-width: 100%;
+    min-height: 100%;
+    align-self: flex-start;
     background-color: $warning-color;
     color: $table-score-text-color;
   }
 
   .failure {
+    min-width: 100%;
+    min-height: 100%;
+    align-self: flex-start;
     background-color: $failure-color;
     color: $table-score-text-color;
   }
@@ -26,6 +33,7 @@
 
   .lot-number {
     background-color: $lot-number;
+    padding: 5px 8px;
     color: $table-score-text-color;
   }
 }

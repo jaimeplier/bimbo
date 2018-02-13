@@ -1,12 +1,5 @@
 
 module.exports = (sequelize, DataTypes) => {
-  const attribute = () => ({
-    type: DataTypes.ENUM('Success', 'Warning', 'Failure'),
-    validate: {
-      isIn: [['Success', 'Warning', 'Failure']],
-    },
-  });
-
   const Score = sequelize.define('Score', {
     lot: {
       type: DataTypes.STRING,
@@ -15,25 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    label: attribute(),
-    airTightness: attribute(),
-    packaging: attribute(),
-    size: attribute(),
-    cleanliness: attribute(),
-    promotions: attribute(),
-    product: attribute(),
-    color: attribute(),
-    scent: attribute(),
-    taste: attribute(),
-    edibility: attribute(),
-    harmlessness: attribute(),
-    weight: attribute(),
-    symmetry: attribute(),
-    slicing: attribute(),
-    crust: attribute(),
-    crumbSize: attribute(),
-    crumbColor: attribute(),
-    crumbConsistency: attribute(),
     note: DataTypes.STRING,
     totalScore: DataTypes.INTEGER,
   }, { paranoid: true });
@@ -57,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     Score.hasOne(models.ActionPlan, {
       foreignKey: 'scoreId',
       as: 'actionPlan',
+    });
+    Score.hasMany(models.ScoreValue, {
+      foreignKey: 'scoreId',
+      as: 'scoreValues',
     });
   };
 

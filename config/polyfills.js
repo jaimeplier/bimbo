@@ -14,3 +14,16 @@ require('whatwg-fetch');
 // Object.assign() is commonly used with React.
 // It will use the native implementation if it's present and isn't buggy.
 Object.assign = require('object-assign');
+
+if(process.env.NODE_ENV === 'test') {
+  global.requestAnimationFrame = (callback) => {
+    setTimeout(callback, 0);
+  };
+
+  const enzyme = require('enzyme');
+  const enzymeAdapter = require('enzyme-adapter-react-16');
+
+  enzyme.configure({adapter: new enzymeAdapter()});
+
+  require('jest-canvas-mock');
+}

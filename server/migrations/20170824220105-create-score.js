@@ -1,11 +1,6 @@
 
-
 module.exports = {
   up(queryInterface, Sequelize) {
-    const atttribute = {
-      type: Sequelize.ENUM('Success', 'Warning', 'Failure'),
-    };
-
     return queryInterface.createTable('Scores', {
       id: {
         allowNull: false,
@@ -44,25 +39,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      label: atttribute,
-      airTightness: atttribute,
-      packaging: atttribute,
-      size: atttribute,
-      cleanliness: atttribute,
-      promotions: atttribute,
-      product: atttribute,
-      color: atttribute,
-      scent: atttribute,
-      taste: atttribute,
-      edibility: atttribute,
-      harmlessness: atttribute,
-      weight: atttribute,
-      symmetry: atttribute,
-      slicing: atttribute,
-      crust: atttribute,
-      crumbSize: atttribute,
-      crumbColor: atttribute,
-      crumbConsistency: atttribute,
       note: {
         type: Sequelize.STRING,
       },

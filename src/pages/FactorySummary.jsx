@@ -1,58 +1,54 @@
 import React, { Component } from 'react';
-import Poly from './../utils/i18n';
 import { connect } from 'react-redux';
+
+import Poly from './../utils/i18n';
 
 import Header from './../components/Header';
 import MonthlyLotsChart from '../components/MonthlyLotsChart';
-import ScoringTable from '../components/ScoringTable';
 import ActionPlansChart from '../components/ActionPlansChart';
 import CardHeader from '../components/CardHeader';
 
-import {
-  getFactorySummary,
-} from '../actions/factoryActions'
+import { getFactorySummary } from '../actions/factoryActions';
 
 class FactorySummary extends Component {
-
   componentWillMount() {
     const factorySlug = this.props.match.params.factory;
-    this.props.dispatch(getFactorySummary(factorySlug))
+    this.props.dispatch(getFactorySummary(factorySlug));
   }
 
   render() {
     const data = this.props.summary;
-    const factorySlug = this.props.match.params.factory;
-    const info = this.props.factoryInfo;
+    const { factory: factorySlug } = this.props.match.params;
+    const { factoryInfo } = this.props;
     return (
       <div className="factory-summary">
         <Header
           crumb={[{
-            name: (info && info.get('name')),
-            to: '/factory/'+factorySlug,
+            name: (factoryInfo && factoryInfo.get('name')),
+            to: `/factory/${factorySlug}`,
           }]}
         />
-        <CardHeader
-          title={Poly.t('summary')}
-        />
+        <div className="card card-2 card-header">
+          <CardHeader
+            title={Poly.t('Summary')}
+            subtitle={factoryInfo && factoryInfo.get('address')}
+          />
+        </div>
         <ActionPlansChart
           metrics={data && data.getIn(['actionPlans', 'metrics'])}
         />
         <MonthlyLotsChart />
-        <ScoringTable
-          scores={data && data.getIn(['scores', 'latestScores'])}
-          factorySlug={factorySlug}
-        />
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state, ownProps) {
-  const factory = ownProps.match.params.factory;
+  const { factory } = ownProps.match.params;
   return {
     summary: state.getIn(['factories', factory, 'summary']),
     factoryInfo: state.getIn(['factories', factory, 'info']),
-  }
+  };
 }
 
-export default connect(mapStateToProps)(FactorySummary)
+export default connect(mapStateToProps)(FactorySummary);

@@ -5,7 +5,7 @@ env:
 parser: esprima
 
 parserOptions:
-  parserOptions": 6
+  parserOptions: 6
 
 extends: airbnb-base
 
@@ -14,3 +14,4 @@ rules:
   no-use-before-define: off
   no-shadow: off
   consistent-return: off
+  linebreak-style: off

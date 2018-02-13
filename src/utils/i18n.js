@@ -3,18 +3,19 @@
 import Polyglot from 'node-polyglot';
 import { sendGetRequest } from './customRequests';
 
-var loaded = false;
+let loaded = false;
 
-var Poly = new Polyglot({
+const Poly = new Polyglot({
   allowMissing: true,
   onMissingKey: (key) => {
-    if(loaded) {
-      console.warn('Missing translation for key: "' + key + '"'); 
+    if (loaded) {
+      console.warn(`Missing translation for key: "${key}"`);
     }
     return key;
-  }
+  },
 });
 
+// eslint-disable-next-line
 export var languageObject = {};
 
 export function updatePoly(c) {
@@ -22,7 +23,7 @@ export function updatePoly(c) {
     languageObject = res;
     Poly.extend(res);
     loaded = true;
-    c && c();
+    c();
   }, null, false);
 }
 

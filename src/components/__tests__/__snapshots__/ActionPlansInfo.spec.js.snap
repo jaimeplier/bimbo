@@ -1,0 +1,1030 @@
+exports[`ActionPlansInfo Component should render 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ActionPlansInfo />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="title">
+          <p>
+                    Action Plans
+          </p>
+</div>,
+        <div
+          className="main-content">
+          <div
+                    className="action-plan">
+                    <p>
+                              Created
+                    </p>
+                    <p
+                              className="f-right" />
+          </div>
+          <div
+                    className="action-plan border-line">
+                    <p>
+                              Completed
+                    </p>
+                    <p
+                              className="f-right" />
+          </div>
+          <div
+                    className="action-plan">
+                    <p>
+                              Pending
+                    </p>
+                    <p
+                              className="f-right" />
+          </div>
+</div>,
+      ],
+      "className": "action-plans-info",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <p>
+            Action Plans
+</p>,
+          "className": "title",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Action Plans",
+          },
+          "ref": null,
+          "rendered": "Action Plans",
+          "type": "p",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="action-plan">
+              <p>
+                            Created
+              </p>
+              <p
+                            className="f-right" />
+</div>,
+            <div
+              className="action-plan border-line">
+              <p>
+                            Completed
+              </p>
+              <p
+                            className="f-right" />
+</div>,
+            <div
+              className="action-plan">
+              <p>
+                            Pending
+              </p>
+              <p
+                            className="f-right" />
+</div>,
+          ],
+          "className": "main-content",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <p>
+                  Created
+</p>,
+                <p
+                  className="f-right" />,
+              ],
+              "className": "action-plan",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Created",
+                },
+                "ref": null,
+                "rendered": "Created",
+                "type": "p",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": undefined,
+                  "className": "f-right",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "p",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <p>
+                  Completed
+</p>,
+                <p
+                  className="f-right" />,
+              ],
+              "className": "action-plan border-line",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Completed",
+                },
+                "ref": null,
+                "rendered": "Completed",
+                "type": "p",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": undefined,
+                  "className": "f-right",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "p",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <p>
+                  Pending
+</p>,
+                <p
+                  className="f-right" />,
+              ],
+              "className": "action-plan",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Pending",
+                },
+                "ref": null,
+                "rendered": "Pending",
+                "type": "p",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": undefined,
+                  "className": "f-right",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "p",
+              },
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="title">
+            <p>
+                        Action Plans
+            </p>
+</div>,
+          <div
+            className="main-content">
+            <div
+                        className="action-plan">
+                        <p>
+                                    Created
+                        </p>
+                        <p
+                                    className="f-right" />
+            </div>
+            <div
+                        className="action-plan border-line">
+                        <p>
+                                    Completed
+                        </p>
+                        <p
+                                    className="f-right" />
+            </div>
+            <div
+                        className="action-plan">
+                        <p>
+                                    Pending
+                        </p>
+                        <p
+                                    className="f-right" />
+            </div>
+</div>,
+        ],
+        "className": "action-plans-info",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <p>
+              Action Plans
+</p>,
+            "className": "title",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Action Plans",
+            },
+            "ref": null,
+            "rendered": "Action Plans",
+            "type": "p",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="action-plan">
+                <p>
+                                Created
+                </p>
+                <p
+                                className="f-right" />
+</div>,
+              <div
+                className="action-plan border-line">
+                <p>
+                                Completed
+                </p>
+                <p
+                                className="f-right" />
+</div>,
+              <div
+                className="action-plan">
+                <p>
+                                Pending
+                </p>
+                <p
+                                className="f-right" />
+</div>,
+            ],
+            "className": "main-content",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <p>
+                    Created
+</p>,
+                  <p
+                    className="f-right" />,
+                ],
+                "className": "action-plan",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Created",
+                  },
+                  "ref": null,
+                  "rendered": "Created",
+                  "type": "p",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": undefined,
+                    "className": "f-right",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "p",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <p>
+                    Completed
+</p>,
+                  <p
+                    className="f-right" />,
+                ],
+                "className": "action-plan border-line",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Completed",
+                  },
+                  "ref": null,
+                  "rendered": "Completed",
+                  "type": "p",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": undefined,
+                    "className": "f-right",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "p",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <p>
+                    Pending
+</p>,
+                  <p
+                    className="f-right" />,
+                ],
+                "className": "action-plan",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Pending",
+                  },
+                  "ref": null,
+                  "rendered": "Pending",
+                  "type": "p",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": undefined,
+                    "className": "f-right",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "p",
+                },
+              ],
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`ActionPlansInfo Component should render metrics 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ActionPlansInfo
+    metrics={
+        Object {
+            "completed": 10,
+            "created": 10,
+            "pending": 10,
+          }
+    } />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="title">
+          <p>
+                    Action Plans
+          </p>
+</div>,
+        <div
+          className="main-content">
+          <div
+                    className="action-plan">
+                    <p>
+                              Created
+                    </p>
+                    <p
+                              className="f-right">
+                              10
+                    </p>
+          </div>
+          <div
+                    className="action-plan border-line">
+                    <p>
+                              Completed
+                    </p>
+                    <p
+                              className="f-right">
+                              10
+                    </p>
+          </div>
+          <div
+                    className="action-plan">
+                    <p>
+                              Pending
+                    </p>
+                    <p
+                              className="f-right">
+                              10
+                    </p>
+          </div>
+</div>,
+      ],
+      "className": "action-plans-info",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <p>
+            Action Plans
+</p>,
+          "className": "title",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Action Plans",
+          },
+          "ref": null,
+          "rendered": "Action Plans",
+          "type": "p",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="action-plan">
+              <p>
+                            Created
+              </p>
+              <p
+                            className="f-right">
+                            10
+              </p>
+</div>,
+            <div
+              className="action-plan border-line">
+              <p>
+                            Completed
+              </p>
+              <p
+                            className="f-right">
+                            10
+              </p>
+</div>,
+            <div
+              className="action-plan">
+              <p>
+                            Pending
+              </p>
+              <p
+                            className="f-right">
+                            10
+              </p>
+</div>,
+          ],
+          "className": "main-content",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <p>
+                  Created
+</p>,
+                <p
+                  className="f-right">
+                  10
+</p>,
+              ],
+              "className": "action-plan",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Created",
+                },
+                "ref": null,
+                "rendered": "Created",
+                "type": "p",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": 10,
+                  "className": "f-right",
+                },
+                "ref": null,
+                "rendered": 10,
+                "type": "p",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <p>
+                  Completed
+</p>,
+                <p
+                  className="f-right">
+                  10
+</p>,
+              ],
+              "className": "action-plan border-line",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Completed",
+                },
+                "ref": null,
+                "rendered": "Completed",
+                "type": "p",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": 10,
+                  "className": "f-right",
+                },
+                "ref": null,
+                "rendered": 10,
+                "type": "p",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <p>
+                  Pending
+</p>,
+                <p
+                  className="f-right">
+                  10
+</p>,
+              ],
+              "className": "action-plan",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Pending",
+                },
+                "ref": null,
+                "rendered": "Pending",
+                "type": "p",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": 10,
+                  "className": "f-right",
+                },
+                "ref": null,
+                "rendered": 10,
+                "type": "p",
+              },
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="title">
+            <p>
+                        Action Plans
+            </p>
+</div>,
+          <div
+            className="main-content">
+            <div
+                        className="action-plan">
+                        <p>
+                                    Created
+                        </p>
+                        <p
+                                    className="f-right">
+                                    10
+                        </p>
+            </div>
+            <div
+                        className="action-plan border-line">
+                        <p>
+                                    Completed
+                        </p>
+                        <p
+                                    className="f-right">
+                                    10
+                        </p>
+            </div>
+            <div
+                        className="action-plan">
+                        <p>
+                                    Pending
+                        </p>
+                        <p
+                                    className="f-right">
+                                    10
+                        </p>
+            </div>
+</div>,
+        ],
+        "className": "action-plans-info",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <p>
+              Action Plans
+</p>,
+            "className": "title",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Action Plans",
+            },
+            "ref": null,
+            "rendered": "Action Plans",
+            "type": "p",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="action-plan">
+                <p>
+                                Created
+                </p>
+                <p
+                                className="f-right">
+                                10
+                </p>
+</div>,
+              <div
+                className="action-plan border-line">
+                <p>
+                                Completed
+                </p>
+                <p
+                                className="f-right">
+                                10
+                </p>
+</div>,
+              <div
+                className="action-plan">
+                <p>
+                                Pending
+                </p>
+                <p
+                                className="f-right">
+                                10
+                </p>
+</div>,
+            ],
+            "className": "main-content",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <p>
+                    Created
+</p>,
+                  <p
+                    className="f-right">
+                    10
+</p>,
+                ],
+                "className": "action-plan",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Created",
+                  },
+                  "ref": null,
+                  "rendered": "Created",
+                  "type": "p",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": 10,
+                    "className": "f-right",
+                  },
+                  "ref": null,
+                  "rendered": 10,
+                  "type": "p",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <p>
+                    Completed
+</p>,
+                  <p
+                    className="f-right">
+                    10
+</p>,
+                ],
+                "className": "action-plan border-line",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Completed",
+                  },
+                  "ref": null,
+                  "rendered": "Completed",
+                  "type": "p",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": 10,
+                    "className": "f-right",
+                  },
+                  "ref": null,
+                  "rendered": 10,
+                  "type": "p",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <p>
+                    Pending
+</p>,
+                  <p
+                    className="f-right">
+                    10
+</p>,
+                ],
+                "className": "action-plan",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Pending",
+                  },
+                  "ref": null,
+                  "rendered": "Pending",
+                  "type": "p",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": 10,
+                    "className": "f-right",
+                  },
+                  "ref": null,
+                  "rendered": 10,
+                  "type": "p",
+                },
+              ],
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

@@ -1,40 +1,36 @@
-// eslint-disable-next-line
-import Poly from './utils/i18n'; // get translations before doing anything else
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
-
 import 'nprogress/nprogress.css';
 import 'react-table/react-table.css';
+
+import React from 'react';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom';
+
+import './utils/i18n';
 import './styles/application.scss';
 
 import Routes from './routes';
-
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 import mainReducer from './reducers/mainReducer';
+
 import { isUserLoggedIn } from './actions/userActions';
 
-var store;
-if(process.env.NODE_ENV === 'development') {
+let store;
+if (process.env.NODE_ENV === 'development') {
   store = createStore(
     mainReducer,
     compose(
       applyMiddleware(thunkMiddleware),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
-  )
+      // eslint-disable-next-line
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    ),
+  );
 } else {
   store = createStore(
     mainReducer,
-    compose(
-      applyMiddleware(thunkMiddleware)
-    )
-  )
+    compose(applyMiddleware(thunkMiddleware)),
+  );
 }
 
 store.dispatch(isUserLoggedIn());
@@ -45,5 +41,5 @@ ReactDOM.render(
       <Routes />
     </Provider>
   </MuiThemeProvider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

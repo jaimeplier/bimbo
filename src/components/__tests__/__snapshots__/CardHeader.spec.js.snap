@@ -1,0 +1,177 @@
+exports[`CardHeader Component should render 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <CardHeader />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="col-6">
+          <p
+                    className="card-title" />
+          <p
+                    className="small-text" />
+</div>,
+        <div
+          className="col-6 right f-right-i " />,
+      ],
+      "className": "row",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <p
+              className="card-title" />,
+            <p
+              className="small-text" />,
+          ],
+          "className": "col-6",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": undefined,
+              "className": "card-title",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "p",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": undefined,
+              "className": "small-text",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "p",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": undefined,
+          "className": "col-6 right f-right-i ",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="col-6">
+            <p
+                        className="card-title" />
+            <p
+                        className="small-text" />
+</div>,
+          <div
+            className="col-6 right f-right-i " />,
+        ],
+        "className": "row",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <p
+                className="card-title" />,
+              <p
+                className="small-text" />,
+            ],
+            "className": "col-6",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": undefined,
+                "className": "card-title",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "p",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": undefined,
+                "className": "small-text",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "p",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": undefined,
+            "className": "col-6 right f-right-i ",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

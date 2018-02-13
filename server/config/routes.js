@@ -8,6 +8,8 @@ const UsersController = require('./../controllers/UsersController.js');
 const ScoresController = require('./../controllers/ScoreController.js');
 const ActionPlansCtr = require('./../controllers/ActionPlansController.js');
 const DashboardsController = require('./../controllers/DashboardsController.js');
+const OrganizationsController = require('./../controllers/OrganizationsController.js');
+const ProductsController = require('./../controllers/ProductsController.js');
 
 const Errors = require('./../utils/errorResponses.js');
 
@@ -50,14 +52,21 @@ module.exports = function routes(app) {
   app.get('/api/factories/:slug/action-plans', authA, FC.getActionPlans);
   app.get('/api/factories/:slug/action-plans/download/:fileType', authA, FC.downloadActionPlans);
   app.get('/api/factories/:slug/scores/download/:fileType', authA, FC.downloadScores);
+  app.get('/api/factories/:slug/scores', authA, ScoresController.getLatestScores);
   app.get('/api/factories/:slug/managers', authA, FC.getManagers);
   app.post('/api/factories/:slug/employees', authA, UsersController.createEmployee);
   app.post('/api/factories/:slug/managers', authA, UsersController.createManager);
+  app.get('/api/factories/:slug/score-average', authM, ScoresController.getFactoryAverageScore);
 
+  // Organizations
+  // ------------------------------------------------------
+  app.get('/api/organizations', authM, OrganizationsController.getOrganizations);
+  app.get('/api/organizations/:slug/products', authM, ProductsController.getProductsByOrganization);
 
   // Scores
   // ------------------------------------------------------
-  app.post('/api/scores/:product', authE, ScoresController.create);
+  app.get('/api/factories/:slug/score', authA, ScoresController.getScore);
+  app.post('/api/products/:product/scoring', authE, ScoresController.createScores);
 
 
   // Action Plans
@@ -65,6 +74,9 @@ module.exports = function routes(app) {
   app.get('/api/action-plans', ActionPlansCtr.get);
   app.post('/api/action-plans/complete', ActionPlansCtr.complete);
 
+  // Compare Factories
+  // ------------------------------------------------------
+  app.get('/api/compare', authM, ScoresController.getFactoriesCompare);
 
   // Error Handling
   // ------------------------------------------------------

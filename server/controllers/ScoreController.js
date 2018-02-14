@@ -24,34 +24,32 @@ const { getProductFromSlug } = require('../utils/databaseHelpers.js');
 // ------------------------------------------------------
 
 function createScores(req, res, next) {
-  let totalScore = 0;
+  let totalScore = 100;
   const { factoryId } = req.locals.jwtAuth;
   let productId = 0;
-  const userId = req.locals.jwthAuth.id;
+  const userId = req.locals.jwtAuth.id;
 
   req.body.scores.forEach((element) => {
     totalScore -= element.value;
   });
 
-  getProductFromSlug(req.params.product)
-    .then((err, product) => {
-      productId = product.id;
-      return Score.create({
-        productId,
-        userId,
-        factoryId,
-        lot: req.body.lot,
-        note: req.body.note,
-        score: totalScore,
-      });
+  getProductFromSlug(req.params.product, (err, product) => {
+    productId = product.id;
+    Score.create({
+      productId,
+      userId,
+      factoryId,
+      lot: req.body.lot,
+      note: req.body.note,
+      score: totalScore,
     }).then(newScore => Promise.map(req.body.scores, value =>
       ScoreValue.create({
         scoreId: newScore.id,
         attributeId: value.attributeId,
         value: value.value,
-      })))
-    .then(res.json({ ok: true }))
-    .catch(err => routeErr(res, next, err));
+      }).then(res.json({ ok: true }))
+        .catch(err => routeErr(res, next, err))));
+  });
 }
 
 function getLatestScores(req, res, next) {

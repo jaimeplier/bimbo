@@ -20,7 +20,7 @@
     "morgan": "^1.9.0",
     "mysql2": "^1.5.0",
     "node-polyglot": "^2.2.2",
-    "node-sass": "^4.6.1",
+    "node-sass": "^4.13.1",
     "node-uuid": "^1.4.8",
     "nprogress": "^0.2.0",
     "react": "^16.1.1",

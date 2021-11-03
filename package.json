@@ -39,7 +39,7 @@
     "sendgrid": "^5.2.2",
     "sequelize": "^4.22.6",
     "simple-react-modal": "^0.5.1",
-    "validator": "^7.0.0",
+    "validator": "^13.7.0",
     "xhr": "^2.4.0"
   },
   "devDependencies": {

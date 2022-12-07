@@ -10,7 +10,7 @@
     "chart.js": "^2.7.1",
     "connect-redis": "^3.3.2",
     "dot": "^1.1.2",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "express-session": "^1.15.6",
     "immutable": "^3.8.2",
     "js2xmlparser": "^3.0.0",
